@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SapthaVarnah Admin</title>
+    <link rel="stylesheet" href="web/style.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body { padding: 0; display: flex; min-height: 100vh; background-color: #f0f2f5; }
+        
+        .admin-sidebar {
+            width: 250px;
+            background: #fff;
+            padding: 30px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            position: fixed;
+            height: 100vh;
+        }
+
+        .admin-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #5a5a5a;
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .admin-menu a:hover, .admin-menu a.active {
+            background: var(--page-accent);
+            color: white;
+        }
+
+        .admin-content {
+            margin-left: 250px;
+            padding: 50px;
+            width: calc(100% - 250px);
+        }
+
+        .editor-form {
+            display: none;
+            max-width: 800px;
+        }
+        .editor-form.active { display: block; }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9rem;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--page-accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
+        }
+
+        textarea { height: 100px; resize: vertical; }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .status-bar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: 0.3s;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <aside class="admin-sidebar">
+        <h2 style="margin-bottom: 30px; color: var(--page-accent);">Admin</h2>
+        <nav class="admin-menu">
+            <a href="#" onclick="showSection('home')" class="active">Home</a>
+            <a href="#" onclick="showSection('about')">About</a>
+            <a href="#" onclick="showSection('capabilities')">Capabilities</a>
+            <a href="#" onclick="showSection('sustainability')">Sustainability</a>
+            <a href="#" onclick="showSection('contact')">Contact</a>
+        </nav>
+        <div style="margin-top: 50px;">
+            <a href="/" target="_blank" style="font-size: 0.8rem; color: #666; border: 1px solid #ddd;">&rarr; View Site</a>
+        </div>
+    </aside>
+
+    <main class="admin-content">
+        <div class="admin-header">
+            <h1>Content Editor</h1>
+            <div style="display: flex; gap: 10px;">
+                <button onclick="downloadConfig()" class="cta-button secondary" style="background:#fff;">Download Config</button>
+                <button onclick="saveChanges()" class="cta-button">Save & Publish Local</button>
+            </div>
+        </div>
+
+        <div id="editor-container"></div>
+
+    </main>
+
+    <div id="status-bar" class="status-bar">Saved!</div>
+
+    <script type="module">
+        import { defaultContent } from './web/content.js';
+
+        let currentContent = defaultContent;
+
+        // Load from storage if exists
+        const saved = localStorage.getItem('siteContent');
+        if (saved) {
+            currentContent = JSON.parse(saved);
+        }
+
+        const editorContainer = document.getElementById('editor-container');
+        
+        // Helper to flatten object for form generation logic, or just iterate specific keys
+        function generateInputs(sectionName, sectionData) {
+            let html = `<div id="section-${sectionName}" class="editor-form ${sectionName === 'home' ? 'active' : ''}">`;
+            
+            html += `<h2 class="mb-6" style="text-transform:capitalize;">${sectionName} Page</h2>`;
+
+            // Recursively go through keys
+            for (const [groupKey, groupVal] of Object.entries(sectionData)) {
+                 html += `<div class="nm-card mb-6" style="margin-bottom: 30px;">
+                            <h3 style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom:10px;">${groupKey}</h3>`;
+                 
+                 for (const [fieldKey, fieldVal] of Object.entries(groupVal)) {
+                     const inputId = `${sectionName}-${groupKey}-${fieldKey}`;
+                     const label = fieldKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()); // camelCase to Tile Case
+                     
+                     if (fieldVal.length > 60) {
+                         html += `
+                            <div class="form-group">
+                                <label>${label}</label>
+                                <textarea id="${inputId}" onchange="updateContent('${sectionName}', '${groupKey}', '${fieldKey}', this.value)">${fieldVal}</textarea>
+                            </div>`;
+                     } else {
+                         html += `
+                            <div class="form-group">
+                                <label>${label}</label>
+                                <input type="text" id="${inputId}" value="${fieldVal}" onchange="updateContent('${sectionName}', '${groupKey}', '${fieldKey}', this.value)">
+                            </div>`;
+                     }
+                 }
+                 html += `</div>`;
+            }
+
+            html += `</div>`;
+            return html;
+        }
+
+        // Render All Forms
+        let allForms = '';
+        for (const [page, data] of Object.entries(currentContent)) {
+            allForms += generateInputs(page, data);
+        }
+        editorContainer.innerHTML = allForms;
+
+        // Make update function global
+        window.updateContent = (page, group, field, value) => {
+            currentContent[page][group][field] = value;
+        };
+
+        window.saveChanges = () => {
+            localStorage.setItem('siteContent', JSON.stringify(currentContent));
+            showStatus("Changes saved to LocalStorage! Check the main site tab.");
+        };
+
+        window.downloadConfig = () => {
+             const dataStr = "export const defaultContent = " + JSON.stringify(currentContent, null, 4) + ";";
+             const blob = new Blob([dataStr], { type: "text/javascript" });
+             const url = URL.createObjectURL(blob);
+             const a = document.createElement("a");
+             a.href = url;
+             a.download = "content.js";
+             document.body.appendChild(a);
+             a.click();
+             document.body.removeChild(a);
+        };
+
+        window.showSection = (sectionId) => {
+            document.querySelectorAll('.editor-form').forEach(el => el.classList.remove('active'));
+            document.querySelector(`#section-${sectionId}`).classList.add('active');
+            
+            document.querySelectorAll('.admin-menu a').forEach(el => el.classList.remove('active'));
+            event.target.classList.add('active');
+        };
+
+        function showStatus(msg) {
+            const bar = document.getElementById('status-bar');
+            bar.innerText = msg;
+            bar.style.opacity = 1;
+            setTimeout(() => bar.style.opacity = 0, 3000);
+        }
+
+    </script>
+</body>
+</html>

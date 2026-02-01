@@ -1,15 +1,35 @@
+import { defaultContent } from './web/content.js';
+
+// Logic to load content: Check LocalStorage (Admin edits) -> Fallback to defaultContent
+const loadContent = () => {
+    const saved = localStorage.getItem('siteContent');
+    return saved ? JSON.parse(saved) : defaultContent;
+};
+
+// Start with current content state
+let content = loadContent();
+
+// Listen for updates from Admin Panel (live preview across tabs)
+window.addEventListener('storage', (e) => {
+    if (e.key === 'siteContent') {
+        content = JSON.parse(e.newValue);
+        // creating a reload event or simple re-render might be needed here, 
+        // but for now, a refresh works.
+    }
+});
+
 export const pages = {
     home: () => `
         <section id="hero" class="hero">
             <canvas id="spectrum-canvas"></canvas>
             <div class="hero-overlay-content">
-                <h1 class="hero-title mb-6">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
+                <h1 class="hero-title mb-6">${content.home.hero.title.replace("Full Spectrum", "<span class='accent-page'>Full Spectrum</span>")}</h1>
                 <p class="hero-subtitle mb-24 text-secondary" style="max-width: 800px; margin-left: auto; margin-right: auto;">
-                    Marine, transport, energy, and advanced construction solutions across Africa, India, and the Gulf.
+                    ${content.home.hero.subtitle}
                 </p>
                 <div class="hero-actions">
-                    <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
-                    <button onclick="window.resetBrandBuild()" class="cta-button secondary nm-flat" style="margin-left: 15px; background: transparent; border: 1px solid rgba(156,66,33,0.3); color: var(--accent);">Rebuild Signature</button>
+                    <a href="/capabilities" class="cta-button nav-link">${content.home.hero.ctaMain} &rarr;</a>
+                    <button onclick="window.resetBrandBuild()" class="cta-button secondary nm-flat" style="margin-left: 15px; background: transparent; border: 1px solid rgba(156,66,33,0.3); color: var(--accent);">${content.home.hero.ctaSec}</button>
                 </div>
             </div>
         </section>
@@ -17,12 +37,12 @@ export const pages = {
         <section id="about">
             <div class="about-grid">
                 <div class="nm-card">
-                    <h4 class="text-secondary mb-4">Who We Are</h4>
+                    <h4 class="text-secondary mb-4">${content.home.about.title}</h4>
                     <p class="mb-4">
-                        SapthaVarnah Geo Technologies is an infrastructure and geo-engineering company delivering climate-resilient, future-ready projects.
+                        ${content.home.about.desc1}
                     </p>
                     <p class="text-secondary">
-                        Drawing inspiration from the seven colours of the earth, we integrate geology, engineering, and modern construction technologies into every solution.
+                        ${content.home.about.desc2}
                     </p>
                 </div>
                 <div class="nm-card img-card nm-inset">
@@ -86,18 +106,18 @@ export const pages = {
 
     about: () => `
         <section id="philosophy-hero" class="subpage-hero">
-            <h4 class="text-secondary mb-4">Our Philosophy</h4>
-            <h1>Harmony with the <span class="accent-page">Earth</span></h1>
+            <h4 class="text-secondary mb-4">${content.about.philosophy.label}</h4>
+            <h1>${content.about.philosophy.title.replace("Earth", "<span class='accent-page'>Earth</span>")}</h1>
         </section>
 
         <section id="philosophy-content" class="philosophy-section">
             <div class="about-grid">
                 <div class="nm-card">
                     <p class="mb-4">
-                        At SapthaVarnah, we believe infrastructure should work in harmony with the earth it is built upon. Every site carries its own geological, environmental, and social context. Understanding these layers is fundamental to creating infrastructure that lasts.
+                        ${content.about.philosophy.desc1}
                     </p>
                     <p class="text-secondary">
-                        Our name reflects the **seven colours of the earth** — a symbol of diversity, balance, and completeness. This philosophy shapes our multidisciplinary approach to engineering and construction.
+                        ${content.about.philosophy.desc2}
                     </p>
                 </div>
                 <div class="nm-card img-card nm-inset">
@@ -108,15 +128,15 @@ export const pages = {
 
         <section id="approach">
             <div class="nm-card">
-                <h4 class="text-secondary mb-4">Engineering Approach</h4>
-                <h2>Bridging <span class="accent-page">Tradition</span> & <span class="accent-page">Innovation</span></h2>
+                <h4 class="text-secondary mb-4">${content.about.approach.label}</h4>
+                <h2>${content.about.approach.title}</h2>
                 <div class="grid-container mt-4 approach-grid">
                     <div class="approach-text">
                         <p class="mb-4">
-                            We deliver integrated solutions spanning planning, engineering, construction, and modern building technologies. Our expertise bridges traditional civil engineering with advanced construction systems.
+                            ${content.about.approach.desc1}
                         </p>
                         <p class="text-secondary">
-                            This allows us to meet the critical demands of climate resilience, speed of delivery, and long-term sustainability for both public and private infrastructure.
+                            ${content.about.approach.desc2}
                         </p>
                     </div>
                     <div class="nm-inset">
@@ -127,15 +147,15 @@ export const pages = {
         </section>
 
         <section id="leadership">
-            <h2 class="mb-6">Leadership & Expertise</h2>
+            <h2 class="mb-6">${content.about.leadership.title}</h2>
             <div class="grid-container">
                 <div class="nm-card">
-                    <h3>Regional Knowledge</h3>
-                    <p class="text-secondary mt-4">Led by professionals with deep experience across marine works, transport infrastructure, and energy projects in Africa, India, and the Gulf.</p>
+                    <h3>${content.about.leadership.card1Title}</h3>
+                    <p class="text-secondary mt-4">${content.about.leadership.card1Desc}</p>
                 </div>
                 <div class="nm-card">
-                    <h3>Technical Depth</h3>
-                    <p class="text-secondary mt-4">Our teams integrate regional knowledge with technical depth and execution capability to ensure project reliability across diverse environments.</p>
+                    <h3>${content.about.leadership.card2Title}</h3>
+                    <p class="text-secondary mt-4">${content.about.leadership.card2Desc}</p>
                 </div>
             </div>
         </section>
