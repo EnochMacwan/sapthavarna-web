@@ -112,7 +112,7 @@ nav {
 }
 
 .logo-img-master {
-  height: 40px; /* Adjusting for clear brand visibility */
+  height: 120px; /* Significantly increased for brand resonance */
   width: auto;
   transition: var(--transition-calm);
 }
