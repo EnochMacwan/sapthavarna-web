@@ -10,18 +10,32 @@ export const pages = {
                 <div class="hero-actions">
                     <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
                 </div>
-                <!-- Power Gallery Navigation -->
+                <!-- Power Gallery Navigation (20 Modes) -->
                 <div class="power-gallery-nav mt-12">
-                    <button onclick="window.setAnimationMode('industrialMesh')" class="sample-btn active">Mesh</button>
-                    <button onclick="window.setAnimationMode('seismicPulse')" class="sample-btn">Seismic</button>
-                    <button onclick="window.setAnimationMode('lidarScan')" class="sample-btn">Lidar</button>
-                    <button onclick="window.setAnimationMode('structuralAssembly')" class="sample-btn">Assembly</button>
-                    <button onclick="window.setAnimationMode('geoStrata')" class="sample-btn">Strata</button>
-                    <button onclick="window.setAnimationMode('tectonicShift')" class="sample-btn">Tectonic</button>
-                    <button onclick="window.setAnimationMode('digitalConcrete')" class="sample-btn">Concrete</button>
-                    <button onclick="window.setAnimationMode('craneView')" class="sample-btn">Crane</button>
-                    <button onclick="window.setAnimationMode('rebarSpiral')" class="sample-btn">Spiral</button>
-                    <button onclick="window.setAnimationMode('hydraulicPressure')" class="sample-btn">Hydraulic</button>
+                    <div class="pg-row">
+                        <button onclick="window.setAnimationMode('industrialMesh')" class="sample-btn active">Mesh</button>
+                        <button onclick="window.setAnimationMode('seismicPulse')" class="sample-btn">Seismic</button>
+                        <button onclick="window.setAnimationMode('lidarScan')" class="sample-btn">Lidar</button>
+                        <button onclick="window.setAnimationMode('structuralAssembly')" class="sample-btn">Assembly</button>
+                        <button onclick="window.setAnimationMode('geoStrata')" class="sample-btn">Strata</button>
+                        <button onclick="window.setAnimationMode('tectonicShift')" class="sample-btn">Tectonic</button>
+                        <button onclick="window.setAnimationMode('digitalConcrete')" class="sample-btn">Concrete</button>
+                        <button onclick="window.setAnimationMode('craneView')" class="sample-btn">Crane</button>
+                        <button onclick="window.setAnimationMode('rebarSpiral')" class="sample-btn">Spiral</button>
+                        <button onclick="window.setAnimationMode('hydraulicPressure')" class="sample-btn">Hydraulic</button>
+                    </div>
+                    <div class="pg-row mt-4">
+                        <button onclick="window.setAnimationMode('sonicSonar')" class="sample-btn">Sonar</button>
+                        <button onclick="window.setAnimationMode('impactPiling')" class="sample-btn">Piling</button>
+                        <button onclick="window.setAnimationMode('stressMap')" class="sample-btn">Stress</button>
+                        <button onclick="window.setAnimationMode('bimExplode')" class="sample-btn">Explode</button>
+                        <button onclick="window.setAnimationMode('thermalDrone')" class="sample-btn">Thermal</button>
+                        <button onclick="window.setAnimationMode('dataTelemetry')" class="sample-btn">Data</button>
+                        <button onclick="window.setAnimationMode('hydroFlow')" class="sample-btn">Hydro</button>
+                        <button onclick="window.setAnimationMode('emSignal')" class="sample-btn">Signal</button>
+                        <button onclick="window.setAnimationMode('soilCompaction')" class="sample-btn">Soil</button>
+                        <button onclick="window.setAnimationMode('geoAnnotate')" class="sample-btn">Measure</button>
+                    </div>
                 </div>
             </div>
         </section>
