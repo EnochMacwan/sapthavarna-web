@@ -1,9 +1,12 @@
 import Router from './router.js';
+import { SpectrumAnimation } from './spectrum.js';
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+let currentAnimation = null;
 
 // Initialize Mermaid
 mermaid.initialize({ 
-    startOnLoad: false, // We will manually trigger it
+    startOnLoad: false,
     theme: 'base',
     themeVariables: {
         primaryColor: '#f6f5f2',
@@ -17,6 +20,19 @@ mermaid.initialize({
 
 // Animation & Interaction Logic
 const initPageInteractions = () => {
+    const currentPath = window.location.pathname;
+
+    // Destroy previous animation if it exists
+    if (currentAnimation) {
+        currentAnimation.destroy();
+        currentAnimation = null;
+    }
+
+    // Init Spectrum Animation if on Home
+    if (currentPath === '/' || currentPath === '/index.html') {
+        currentAnimation = new SpectrumAnimation('spectrum-canvas');
+    }
+
     // Reveal Observer for cards and headings
     const observerOptions = { threshold: 0.05 };
     const revealObserver = new IntersectionObserver((entries) => {
@@ -33,7 +49,7 @@ const initPageInteractions = () => {
         });
     }, observerOptions);
 
-    document.querySelectorAll('.nm-card, h2, #closing h2, .subpage-hero h1').forEach(el => {
+    document.querySelectorAll('.nm-card, h2, #closing h2, .subpage-hero h1, .hero-content h1').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(15px)';
         revealObserver.observe(el);
@@ -45,10 +61,10 @@ const initPageInteractions = () => {
         mermaid.run();
     }
 
-    // Megamenu Links Highlight (Active State Update)
-    const currentPath = window.location.pathname;
+    // Nav Links Highlight
     document.querySelectorAll('.nav-link').forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
+        const linkPath = new URL(link.href).pathname;
+        if (linkPath === currentPath) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
@@ -56,7 +72,7 @@ const initPageInteractions = () => {
     });
 };
 
-// Global Nav Setup (Once per session)
+// Global Nav Setup
 const initGlobalNav = () => {
     const megaTriggers = document.querySelectorAll('.nav-item-has-mega');
     megaTriggers.forEach(trigger => {
@@ -69,7 +85,6 @@ const initGlobalNav = () => {
         });
     });
 
-    // Initial Nav Load Animation
     gsap.from('nav', {
         y: -10,
         opacity: 0,
@@ -81,15 +96,13 @@ const initGlobalNav = () => {
 // App Initialization
 document.addEventListener('DOMContentLoaded', () => {
     const appMount = document.getElementById('app');
-    const router = new Router(appMount);
+    new Router(appMount);
 
     initGlobalNav();
 
-    // Listen for route changes to re-init interactions
     window.addEventListener('routeChange', () => {
         initPageInteractions();
     });
 
-    // Trigger for first load
     initPageInteractions();
 });

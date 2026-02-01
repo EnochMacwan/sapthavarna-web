@@ -61,6 +61,7 @@ h4 {
 /* Sections */
 section {
   padding: 100px 8%;
+  position: relative;
   min-height: 80vh;
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 export const pages = {
     home: () => `
         <section id="hero" class="hero">
+            <canvas id="spectrum-canvas"></canvas>
             <div class="hero-grid">
                 <div class="hero-content">
                     <h1 class="mb-4">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
