@@ -1,40 +1,24 @@
-// Initialize GSAP
-document.addEventListener('DOMContentLoaded', () => {
-    // Register scroll trigger if needed
-    // gsap.registerPlugin(ScrollTrigger);
+import Router from './router.js';
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 
-    // Initial load animation - Subtle & Composed
-    const tl = gsap.timeline();
+// Initialize Mermaid
+mermaid.initialize({ 
+    startOnLoad: false, // We will manually trigger it
+    theme: 'base',
+    themeVariables: {
+        primaryColor: '#f6f5f2',
+        primaryTextColor: '#1c1c1c',
+        primaryBorderColor: 'rgba(0,0,0,0.1)',
+        lineColor: '#C69061',
+        secondaryColor: '#f6f5f2',
+        tertiaryColor: '#f6f5f2'
+    }
+});
 
-    tl.from('nav', {
-        y: -10,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out'
-    })
-    .from('.hero-content h1', {
-        y: 10,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-    }, "-=0.4")
-    .from('.hero-content p', {
-        y: 10,
-        opacity: 0,
-        duration: 0.6,
-        ease: 'power2.out'
-    }, "-=0.4")
-    .from('.hero-content .cta-button', {
-        opacity: 0,
-        duration: 0.5,
-        ease: 'power2.out'
-    }, "-=0.2");
-
-    // Simple Intersection Observer for scroll reveal
-    const observerOptions = {
-        threshold: 0.05
-    };
-
+// Animation & Interaction Logic
+const initPageInteractions = () => {
+    // Reveal Observer for cards and headings
+    const observerOptions = { threshold: 0.05 };
     const revealObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -49,19 +33,34 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, observerOptions);
 
-    // Apply subtle reveal to all cards and major headings
-    document.querySelectorAll('.nm-card, h2, #closing h2').forEach(el => {
+    document.querySelectorAll('.nm-card, h2, #closing h2, .subpage-hero h1').forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(15px)';
         revealObserver.observe(el);
     });
 
-    // Megamenu Animation
+    // Re-run Mermaid for dynamic content
+    const mermaidDivs = document.querySelectorAll('.mermaid');
+    if (mermaidDivs.length > 0) {
+        mermaid.run();
+    }
+
+    // Megamenu Links Highlight (Active State Update)
+    const currentPath = window.location.pathname;
+    document.querySelectorAll('.nav-link').forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+};
+
+// Global Nav Setup (Once per session)
+const initGlobalNav = () => {
     const megaTriggers = document.querySelectorAll('.nav-item-has-mega');
     megaTriggers.forEach(trigger => {
-        const menu = trigger.querySelector('.mega-menu');
-        const links = menu.querySelectorAll('.mega-links li');
-
+        const links = trigger.querySelectorAll('.mega-links li');
         trigger.addEventListener('mouseenter', () => {
             gsap.fromTo(links, 
                 { opacity: 0, x: -5 }, 
@@ -69,4 +68,28 @@ document.addEventListener('DOMContentLoaded', () => {
             );
         });
     });
+
+    // Initial Nav Load Animation
+    gsap.from('nav', {
+        y: -10,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out'
+    });
+};
+
+// App Initialization
+document.addEventListener('DOMContentLoaded', () => {
+    const appMount = document.getElementById('app');
+    const router = new Router(appMount);
+
+    initGlobalNav();
+
+    // Listen for route changes to re-init interactions
+    window.addEventListener('routeChange', () => {
+        initPageInteractions();
+    });
+
+    // Trigger for first load
+    initPageInteractions();
 });
