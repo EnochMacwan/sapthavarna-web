@@ -114,13 +114,6 @@ export class SpectrumAnimation {
         if (this.worker.state === 'welding') {
             if (this.worker.weldTime > 0) {
                 this.worker.weldTime--;
-                for (let i=0; i<6; i++) {
-                    this.sparks.push({
-                        x: this.worker.x, y: this.worker.y - 25,
-                        vx: (Math.random()-0.5)*20, vy: (Math.random()-0.7)*20,
-                        a: 1, s: 2 + Math.random()*3
-                    });
-                }
             } else {
                 if (this.worker.targetIdx !== -1) this.particles[this.worker.targetIdx].welded = true;
                 this.worker.state = 'idle';
@@ -152,12 +145,6 @@ export class SpectrumAnimation {
         this.ctx.fillStyle = '#4a5568';
         if (state === 'welding') {
             this.ctx.fillRect(2, -18, 12, 3); // Welding arm out
-            // Arc glare
-            const glow = (Math.sin(frame) + 1) * 5;
-            this.ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.5})`;
-            this.ctx.beginPath();
-            this.ctx.arc(14, -18, 10 + glow, 0, Math.PI*2);
-            this.ctx.fill();
         } else {
             this.ctx.fillRect(7, -18, 3, 10);
             this.ctx.fillRect(-10, -18, 3, 10);
@@ -199,19 +186,6 @@ export class SpectrumAnimation {
 
         this.updateWorker();
         this.drawWorker();
-
-        // Premium Additive Sparks
-        this.ctx.save();
-        this.ctx.globalCompositeOperation = 'lighter';
-        this.sparks.forEach((s, i) => {
-            s.x += s.vx; s.y += s.vy; s.vy += 0.2; s.a -= 0.025;
-            if (s.a <= 0) { this.sparks.splice(i, 1); return; }
-            this.ctx.fillStyle = `rgba(255, 180, 50, ${s.a})`;
-            this.ctx.beginPath(); this.ctx.arc(s.x, s.y, s.s, 0, Math.PI*2); this.ctx.fill();
-            this.ctx.fillStyle = `white`;
-            this.ctx.beginPath(); this.ctx.arc(s.x, s.y, s.s*0.3, 0, Math.PI*2); this.ctx.fill();
-        });
-        this.ctx.restore();
 
         requestAnimationFrame(() => this.animate());
     }
