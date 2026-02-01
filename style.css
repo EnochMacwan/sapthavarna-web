@@ -140,6 +140,10 @@ nav {
     font-weight: 600 !important;
   }
 
+  .logo-text {
+    display: none;
+  }
+
   .logo-crop {
     height: 40px !important;
     width: 40px !important;
@@ -532,6 +536,13 @@ nav {
 .mega-links a:hover {
   transform: translateX(5px) !important;
   color: var(--page-accent) !important;
+}
+
+.mega-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  line-height: 1.4;
 }
 
 .mega-footer {
