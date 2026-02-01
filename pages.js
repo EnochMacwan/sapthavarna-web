@@ -25,7 +25,7 @@ export const pages = {
                         Drawing inspiration from the seven colours of the earth, we integrate geology, engineering, and modern construction technologies into every solution.
                     </p>
                 </div>
-                <div class="nm-card img-card">
+                <div class="nm-card img-card nm-inset">
                     <img src="materials.png" alt="Close-up of concrete and steel materials" class="brand-img">
                 </div>
             </div>
@@ -100,7 +100,7 @@ export const pages = {
                         Our name reflects the **seven colours of the earth** — a symbol of diversity, balance, and completeness. This philosophy shapes our multidisciplinary approach to engineering and construction.
                     </p>
                 </div>
-                <div class="nm-card img-card container-inset">
+                <div class="nm-card img-card nm-inset">
                     <img src="materials.png" alt="Engineering materials close-up" class="brand-img">
                 </div>
             </div>
@@ -251,12 +251,16 @@ export const pages = {
                     <div>
                         <h3>Precast Construction</h3>
                         <p class="mt-4 text-secondary">Industrialised precast solutions ensuring quality, speed, and precision for large-scale infrastructure.</p>
-                        <img src="precast.png" alt="Precast yard" class="brand-img mt-4">
+                        <div class="nm-inset mt-4">
+                             <img src="precast.png" alt="Precast yard" class="brand-img">
+                        </div>
                     </div>
                     <div>
                         <h3>GFRG Systems</h3>
                         <p class="mt-4 text-secondary">Rapid, lightweight, and sustainable building technology for high-performance structural delivery.</p>
-                        <img src="gfrg.png" alt="GFRG material surface" class="brand-img mt-4">
+                        <div class="nm-inset mt-4">
+                            <img src="gfrg.png" alt="GFRG material surface" class="brand-img">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -299,7 +303,7 @@ export const pages = {
 
         <section id="initiatives">
             <div class="about-grid">
-                <div class="nm-card img-card container-inset">
+                <div class="nm-card img-card nm-inset">
                     <img src="gfrg.png" alt="GFRG structural material closeup" class="brand-img">
                 </div>
                 <div class="nm-card">
@@ -366,7 +370,7 @@ export const pages = {
                         </div>
                     </div>
                 </div>
-                <div class="nm-card img-card container-inset">
+                <div class="nm-card img-card nm-inset">
                     <h4 class="text-secondary mb-4">Regions Served</h4>
                     <p class="mb-4">Strategically positioned to serve emerging and established hubs.</p>
                     <img src="regions.png" alt="Global regions focusing on Africa, India, and the Gulf" class="brand-img mb-4">

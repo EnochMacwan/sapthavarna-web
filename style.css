@@ -20,14 +20,19 @@
 
   /* Neumorphic Tokens (calculated for #F6F5F2) */
   /* Main elevation */
+  /* Neumorphic Tokens (Sculpted / Technical Look) */
+  /* Tighter, sharper shadows for detail */
   --nm-shadow-light:
-    10px 10px 20px rgba(0, 0, 0, 0.05),
-    -10px -10px 20px rgba(255, 255, 255, 0.9);
+    8px 8px 16px #d1d9e6, 
+    -8px -8px 16px #ffffff;
+    
+  /* Deep Inset for Wells */
   --nm-shadow-inset:
-    inset 6px 6px 12px rgba(0, 0, 0, 0.04),
-    inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+    inset 6px 6px 12px #d1d9e6, 
+    inset -6px -6px 12px #ffffff;
+    
   --nm-shadow-hover:
-    5px 5px 10px rgba(0, 0, 0, 0.05), -5px -5px 10px rgba(255, 255, 255, 0.8);
+    12px 12px 24px #d1d9e6, -12px -12px 24px #ffffff;
 
   --transition-calm: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   --border-radius-main: 24px;
@@ -68,12 +73,12 @@ section {
   justify-content: center;
 }
 
-/* Neumorphic Containers */
+/* Neumorphic Containers (Sculpted) */
 .nm-card {
   background: var(--bg-color);
-  border-radius: var(--border-radius-main);
+  border-radius: 24px; /* Slightly tighter than pillow */
   box-shadow: var(--nm-shadow-light);
-  padding: 40px;
+  padding: 35px;
   transition: var(--transition-calm);
   border: 1px solid rgba(255, 255, 255, 0.4);
 }
@@ -85,9 +90,9 @@ section {
 
 .nm-inset {
   background: var(--bg-color);
-  border-radius: var(--border-radius-main);
+  border-radius: 16px; /* Matching the sculpt well radius */
   box-shadow: var(--nm-shadow-inset);
-  padding: 40px;
+  padding: 25px;
 }
 
 /* Navigation */
@@ -420,11 +425,23 @@ nav {
 }
 
 /* Layout Grids */
-.hero-grid, .about-grid, .structural-logic-grid {
+/* Layout Grids */
+.hero-grid, .about-grid, .structural-logic-grid, .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 60px;
-  align-items: center;
+  grid-template-columns: repeat(3, 1fr); /* Enforce 3 columns */
+  gap: 40px; /* Tighter gap for 3-col fit */
+  align-items: stretch; /* Cards equal height */
+}
+
+/* 2-column override for specific sections */
+.systems-grid, .approach-grid, .contact-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 1024px) {
+  .hero-grid, .about-grid, .structural-logic-grid, .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .systems-grid {
