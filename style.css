@@ -438,16 +438,19 @@ nav {
 }
 
 .img-card {
-  padding: 15px;
+  padding: 10px; /* Reduced padding for compact look */
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .brand-img {
   width: 100%;
-  height: auto;
+  height: 220px; /* Fixed height for small card feel */
   border-radius: 16px;
   display: block;
-  object-fit: cover;
+  object-fit: cover; /* Crop to fill */
   transition: var(--transition-calm);
 }
 
