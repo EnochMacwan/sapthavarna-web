@@ -11,7 +11,12 @@ export class SpectrumAnimation {
         this.themeColor = '#003366'; // Cement Grey/Blue
         this.accentColor = '#9c4221'; // Brick Red
         
-        this.init();
+        // Wait for fonts to be ready to capture text correctly
+        if (document.fonts) {
+            document.fonts.ready.then(() => this.init());
+        } else {
+            this.init();
+        }
         this.animate();
         
         window.addEventListener('resize', () => this.resize());

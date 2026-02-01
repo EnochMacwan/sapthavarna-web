@@ -38,8 +38,14 @@ class Router {
     }
 
     async handleRoute() {
-        const path = window.location.pathname;
-        const renderer = this.routes[path] || pages.home;
+        let path = window.location.pathname;
+        if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
+        
+        // Find best match in routes
+        let routeKey = Object.keys(this.routes).find(key => path.endsWith(key));
+        if (path === '/' || path === '') routeKey = '/';
+        
+        const renderer = this.routes[routeKey] || pages.home;
         
         // Dynamic Transition Effect
         const app = this.mountPoint;

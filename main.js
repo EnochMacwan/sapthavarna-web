@@ -28,8 +28,9 @@ const initPageInteractions = () => {
         currentAnimation = null;
     }
 
-    // Init Spectrum Animation if on Home
-    if (currentPath === '/' || currentPath === '/index.html') {
+    // Init Spectrum Animation if canvas exists
+    const canvas = document.getElementById('spectrum-canvas');
+    if (canvas) {
         currentAnimation = new SpectrumAnimation('spectrum-canvas');
     }
 
