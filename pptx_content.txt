@@ -1,0 +1,4 @@
+Reading file: C:\Users\AKALPURAKH\Downloads\sapthavarna\AI guidelines SapthaVarnah Website.pptx
+DEBUG: Error detected.
+Error string: [object Object]
+DEBUG: No data returned.

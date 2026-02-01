@@ -1,0 +1,328 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Source+Sans+3:wght@300;400;600&display=swap");
+
+:root {
+  /* Earth Spectrum Palette from PPTX */
+  --bg-color: #f6f5f2; /* Warm off-white base */
+  --text-primary: #1c1c1c; /* Deep graphite */
+  --text-secondary: #5a5a5a; /* Ash gray */
+
+  /* Section/Page Accents (Guidelines: Use only ONE per page) */
+  /* Section/Page Accents (Earth Spectrum Palette) */
+  --accent-marine: #003366;    /* Deep Ocean Blue */
+  --accent-transport: #2D3748; /* Basalt Gray */
+  --accent-energy: #9C4221;    /* Mineral Rust */
+  --accent-precast: #D1C7B7;   /* Stone Beige */
+  --accent-gfrg: #C69061;      /* Clay / Sand Tone */
+
+  /* Current Page Accent (Change this for inner pages) */
+  --page-accent: var(--accent-marine); 
+  --accent-page: var(--page-accent);
+
+  /* Neumorphic Tokens (calculated for #F6F5F2) */
+  /* Main elevation */
+  --nm-shadow-light:
+    10px 10px 20px rgba(0, 0, 0, 0.05),
+    -10px -10px 20px rgba(255, 255, 255, 0.9);
+  --nm-shadow-inset:
+    inset 6px 6px 12px rgba(0, 0, 0, 0.04),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.8);
+  --nm-shadow-hover:
+    5px 5px 10px rgba(0, 0, 0, 0.05), -5px -5px 10px rgba(255, 255, 255, 0.8);
+
+  --transition-calm: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --border-radius-main: 24px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Typography Headings */
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+/* Sections */
+section {
+  padding: 100px 8%;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Neumorphic Containers */
+.nm-card {
+  background: var(--bg-color);
+  border-radius: var(--border-radius-main);
+  box-shadow: var(--nm-shadow-light);
+  padding: 40px;
+  transition: var(--transition-calm);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.nm-card:hover {
+  box-shadow: var(--nm-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.nm-inset {
+  background: var(--bg-color);
+  border-radius: var(--border-radius-main);
+  box-shadow: var(--nm-shadow-inset);
+  padding: 40px;
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 30px;
+  left: 8%;
+  right: 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: rgba(246, 245, 242, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 50px;
+  box-shadow: var(--nm-shadow-light);
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: var(--transition-calm);
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+}
+
+/* Buttons */
+.cta-button {
+  background: var(--bg-color);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 14px 28px;
+  border-radius: 30px;
+  color: var(--text-primary);
+  font-weight: 600;
+  box-shadow: var(--nm-shadow-light);
+  cursor: pointer;
+  transition: var(--transition-calm);
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.95rem;
+}
+
+.cta-button:hover {
+  box-shadow: var(--nm-shadow-inset);
+  transform: scale(0.98);
+}
+
+/* Utility */
+.accent-marine {
+  color: var(--accent-marine);
+}
+.accent-energy {
+  color: var(--accent-energy);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+.mt-4 {
+  margin-top: 1.5rem;
+}
+.mb-6 {
+  margin-bottom: 2.5rem;
+}
+.accent-page { color: var(--page-accent); }
+.section-center { text-align: center; }
+
+/* Sub-page Specifics */
+.subpage-hero {
+  min-height: 40vh;
+  padding-top: 150px;
+  padding-bottom: 50px;
+}
+
+.nm-inset {
+  background: var(--bg-color);
+  box-shadow: var(--nm-shadow-inset);
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.cap-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cap-visual.order-right { order: 2; }
+.cap-visual.order-left { order: 1; }
+
+.cap-info.order-left { order: 1; }
+.cap-info.order-right { order: 2; }
+
+.clean-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.container-inset {
+  box-shadow: var(--nm-shadow-inset);
+  padding: 20px;
+  border-radius: 24px;
+}
+
+/* Layout Grids */
+.hero-grid, .about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.img-card {
+  padding: 15px;
+  overflow: hidden;
+}
+
+.brand-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  object-fit: cover;
+  transition: var(--transition-calm);
+}
+
+.featured-cap {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .hero-grid, .about-grid, .featured-cap {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.hero-p { max-width: 600px; }
+
+.hero-img-opacity {
+  opacity: 0.07; /* Muted aerial shot as per guideline (5-7% opacity) */
+  filter: grayscale(1);
+}
+
+.muted-bg {
+  background: var(--bg-color);
+  position: relative;
+}
+
+.cap-text h3 {
+  font-size: 1.4rem;
+  margin-bottom: 5px;
+}
+
+#sustainability .grid-container {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+#sustainability .nm-card {
+  padding: 25px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.footer {
+  padding: 80px 8% 40px;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+
+/* Grid Layout */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.cap-card {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon-blob {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--accent, var(--accent-marine));
+  box-shadow: inset 4px 4px 8px rgba(0,0,0,0.1), 
+              inset -4px -4px 8px rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+}
+
+/* Animations */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+@media (max-width: 768px) {
+  nav {
+    display: none; /* Mobile nav hidden for demo simplicity */
+  }
+  section {
+    padding: 60px 5%;
+  }
+  h1 {
+    font-size: 2.2rem;
+  }
+}
