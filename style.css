@@ -282,6 +282,34 @@ nav {
   font-size: 0.8rem;
 }
 
+/* Page Specific Hub Styles */
+
+/* About Page */
+.philosophy-section { padding-top: 0; }
+.approach-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+.approach-text p { font-size: 1.05rem; }
+
+/* Sustainability Page */
+.esg-p { max-width: 800px; }
+.structural-logic-grid { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+.structural-logic-grid .nm-card { height: 100%; display: flex; flex-direction: column; }
+.initiative-list { list-style: none; display: flex; flex-direction: column; gap: 30px; }
+
+/* Contact Page */
+.contact-hero-bg {
+  background: linear-gradient(rgba(246, 245, 242, 0.9), rgba(246, 245, 242, 0.9)), url('regions.png') no-repeat center center;
+  background-size: cover;
+}
+.contact-grid { grid-template-columns: 2fr 1fr; }
+.contact-links-row { display: flex; gap: 40px; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 30px; }
+.contact-link-item { font-size: 1.5rem; margin-top: 10px; display: block; }
+.regions-list { list-style: none; display: flex; flex-direction: column; gap: 15px; font-weight: 500; }
+
+/* Capabilities Page */
+.marine-list-container { border-top: 1px solid rgba(0,0,0,0.05); padding-top: 20px; }
+.marine-list { list-style: none; }
+.systems-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+
 
 /* Grid Layout */
 .grid-container {
