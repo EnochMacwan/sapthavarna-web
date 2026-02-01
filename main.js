@@ -55,4 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
         el.style.transform = 'translateY(15px)';
         revealObserver.observe(el);
     });
+
+    // Megamenu Animation
+    const megaTriggers = document.querySelectorAll('.nav-item-has-mega');
+    megaTriggers.forEach(trigger => {
+        const menu = trigger.querySelector('.mega-menu');
+        const links = menu.querySelectorAll('.mega-links li');
+
+        trigger.addEventListener('mouseenter', () => {
+            gsap.fromTo(links, 
+                { opacity: 0, x: -5 }, 
+                { opacity: 1, x: 0, stagger: 0.05, duration: 0.4, ease: 'power2.out', delay: 0.1 }
+            );
+        });
+    });
 });

@@ -22,7 +22,7 @@ brain/
 task.md
 implementation_plan.md
 walkthrough.md
-*.webp
-*.png
-!web/public/*.png
-!web/public/*.webp
+
+# Build files
+dist/
+node_modules/
