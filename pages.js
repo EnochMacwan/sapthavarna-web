@@ -10,8 +10,11 @@ export const pages = {
                 <div class="hero-actions">
                     <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
                 </div>
-                <!-- Power Gallery Navigation (20 Modes) -->
+                <!-- Power Gallery Navigation (41 Modes) -->
                 <div class="power-gallery-nav mt-12">
+                    <div class="pg-row mb-6">
+                        <button onclick="window.setAnimationMode('brandBuild')" class="sample-btn signature-btn" style="background: rgba(156, 66, 33, 0.15); border-color: #9c4221; font-weight: bold; width: auto; padding: 12px 30px;">SIGNATURE: Brand Build</button>
+                    </div>
                     <div class="pg-row">
                         <button onclick="window.setAnimationMode('industrialMesh')" class="sample-btn active">Mesh</button>
                         <button onclick="window.setAnimationMode('seismicPulse')" class="sample-btn">Seismic</button>
