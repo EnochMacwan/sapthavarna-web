@@ -38,8 +38,18 @@ export class SpectrumAnimation {
 
     resize() {
         const parent = this.canvas.parentElement;
-        this.canvas.width = parent.offsetWidth;
-        this.canvas.height = parent.offsetHeight;
+        const dpr = window.devicePixelRatio || 1;
+        
+        // Physical dimensions
+        this.canvas.width = parent.offsetWidth * dpr;
+        this.canvas.height = parent.offsetHeight * dpr;
+        
+        // CSS dimensions
+        this.canvas.style.width = `${parent.offsetWidth}px`;
+        this.canvas.style.height = `${parent.offsetHeight}px`;
+        
+        // Scale context
+        this.ctx.scale(dpr, dpr);
     }
 
     handleMouseMove(e) {
