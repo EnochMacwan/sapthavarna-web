@@ -143,6 +143,16 @@ nav {
   .logo-text {
     display: none;
   }
+  
+  .mega-menu {
+    display: none !important; /* Disable mega menu on mobile for now */
+  }
+
+  /* Compact pill for mobile */
+  nav {
+    padding: 8px 15px;
+  }
+}
 
   .logo-crop {
     height: 40px !important;
@@ -422,11 +432,24 @@ nav {
 
   .hero-grid, .about-grid, .featured-cap, .approach-grid, .contact-grid, .systems-grid {
     grid-template-columns: 1fr !important;
-    gap: 30px !important;
+    gap: 40px !important;
   }
 
   .logo span {
     display: none;
+  }
+  
+  /* Improve section spacing */
+  .nm-inset {
+    padding: 25px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  p {
+    font-size: 0.95rem;
   }
 }
 

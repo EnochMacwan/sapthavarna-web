@@ -48,7 +48,10 @@ export class SpectrumAnimation {
         tctx.fillText('SAPTHAVARNAH', w/2, h/2 + 30);
         
         const imageData = tctx.getImageData(0, 0, w, h).data;
-        const gap = 8; // Larger gap for bigger, more detailed blocks
+        // Optimization: Increase gap for mobile devices to reduce particle count
+        const isMobile = window.innerWidth < 768;
+        const gap = isMobile ? 12 : 8; 
+        
         const cw = (this.canvas.width / this.dpr);
         const ch = (this.canvas.height / this.dpr);
         
