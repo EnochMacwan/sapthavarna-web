@@ -10,6 +10,15 @@ export const pages = {
                 <div class="hero-actions">
                     <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
                 </div>
+                <!-- Sample Toggle UI -->
+                <div class="sample-controls mt-12">
+                    <button onclick="window.setAnimationMode('blueprint')" class="sample-btn active">Blueprint</button>
+                    <button onclick="window.setAnimationMode('structural')" class="sample-btn">Structural</button>
+                    <button onclick="window.setAnimationMode('topographic')" class="sample-btn">Topographic</button>
+                    <button onclick="window.setAnimationMode('scaffold')" class="sample-btn">Scaffold</button>
+                    <button onclick="window.setAnimationMode('laser')" class="sample-btn">Laser</button>
+                    <button onclick="window.setAnimationMode('foundation')" class="sample-btn">Foundation</button>
+                </div>
             </div>
         </section>
 

@@ -288,6 +288,38 @@ nav {
     to { opacity: 1; transform: translateY(0); }
 }
 
+.sample-controls {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 40px;
+    animation: hero-fade-in 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+    opacity: 0;
+}
+
+.sample-btn {
+    background: var(--bg-color);
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    box-shadow: var(--nm-shadow-light);
+    transition: var(--transition-calm);
+}
+
+.sample-btn:hover {
+    box-shadow: var(--nm-shadow-hover);
+    color: var(--text-primary);
+}
+
+.sample-btn.active {
+    box-shadow: var(--nm-shadow-inset);
+    color: var(--page-accent);
+}
+
 .hero-grid, .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
