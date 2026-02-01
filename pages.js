@@ -4,97 +4,12 @@ export const pages = {
             <canvas id="spectrum-canvas"></canvas>
             <div class="hero-overlay-content">
                 <h1 class="hero-title mb-6">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
-                <p class="hero-subtitle mb-8 text-secondary">
+                <p class="hero-subtitle mb-24 text-secondary" style="max-width: 800px; margin-left: auto; margin-right: auto;">
                     Marine, transport, energy, and advanced construction solutions across Africa, India, and the Gulf.
                 </p>
                 <div class="hero-actions">
                     <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
-                </div>
-                <!-- Power Gallery Navigation (50 Modes) -->
-                <div class="power-gallery-nav mt-12">
-                    <div class="pg-row mb-6">
-                        <button onclick="window.setAnimationMode('brandBuild')" class="sample-btn signature-btn" style="background: rgba(156, 66, 33, 0.15); border-color: #9c4221; font-weight: bold; width: auto; padding: 12px 30px;">SIGNATURE: Brand Build</button>
-                        <button onclick="window.startShowcase()" class="sample-btn showcase-btn" style="background: rgba(0, 51, 102, 0.15); border-color: #003366; font-weight: bold; width: auto; padding: 12px 30px; margin-left: 10px;">▶ SapthaVarnah Intro (10s)</button>
-                    </div>
-                    
-                    <div class="pg-row">
-                        <button onclick="window.setAnimationMode('industrialMesh')" class="sample-btn active">Mesh</button>
-                        <button onclick="window.setAnimationMode('seismicPulse')" class="sample-btn">Seismic</button>
-                        <button onclick="window.setAnimationMode('lidarScan')" class="sample-btn">Lidar</button>
-                        <button onclick="window.setAnimationMode('structuralAssembly')" class="sample-btn">Assembly</button>
-                        <button onclick="window.setAnimationMode('geoStrata')" class="sample-btn">Strata</button>
-                        <button onclick="window.setAnimationMode('tectonicShift')" class="sample-btn">Tectonic</button>
-                        <button onclick="window.setAnimationMode('digitalConcrete')" class="sample-btn">Concrete</button>
-                        <button onclick="window.setAnimationMode('craneView')" class="sample-btn">Crane</button>
-                        <button onclick="window.setAnimationMode('rebarSpiral')" class="sample-btn">Spiral</button>
-                        <button onclick="window.setAnimationMode('hydraulicPressure')" class="sample-btn">Hydraulic</button>
-                    </div>
-                    <div class="pg-row mt-4">
-                        <button onclick="window.setAnimationMode('sonicSonar')" class="sample-btn">Sonar</button>
-                        <button onclick="window.setAnimationMode('impactPiling')" class="sample-btn">Piling</button>
-                        <button onclick="window.setAnimationMode('stressMap')" class="sample-btn">Stress</button>
-                        <button onclick="window.setAnimationMode('bimExplode')" class="sample-btn">Explode</button>
-                        <button onclick="window.setAnimationMode('thermalDrone')" class="sample-btn">Thermal</button>
-                        <button onclick="window.setAnimationMode('dataTelemetry')" class="sample-btn">Data</button>
-                        <button onclick="window.setAnimationMode('hydroFlow')" class="sample-btn">Hydro</button>
-                        <button onclick="window.setAnimationMode('emSignal')" class="sample-btn">Signal</button>
-                        <button onclick="window.setAnimationMode('soilCompaction')" class="sample-btn">Soil</button>
-                        <button onclick="window.setAnimationMode('geoAnnotate')" class="sample-btn">Measure</button>
-                    </div>
-                    <div class="pg-row mt-4">
-                        <button onclick="window.setAnimationMode('vectorField')" class="sample-btn">Vectors</button>
-                        <button onclick="window.setAnimationMode('pointMesh')" class="sample-btn">MeshNet</button>
-                        <button onclick="window.setAnimationMode('strainGauge')" class="sample-btn">Strain</button>
-                        <button onclick="window.setAnimationMode('topoHUD')" class="sample-btn">Topo</button>
-                        <button onclick="window.setAnimationMode('blueprintGhost')" class="sample-btn">Draft</button>
-                        <button onclick="window.setAnimationMode('coordAxis')" class="sample-btn">Axes</button>
-                        <button onclick="window.setAnimationMode('hatchProfile')" class="sample-btn">Hatch</button>
-                        <button onclick="window.setAnimationMode('triangulation')" class="sample-btn">GPS</button>
-                        <button onclick="window.setAnimationMode('fluidStream')" class="sample-btn">Stream</button>
-                        <button onclick="window.setAnimationMode('trussLogic')" class="sample-btn">Truss</button>
-                    </div>
-                    <div class="pg-row mt-4">
-                        <button onclick="window.setAnimationMode('truckMove')" class="sample-btn">Trucks</button>
-                        <button onclick="window.setAnimationMode('craneLift')" class="sample-btn">Crane</button>
-                        <button onclick="window.setAnimationMode('earthScoop')" class="sample-btn">Scoop</button>
-                        <button onclick="window.setAnimationMode('concretePump')" class="sample-btn">Pump</button>
-                        <button onclick="window.setAnimationMode('jackHammer')" class="sample-btn">Hammer</button>
-                        <button onclick="window.setAnimationMode('roadPaver')" class="sample-btn">Pave</button>
-                        <button onclick="window.setAnimationMode('activeDrone')" class="sample-btn">AirBot</button>
-                        <button onclick="window.setAnimationMode('scaffoldUp')" class="sample-btn">Scaffold</button>
-                        <button onclick="window.setAnimationMode('trafficZone')" class="sample-btn">Safety</button>
-                        <button onclick="window.setAnimationMode('masonryBuild')" class="sample-btn">Masonry</button>
-                    </div>
-                    <div class="pg-row mt-4">
-                        <button onclick="window.setAnimationMode('satelliteSweep')" class="sample-btn">Satellite</button>
-                        <button onclick="window.setAnimationMode('seafloorMesh')" class="sample-btn">Seafloor</button>
-                        <button onclick="window.setAnimationMode('heatIsland')" class="sample-btn">Thermal</button>
-                        <button onclick="window.setAnimationMode('windVector')" class="sample-btn">Wind</button>
-                        <button onclick="window.setAnimationMode('strataCore')" class="sample-btn">Borehole</button>
-                        <button onclick="window.setAnimationMode('logisticsHub')" class="sample-btn">Logistics</button>
-                        <button onclick="window.setAnimationMode('digitalTwin')" class="sample-btn">Twin</button>
-                        <button onclick="window.setAnimationMode('seismicEcho')" class="sample-btn">Echo</button>
-                        <button onclick="window.setAnimationMode('earthHarmony')" class="sample-btn" style="border-style: double;">Harmony</button>
-                    </div>
-
-                    <!-- Meta-Control Suite -->
-                    <div class="animation-editor mt-10 p-6 nm-inset" style="max-width: 600px; margin-left: auto; margin-right: auto; border-radius: 20px;">
-                        <h4 class="text-secondary mb-4" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px;">Animation Spectrometer</h4>
-                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
-                            <div class="ctrl-group">
-                                <label style="display: block; font-size: 0.7rem; margin-bottom: 5px;">COLOR SHIFT</label>
-                                <input type="color" oninput="window.setAnimationTheme(this.value)" value="#003366" style="border: none; background: none; cursor: pointer;">
-                            </div>
-                            <div class="ctrl-group">
-                                <label style="display: block; font-size: 0.7rem; margin-bottom: 5px;">DENSITY</label>
-                                <input type="range" min="0.5" max="2.0" step="0.1" value="1.0" oninput="window.setAnimationDensity(this.value)" style="cursor: pointer;">
-                            </div>
-                            <div class="ctrl-group">
-                                <label style="display: block; font-size: 0.7rem; margin-bottom: 5px;">TIME WARP</label>
-                                <input type="range" min="0.1" max="3.0" step="0.1" value="1.0" oninput="window.setAnimationSpeed(this.value)" style="cursor: pointer;">
-                            </div>
-                        </div>
-                    </div>
+                    <button onclick="window.resetBrandBuild()" class="cta-button secondary nm-flat" style="margin-left: 15px; background: transparent; border: 1px solid rgba(156,66,33,0.3); color: var(--accent);">Rebuild Signature</button>
                 </div>
             </div>
         </section>
