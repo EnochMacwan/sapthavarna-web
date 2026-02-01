@@ -48,6 +48,18 @@ export const pages = {
                         <button onclick="window.setAnimationMode('fluidStream')" class="sample-btn">Stream</button>
                         <button onclick="window.setAnimationMode('trussLogic')" class="sample-btn">Truss</button>
                     </div>
+                    <div class="pg-row mt-4">
+                        <button onclick="window.setAnimationMode('truckMove')" class="sample-btn">Trucks</button>
+                        <button onclick="window.setAnimationMode('craneLift')" class="sample-btn">Crane</button>
+                        <button onclick="window.setAnimationMode('earthScoop')" class="sample-btn">Scoop</button>
+                        <button onclick="window.setAnimationMode('concretePump')" class="sample-btn">Pump</button>
+                        <button onclick="window.setAnimationMode('jackHammer')" class="sample-btn">Hammer</button>
+                        <button onclick="window.setAnimationMode('roadPaver')" class="sample-btn">Pave</button>
+                        <button onclick="window.setAnimationMode('activeDrone')" class="sample-btn">AirBot</button>
+                        <button onclick="window.setAnimationMode('scaffoldUp')" class="sample-btn">Scaffold</button>
+                        <button onclick="window.setAnimationMode('trafficZone')" class="sample-btn">Safety</button>
+                        <button onclick="window.setAnimationMode('masonryBuild')" class="sample-btn">Masonry</button>
+                    </div>
                 </div>
             </div>
         </section>
