@@ -127,17 +127,33 @@ nav {
   }
 
   .nav-container {
-    justify-content: center !important;
-    gap: 20px;
+    justify-content: flex-start !important; /* Allow scroll from left */
+    gap: 15px;
+    width: 100%;
+    overflow: hidden; /* Hide overflow from container */
+  }
+
+  .nav-links-wrapper {
+    flex: 1;
+    overflow-x: auto;
+    padding-right: 10px; /* Space for end of list */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  .nav-links-wrapper::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
   }
 
   .nav-links {
-    gap: 15px !important;
+    gap: 20px !important;
+    white-space: nowrap; /* Prevent wrapping */
+    padding-right: 10px;
   }
 
   .nav-links a {
-    font-size: 0.75rem !important;
-    font-weight: 600 !important;
+    font-size: 0.8rem !important; /* Slightly readable size */
+    font-weight: 500 !important;
   }
 
   .logo-text {
