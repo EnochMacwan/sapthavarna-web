@@ -113,6 +113,19 @@ nav {
   font-weight: 600;
   color: var(--text-primary);
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  height: 32px;
+  width: auto;
+  transition: var(--transition-calm);
+}
+
+.logo:hover .logo-mark {
+  transform: rotate(-10deg) scale(1.1);
 }
 
 .nav-links {

@@ -1,0 +1,14 @@
+<svg width="40" height="40" viewBox="0 0 100 100" fill="none"
+    xmlns="http://www.w3.org/2000/svg" class="brand-svg">
+    <!-- Hexagon Container -->
+    <path d="M50 5L89.5 27.5V72.5L50 95L10.5 72.5V27.5L50 5Z" fill="var(--accent-marine)" fill-opacity="0.1"/>
+    <path d="M50 5L89.5 27.5V72.5L50 95L10.5 72.5V27.5L50 5Z" stroke="var(--accent-marine)" stroke-width="2"/>
+
+    <!-- Wave Layers (The 'Spectrum' waves) -->
+    <path d="M10.5 45C10.5 45 25 35 50 45C75 55 89.5 45 89.5 45V72.5L50 95L10.5 72.5V45Z" fill="var(--accent-marine)"/>
+    <path d="M10.5 55C10.5 55 25 45 50 55C75 65 89.5 55 89.5 55V72.5L50 95L10.5 72.5V55Z" fill="var(--accent-gfrg)" fill-opacity="0.8"/>
+    <path d="M10.5 65C10.5 65 25 55 50 65C75 75 89.5 65 89.5 65V72.5L50 95L10.5 72.5V65Z" fill="var(--accent-energy)" fill-opacity="0.6"/>
+
+    <!-- Abstract 'S' mark -->
+    <path d="M50 20L75 35L50 50L25 35L50 20Z" fill="white" fill-opacity="0.9"/>
+</svg>
