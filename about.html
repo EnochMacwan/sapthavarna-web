@@ -78,6 +78,35 @@
         </div>
       </div>
     </section>
+    <!-- Site Architecture Flowchart -->
+    <section id="sitemap">
+      <div class="nm-card section-center">
+        <h4 class="text-secondary mb-4">Digital Presence</h4>
+        <h2>Site <span class="accent-page">Architecture</span></h2>
+        <div class="flowchart-container nm-inset mt-8">
+          <div class="mermaid">
+            graph TD
+              Home[Home Page] --> About[About: Philosophy & Leadership]
+              Home --> Cap[Capabilities: Sectors & Systems]
+              Home --> Sust[Sustainability: ESG & Lifecycle]
+              Home --> Cont[Contact: Regions & Team]
+              
+              Cap --> Marine[Marine & Coastal]
+              Cap --> Trans[Transport]
+              Cap --> Ener[Energy]
+              Cap --> Sys[Precast & GFRG]
+              
+              Sust --> Flow[Lifecycle Flowchart]
+              
+              style Home fill:#fbfaf8,stroke:#9C4221,stroke-width:2px
+              style About fill:#fbfaf8,stroke:#9C4221,stroke-width:2px
+              style Cap fill:#fbfaf8,stroke:#9C4221,stroke-width:2px
+              style Sust fill:#fbfaf8,stroke:#9C4221,stroke-width:2px
+              style Cont fill:#fbfaf8,stroke:#9C4221,stroke-width:2px
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -86,6 +115,21 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#f6f5f2',
+        primaryTextColor: '#1c1c1c',
+        primaryBorderColor: 'rgba(0,0,0,0.1)',
+        lineColor: '#9C4221',
+        secondaryColor: '#f6f5f2',
+        tertiaryColor: '#f6f5f2'
+      }
+    });
+  </script>
   <script src="main.js"></script>
 </body>
 </html>
