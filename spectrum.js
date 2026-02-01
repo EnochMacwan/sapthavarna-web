@@ -11,16 +11,24 @@ export class SpectrumAnimation {
         this.themeColor = '#003366'; // Cement Grey/Blue
         this.accentColor = '#9c4221'; // Brick Red
         
+        this.active = true;
+
+        // Bound handlers for cleanup
+        this._resizeHandler = () => this.resize();
+        this._mouseMoveHandler = (e) => this.handleMouseMove(e);
+        
         // Wait for fonts to be ready to capture text correctly
         if (document.fonts) {
-            document.fonts.ready.then(() => this.init());
+            document.fonts.ready.then(() => {
+                if (this.active) this.init();
+            });
         } else {
             this.init();
         }
         this.animate();
         
-        window.addEventListener('resize', () => this.resize());
-        window.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        window.addEventListener('resize', this._resizeHandler);
+        window.addEventListener('mousemove', this._mouseMoveHandler);
         window.resetBrandBuild = () => this.init();
     }
 
@@ -82,6 +90,7 @@ export class SpectrumAnimation {
     }
 
     handleMouseMove(e) {
+        if (!this.canvas) return;
         const r = this.canvas.getBoundingClientRect();
         this.mouse.x = e.clientX - r.left; this.mouse.y = e.clientY - r.top;
     }
@@ -166,7 +175,7 @@ export class SpectrumAnimation {
     }
 
     animate() {
-        if (!this.canvas) return;
+        if (!this.active || !this.canvas) return;
         const cw = this.canvas.width / this.dpr, ch = this.canvas.height / this.dpr;
         this.ctx.clearRect(0, 0, cw, ch);
         
@@ -196,6 +205,9 @@ export class SpectrumAnimation {
     }
 
     destroy() {
+        this.active = false;
+        window.removeEventListener('resize', this._resizeHandler);
+        window.removeEventListener('mousemove', this._mouseMoveHandler);
         this.canvas = null;
     }
 }
