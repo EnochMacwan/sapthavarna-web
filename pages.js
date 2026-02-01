@@ -36,6 +36,18 @@ export const pages = {
                         <button onclick="window.setAnimationMode('soilCompaction')" class="sample-btn">Soil</button>
                         <button onclick="window.setAnimationMode('geoAnnotate')" class="sample-btn">Measure</button>
                     </div>
+                    <div class="pg-row mt-4">
+                        <button onclick="window.setAnimationMode('vectorField')" class="sample-btn">Vectors</button>
+                        <button onclick="window.setAnimationMode('pointMesh')" class="sample-btn">MeshNet</button>
+                        <button onclick="window.setAnimationMode('strainGauge')" class="sample-btn">Strain</button>
+                        <button onclick="window.setAnimationMode('topoHUD')" class="sample-btn">Topo</button>
+                        <button onclick="window.setAnimationMode('blueprintGhost')" class="sample-btn">Draft</button>
+                        <button onclick="window.setAnimationMode('coordAxis')" class="sample-btn">Axes</button>
+                        <button onclick="window.setAnimationMode('hatchProfile')" class="sample-btn">Hatch</button>
+                        <button onclick="window.setAnimationMode('triangulation')" class="sample-btn">GPS</button>
+                        <button onclick="window.setAnimationMode('fluidStream')" class="sample-btn">Stream</button>
+                        <button onclick="window.setAnimationMode('trussLogic')" class="sample-btn">Truss</button>
+                    </div>
                 </div>
             </div>
         </section>
