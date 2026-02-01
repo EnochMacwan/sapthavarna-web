@@ -83,6 +83,28 @@
         </div>
       </div>
     </section>
+    <!-- Process Flowchart -->
+    <section id="process">
+      <div class="nm-card section-center">
+        <h4 class="text-secondary mb-4">Infrastructure Lifecycle</h4>
+        <h2>Integrated <span class="accent-page">Project Flow</span></h2>
+        <div class="flowchart-container nm-inset mt-8">
+          <div class="mermaid">
+            graph TD
+              A[Geo-Technical Analysis] --> B[Integrated Engineering]
+              B --> C[Industrialised Precast]
+              C --> D[Resilient Infrastructure]
+              D --> E[Asset Lifecycle Monitoring]
+              
+              style A fill:#fbfaf8,stroke:#003366,stroke-width:2px
+              style B fill:#fbfaf8,stroke:#003366,stroke-width:2px
+              style C fill:#fbfaf8,stroke:#003366,stroke-width:2px
+              style D fill:#fbfaf8,stroke:#003366,stroke-width:2px
+              style E fill:#fbfaf8,stroke:#003366,stroke-width:2px
+          </div>
+        </div>
+      </div>
+    </section>
 
   </main>
 
@@ -91,6 +113,21 @@
   </footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'base',
+      themeVariables: {
+        primaryColor: '#f6f5f2',
+        primaryTextColor: '#1c1c1c',
+        primaryBorderColor: 'rgba(0,0,0,0.1)',
+        lineColor: '#C69061',
+        secondaryColor: '#f6f5f2',
+        tertiaryColor: '#f6f5f2'
+      }
+    });
+  </script>
   <script src="main.js"></script>
 </body>
 </html>
