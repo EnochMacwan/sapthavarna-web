@@ -2,18 +2,13 @@ export const pages = {
     home: () => `
         <section id="hero" class="hero">
             <canvas id="spectrum-canvas"></canvas>
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <h1 class="mb-4">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
-                    <p class="text-secondary mb-6 hero-p">
-                        Marine, transport, energy, and advanced construction solutions for resilient infrastructure across Africa, India, and the Gulf.
-                    </p>
-                    <a href="/capabilities" class="cta-button nav-link">View Capabilities &rarr;</a>
-                </div>
-                <div class="hero-image-wrapper">
-                    <div class="nm-card img-card muted-bg">
-                        <img src="hero.png" alt="Aerial coastal infrastructure" class="brand-img hero-img-opacity">
-                    </div>
+            <div class="hero-overlay-content">
+                <h1 class="hero-title mb-6">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
+                <p class="hero-subtitle mb-8 text-secondary">
+                    Climate-resilient geo-engineering across Africa, India, and the Gulf.
+                </p>
+                <div class="hero-actions">
+                    <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
                 </div>
             </div>
         </section>
