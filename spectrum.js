@@ -7,12 +7,21 @@ export class SpectrumAnimation {
         this.particles = [];
         this.mouse = { x: -1000, y: -1000 };
         this.dpr = window.devicePixelRatio || 1;
+        this.startTime = Date.now();
+        this.showcaseActive = false;
         
         this.init();
         this.animate();
         
         window.addEventListener('resize', () => this.resize());
         window.addEventListener('mousemove', (e) => this.handleMouseMove(e));
+        window.startShowcase = () => this.startShowcase();
+    }
+
+    startShowcase() {
+        this.showcaseActive = true;
+        this.startTime = Date.now();
+        this.setMode('seismicPulse'); // Start with something ground-moving
     }
 
     init() {
@@ -63,7 +72,7 @@ export class SpectrumAnimation {
         else if (m === 'brandBuild') this.initBrandBuild();
     }
 
-    // --- INIT 1-30 (Collapsed for focus) ---
+    // --- INIT 1-41 (Collapsed) ---
     initIndustrialMesh() { for (let i=0; i<40; i++) this.particles.push({ x:(Math.random()-0.5)*600, y:(Math.random()-0.5)*600, z:(Math.random()-0.5)*600, vx:(Math.random()-0.5)*0.2, vy:(Math.random()-0.5)*0.2, vz:(Math.random()-0.5)*0.2 }); }
     initSeismicPulse() { const r=20, c=30, w=this.canvas.width/this.dpr, h=this.canvas.height/this.dpr; for (let i=0; i<r; i++) for (let j=0; j<c; j++) this.particles.push({ x:(w/c)*j, y:(h/r)*i, baseX:(w/c)*j, baseY:(h/r)*i }); }
     initLidarScan() { this.particles = { scanX: 0, points: [] }; for (let i=0; i<300; i++) this.particles.points.push({ x:Math.random()*(this.canvas.width/this.dpr), y:Math.random()*(this.canvas.height/this.dpr), z:Math.random()*2, brightness:0 }); }
@@ -94,8 +103,6 @@ export class SpectrumAnimation {
     initTriangulation() { this.particles = { anchors: [{x:100,y:100}, {x:(this.canvas.width/this.dpr)-100,y:100}, {x:(this.canvas.width/this.dpr)/2,y:(this.canvas.height/this.dpr)-100}] }; }
     initFluidStream() { for (let i=0; i<40; i++) this.particles.push({ y:Math.random()*(this.canvas.height/this.dpr), offset:Math.random()*1000 }); }
     initTrussLogic() { const w=this.canvas.width/this.dpr, h=this.canvas.height/this.dpr; for (let i=0; i<10; i++) this.particles.push({ x:i*(w/9), yTop:h*0.3+Math.sin(i)*20, yBot:h*0.7+Math.cos(i)*20 }); }
-
-    // --- OPERATIONAL INIT ---
     initTruckMove() { for (let i=0; i<5; i++) this.particles.push({ x:-100-i*300, y:(this.canvas.height/this.dpr)*0.6, s:3+Math.random()*2 }); }
     initCraneLift() { this.particles = { angle:0, loadY:0 }; }
     initEarthScoop() { this.particles = { bucketX:0, bucketY:0, dirt:[] }; }
@@ -107,7 +114,6 @@ export class SpectrumAnimation {
     initTrafficZone() { for (let i=0; i<10; i++) this.particles.push({ x:Math.random()*(this.canvas.width/this.dpr), y:(this.canvas.height/this.dpr)*0.5, s:2+Math.random()*3 }); }
     initMasonryBuild() { for (let i=0; i<100; i++) this.particles.push({ x:(i%20)*40, y:(this.canvas.height/this.dpr)-Math.floor(i/20)*20, active:0 }); }
 
-    // --- SIGNATURE INIT ---
     initBrandBuild() {
         const tempCanvas = document.createElement('canvas'); const tctx = tempCanvas.getContext('2d');
         const w = 1000, h = 200; tempCanvas.width = w; tempCanvas.height = h;
@@ -126,17 +132,34 @@ export class SpectrumAnimation {
     animate() {
         if (!this.canvas) return;
         this.ctx.clearRect(0,0,this.canvas.width/this.dpr,this.canvas.height/this.dpr);
-        const m = this.mode;
-        // Draw routing
-        if(m==='brandBuild') this.drawBrandBuild();
-        else if(m==='industrialMesh')this.drawIndustrialMesh(); else if(m==='seismicPulse')this.drawSeismicPulse(); else if(m==='lidarScan')this.drawLidarScan(); else if(m==='structuralAssembly')this.drawStructuralAssembly(); else if(m==='geoStrata')this.drawGeoStrata(); else if(m==='tectonicShift')this.drawTectonicShift(); else if(m==='digitalConcrete')this.drawDigitalConcrete(); else if(m==='craneView')this.drawCraneView(); else if(m==='rebarSpiral')this.drawRebarSpiral(); else if(m==='hydraulicPressure')this.drawHydraulicPressure();
-        else if(m==='sonicSonar')this.drawSonicSonar(); else if(m==='impactPiling')this.drawImpactPiling(); else if(m==='stressMap')this.drawStressMap(); else if(m==='bimExplode')this.drawBimExplode(); else if(m==='thermalDrone')this.drawThermalDrone(); else if(m==='dataTelemetry')this.drawDataTelemetry(); else if(m==='hydroFlow')this.drawHydroFlow(); else if(m==='emSignal')this.drawEmSignal(); else if(m==='soilCompaction')this.drawSoilCompaction(); else if(m==='geoAnnotate')this.drawGeoAnnotate();
-        else if(m==='vectorField')this.drawVectorField(); else if(m==='pointMesh')this.drawPointMesh(); else if(m==='strainGauge')this.drawStrainGauge(); else if(m==='topoHUD')this.drawTopoHUD(); else if(m==='blueprintGhost')this.drawBlueprintGhost(); else if(m==='coordAxis')this.drawCoordAxis(); else if(m==='hatchProfile')this.drawHatchProfile(); else if(m==='triangulation')this.drawTriangulation(); else if(m==='fluidStream')this.drawFluidStream(); else if(m==='trussLogic')this.drawTrussLogic();
-        else if(m==='truckMove')this.drawTruckMove(); else if(m==='craneLift')this.drawCraneLift(); else if(m==='earthScoop')this.drawEarthScoop(); else if(m==='concretePump')this.drawConcretePump(); else if(m==='jackHammer')this.drawJackHammer(); else if(m==='roadPaver')this.drawRoadPaver(); else if(m==='activeDrone')this.drawActiveDrone(); else if(m==='scaffoldUp')this.drawScaffoldUp(); else if(m==='trafficZone')this.drawTrafficZone(); else if(m==='masonryBuild')this.drawMasonryBuild();
+        
+        if (this.showcaseActive) {
+            this.drawShowcase();
+        } else {
+            const m = this.mode;
+            if(m==='brandBuild') this.drawBrandBuild();
+            else if(m==='industrialMesh')this.drawIndustrialMesh(); else if(m==='seismicPulse')this.drawSeismicPulse(); else if(m==='lidarScan')this.drawLidarScan(); else if(m==='structuralAssembly')this.drawStructuralAssembly(); else if(m==='geoStrata')this.drawGeoStrata(); else if(m==='tectonicShift')this.drawTectonicShift(); else if(m==='digitalConcrete')this.drawDigitalConcrete(); else if(m==='craneView')this.drawCraneView(); else if(m==='rebarSpiral')this.drawRebarSpiral(); else if(m==='hydraulicPressure')this.drawHydraulicPressure();
+            else if(m==='sonicSonar')this.drawSonicSonar(); else if(m==='impactPiling')this.drawImpactPiling(); else if(m==='stressMap')this.drawStressMap(); else if(m==='bimExplode')this.drawBimExplode(); else if(m==='thermalDrone')this.drawThermalDrone(); else if(m==='dataTelemetry')this.drawDataTelemetry(); else if(m==='hydroFlow')this.drawHydroFlow(); else if(m==='emSignal')this.drawEmSignal(); else if(m==='soilCompaction')this.drawSoilCompaction(); else if(m==='geoAnnotate')this.drawGeoAnnotate();
+            else if(m==='vectorField')this.drawVectorField(); else if(m==='pointMesh')this.drawPointMesh(); else if(m==='strainGauge')this.drawStrainGauge(); else if(m==='topoHUD')this.drawTopoHUD(); else if(m==='blueprintGhost')this.drawBlueprintGhost(); else if(m==='coordAxis')this.drawCoordAxis(); else if(m==='hatchProfile')this.drawHatchProfile(); else if(m==='triangulation')this.drawTriangulation(); else if(m==='fluidStream')this.drawFluidStream(); else if(m==='trussLogic')this.drawTrussLogic();
+            else if(m==='truckMove')this.drawTruckMove(); else if(m==='craneLift')this.drawCraneLift(); else if(m==='earthScoop')this.drawEarthScoop(); else if(m==='concretePump')this.drawConcretePump(); else if(m==='jackHammer')this.drawJackHammer(); else if(m==='roadPaver')this.drawRoadPaver(); else if(m==='activeDrone')this.drawActiveDrone(); else if(m==='scaffoldUp')this.drawScaffoldUp(); else if(m==='trafficZone')this.drawTrafficZone(); else if(m==='masonryBuild')this.drawMasonryBuild();
+        }
         requestAnimationFrame(()=>this.animate());
     }
 
-    // --- DRAW 1-40 (Condensed) ---
+    drawShowcase() {
+        const elapsed = (Date.now() - this.startTime) / 1000;
+        if (elapsed < 2.5) { this.drawSeismicPulse(); }
+        else if (elapsed < 5.0) { if(this.mode !== 'lidarScan'){ this.setMode('lidarScan'); } this.drawLidarScan(); }
+        else if (elapsed < 7.5) { if(this.mode !== 'structuralAssembly'){ this.setMode('structuralAssembly'); } this.drawStructuralAssembly(); }
+        else if (elapsed < 10.0) { if(this.mode !== 'brandBuild'){ this.setMode('brandBuild'); } this.drawBrandBuild(); }
+        else { this.showcaseActive = false; this.setMode('industrialMesh'); }
+        
+        // Timer HUD for user
+        this.ctx.fillStyle = 'rgba(156,66,33,0.3)';
+        this.ctx.fillRect(0, 0, (elapsed/10)*(this.canvas.width/this.dpr), 2);
+    }
+
+    // --- DRAW 1-41 (Condensed) ---
     drawIndustrialMesh() { const w=this.canvas.width/this.dpr, h=this.canvas.height/this.dpr, r=Date.now()*0.0003; this.ctx.strokeStyle='rgba(0,51,102,0.1)'; const p=this.particles.map(v=>{ const x=v.x*Math.cos(r)-v.z*Math.sin(r), z=v.x*Math.sin(r)+v.z*Math.cos(r), s=500/(500+z); return {x:w/2+x*s, y:h/2+v.y*s, s}; }); p.forEach((p1,i)=>p.forEach((p2,j)=>{ const d=Math.sqrt((p1.x-p2.x)**2+(p1.y-p2.y)**2); if(d<80*p1.s){ this.ctx.beginPath(); this.ctx.moveTo(p1.x,p1.y); this.ctx.lineTo(p2.x,p2.y); this.ctx.stroke(); } })); }
     drawSeismicPulse() { const t=Date.now()*0.002; this.particles.forEach(p=>{ const dx=p.baseX-this.mouse.x, dy=p.baseY-this.mouse.y, d=Math.sqrt(dx*dx+dy*dy); const pulse=Math.sin(d*0.05-t)*15, push=d<200?(200-d)*0.1:0; this.ctx.fillStyle='rgba(0,51,102,0.2)'; this.ctx.beginPath(); this.ctx.arc(p.baseX+push*(dx/d||0), p.baseY+pulse+push*(dy/d||0),1.5,0,Math.PI*2); this.ctx.fill(); }); }
     drawLidarScan() { const w=this.canvas.width/this.dpr, h=this.canvas.height/this.dpr; this.particles.scanX=(this.particles.scanX+4)%w; this.ctx.strokeStyle='rgba(156,66,33,0.2)'; this.ctx.beginPath(); this.ctx.moveTo(this.particles.scanX,0); this.ctx.lineTo(this.particles.scanX,h); this.ctx.stroke(); this.particles.points.forEach(p=>{ const d=Math.abs(p.x-this.particles.scanX); if(d<20)p.brightness=1; else p.brightness*=0.98; if(p.brightness>0.01){ this.ctx.fillStyle=`rgba(0,51,102,${p.brightness*0.4})`; this.ctx.beginPath(); this.ctx.arc(p.x,p.y,p.z*2,0,Math.PI*2); this.ctx.fill(); } }); }

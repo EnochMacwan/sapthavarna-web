@@ -14,6 +14,7 @@ export const pages = {
                 <div class="power-gallery-nav mt-12">
                     <div class="pg-row mb-6">
                         <button onclick="window.setAnimationMode('brandBuild')" class="sample-btn signature-btn" style="background: rgba(156, 66, 33, 0.15); border-color: #9c4221; font-weight: bold; width: auto; padding: 12px 30px;">SIGNATURE: Brand Build</button>
+                        <button onclick="window.startShowcase()" class="sample-btn showcase-btn" style="background: rgba(0, 51, 102, 0.15); border-color: #003366; font-weight: bold; width: auto; padding: 12px 30px; margin-left: 10px;">▶ SapthaVarnah Intro (10s)</button>
                     </div>
                     <div class="pg-row">
                         <button onclick="window.setAnimationMode('industrialMesh')" class="sample-btn active">Mesh</button>
