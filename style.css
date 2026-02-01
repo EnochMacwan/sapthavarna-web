@@ -237,15 +237,16 @@ nav {
   border-radius: 24px;
 }
 
-/* Hero Section Layout */
 .hero {
     height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
+    text-align: center;
     position: relative;
     overflow: hidden;
-    padding: 0 8%;
+    padding: 0 10%;
 }
 
 #spectrum-canvas {
@@ -258,14 +259,59 @@ nav {
     pointer-events: none;
 }
 
-.hero-grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 60px;
-    align-items: center;
+.hero-overlay-content {
+    max-width: 900px;
     z-index: 10;
     animation: hero-fade-in 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: -0.04em;
+}
+
+.hero-subtitle {
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+    max-width: 650px;
+    margin: 0 auto 3rem auto;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.power-gallery-nav {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+    animation: hero-fade-in 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.4s forwards;
+    opacity: 0;
+}
+
+.sample-btn {
+    background: var(--bg-color);
+    border: 1px solid rgba(255,255,255,0.5);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    box-shadow: var(--nm-shadow-light);
+    transition: var(--transition-calm);
+}
+
+.sample-btn:hover {
+    box-shadow: var(--nm-shadow-hover);
+    color: var(--text-primary);
+}
+
+.sample-btn.active {
+    box-shadow: var(--nm-shadow-inset);
+    color: var(--page-accent);
 }
 
 @keyframes hero-fade-in {

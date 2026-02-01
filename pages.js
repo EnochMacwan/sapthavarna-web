@@ -2,18 +2,26 @@ export const pages = {
     home: () => `
         <section id="hero" class="hero">
             <canvas id="spectrum-canvas"></canvas>
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <h1 class="mb-4">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
-                    <p class="text-secondary mb-6 hero-p">
-                        Marine, transport, energy, and advanced construction solutions for resilient infrastructure across Africa, India, and the Gulf.
-                    </p>
-                    <a href="/capabilities" class="cta-button nav-link">View Capabilities &rarr;</a>
+            <div class="hero-overlay-content">
+                <h1 class="hero-title mb-6">Engineering the <br><span class="accent-page">Full Spectrum</span> of the Earth</h1>
+                <p class="hero-subtitle mb-8 text-secondary">
+                    Marine, transport, energy, and advanced construction solutions across Africa, India, and the Gulf.
+                </p>
+                <div class="hero-actions">
+                    <a href="/capabilities" class="cta-button nav-link">Explore Capabilities &rarr;</a>
                 </div>
-                <div class="hero-image-wrapper">
-                    <div class="nm-card img-card muted-bg">
-                        <img src="hero.png" alt="Aerial coastal infrastructure" class="brand-img hero-img-opacity">
-                    </div>
+                <!-- Power Gallery Navigation -->
+                <div class="power-gallery-nav mt-12">
+                    <button onclick="window.setAnimationMode('industrialMesh')" class="sample-btn active">Mesh</button>
+                    <button onclick="window.setAnimationMode('seismicPulse')" class="sample-btn">Seismic</button>
+                    <button onclick="window.setAnimationMode('lidarScan')" class="sample-btn">Lidar</button>
+                    <button onclick="window.setAnimationMode('structuralAssembly')" class="sample-btn">Assembly</button>
+                    <button onclick="window.setAnimationMode('geoStrata')" class="sample-btn">Strata</button>
+                    <button onclick="window.setAnimationMode('tectonicShift')" class="sample-btn">Tectonic</button>
+                    <button onclick="window.setAnimationMode('digitalConcrete')" class="sample-btn">Concrete</button>
+                    <button onclick="window.setAnimationMode('craneView')" class="sample-btn">Crane</button>
+                    <button onclick="window.setAnimationMode('rebarSpiral')" class="sample-btn">Spiral</button>
+                    <button onclick="window.setAnimationMode('hydraulicPressure')" class="sample-btn">Hydraulic</button>
                 </div>
             </div>
         </section>

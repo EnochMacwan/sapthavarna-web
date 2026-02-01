@@ -105,4 +105,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     initPageInteractions();
-});
+});// Animation Sampling Global Logic
+window.setAnimationMode = (mode) => {
+    if (currentAnimation && typeof currentAnimation.setMode === 'function') {
+        currentAnimation.setMode(mode);
+        
+        // Update UI
+        document.querySelectorAll('.sample-btn').forEach(btn => {
+            const btnMode = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+            if (btnMode === mode) btn.classList.add('active');
+            else btn.classList.remove('active');
+        });
+    }
+};
