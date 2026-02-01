@@ -99,22 +99,42 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px;
+  padding: 10px 40px;
+  background: rgba(246, 245, 242, 0.8);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-radius: 80px;
+  box-shadow: var(--nm-shadow-light);
   z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.6);
   transition: var(--transition-calm);
 }
-/* Optional: Add background back on scroll if we wanted to, but the request is to remove it */
 
 .logo {
   text-decoration: none;
   display: flex;
   align-items: center;
+  gap: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+.logo-crop {
+  height: 60px;
+  width: 60px; 
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo-img-master {
-  height: 120px; /* Significantly increased for brand resonance */
+  height: 280px; /* Zoom level set to 280px */
   width: auto;
   transition: var(--transition-calm);
+  margin-top: 35px; /* Vertical centering for 280px zoom */
 }
 
 .logo:hover .logo-img-master {
