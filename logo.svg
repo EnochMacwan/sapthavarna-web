@@ -20,6 +20,4 @@
         <path d="M0 71C30 61 70 81 100 71V100H0V71Z" fill="var(--accent-marine)" fill-opacity="0.8"/>
     </g>
 
-    <!-- Outer Hexagon Stroke for definition -->
-    <path d="M50 5L89.5 27.5V72.5L50 95L10.5 72.5V27.5L50 5Z" stroke="var(--accent-marine)" stroke-width="2" stroke-linejoin="round"/>
 </svg>
