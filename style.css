@@ -106,23 +106,19 @@ nav {
 /* Optional: Add background back on scroll if we wanted to, but the request is to remove it */
 
 .logo {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--text-primary);
   text-decoration: none;
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
-.logo-mark {
-  height: 32px;
+.logo-img-master {
+  height: 40px; /* Adjusting for clear brand visibility */
   width: auto;
   transition: var(--transition-calm);
 }
 
-.logo:hover .logo-mark {
-  transform: rotate(-10deg) scale(1.1);
+.logo:hover .logo-img-master {
+  transform: scale(1.05);
 }
 
 .nav-links {
