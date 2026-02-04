@@ -389,33 +389,36 @@ export const pages = {
         </section>
 
         <section id="contact-details">
-            <div class="grid-container contact-grid">
-                <div class="nm-card">
+            <div class="contact-grid">
+                <div class="nm-card contact-main-card">
                     <h4 class="text-secondary mb-4">${content.contact.details.oppsLabel}</h4>
                     <h2>We welcome discussions on <span class="accent-page">Infrastructure Challenges</span> across our served regions.</h2>
-                    <div class="mt-6 contact-links-row">
-                        <div>
-                            <h4 class="text-secondary">Email</h4>
-                            <a href="mailto:info@svgeotech.com" class="logo contact-link-item">info@svgeotech.com</a>
+                    <div class="contact-links-row mt-6">
+                        <div class="contact-link-block">
+                            <h4 class="text-secondary mb-4">Email</h4>
+                            <a href="mailto:info@svgeotech.com" class="contact-link-item">info@svgeotech.com</a>
                         </div>
-                        <div>
-                            <h4 class="text-secondary">LinkedIn</h4>
-                            <a href="#" class="logo contact-link-item">SapthaVarnah Geo Technologies</a>
+                        <div class="contact-link-block">
+                            <h4 class="text-secondary mb-4">LinkedIn</h4>
+                            <a href="#" class="contact-link-item">SapthaVarnah Geo Technologies</a>
                         </div>
                     </div>
                 </div>
-                <div class="nm-card img-card nm-inset">
+                <div class="nm-card contact-regions-card">
                     <h4 class="text-secondary mb-4">${content.contact.details.regionsLabel}</h4>
-                    <p class="mb-4">${content.contact.details.regionsDesc}</p>
-                    <img src="regions.png" alt="Global regions focusing on Africa, India, and the Gulf" class="brand-img mb-4">
-                    <ul class="regions-list">
-                        <li>&bull; Africa</li>
-                        <li>&bull; India</li>
-                        <li>&bull; Gulf Region</li>
+                    <p class="text-secondary mb-4">${content.contact.details.regionsDesc}</p>
+                    <div class="regions-image-wrapper nm-inset">
+                        <img src="regions.png" alt="Global regions focusing on Africa, India, and the Gulf" class="brand-img">
+                    </div>
+                    <ul class="regions-tags mt-4">
+                        <li>Africa</li>
+                        <li>India</li>
+                        <li>Gulf Region</li>
                     </ul>
                 </div>
             </div>
         </section>
     `;
     }
+
 };
