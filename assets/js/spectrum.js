@@ -60,7 +60,7 @@ export class SpectrumAnimation {
         // Higher particle density for denser text
         const isMobile = window.innerWidth < 768;
         const isHighDPI = this.dpr >= 2;
-        const gap = isMobile ? 8 * textScale : (isHighDPI ? 4 * textScale : 5 * textScale);
+        const gap = isMobile ? 10 * textScale : (isHighDPI ? 5 * textScale : 6 * textScale);
         
         const cw = (this.canvas.width / this.dpr);
         const ch = (this.canvas.height / this.dpr);
