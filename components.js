@@ -16,32 +16,32 @@ export const components = {
                         <a href="/about" class="nav-link">Company</a>
                         <div class="mega-menu">
                             <div class="mega-col">
-                                <h5>The Collective</h5>
+                                <h5>About SVGT</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/about">About SapthaVarnah</a></li>
+                                    <li><a href="/about">Company Overview</a></li>
                                     <li><a href="/about#leadership">Leadership Team</a></li>
-                                    <li><a href="/about#careers">Careers & Culture</a></li>
+                                    <li><a href="/about#culture">Careers & Culture</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
-                                <h5>Impact</h5>
+                                <h5>Sustainability</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/sustainability">Sustainability Plan</a></li>
-                                    <li><a href="/sustainability#climate">Climate Resilience</a></li>
-                                    <li><a href="/sustainability#ethics">Ethics & Governance</a></li>
+                                    <li><a href="/sustainability">Our Approach</a></li>
+                                    <li><a href="/sustainability#pillars">Key Pillars</a></li>
+                                    <li><a href="/sustainability#practices">Practices</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Connect</h5>
                                 <ul class="mega-links">
                                     <li><a href="/contact">Global Offices</a></li>
-                                    <li><a href="/contact#support">Project Support</a></li>
-                                    <li><a href="/contact#media">Media Relations</a></li>
+                                    <li><a href="/contact#contact-details">Project Enquiry</a></li>
+                                    <li><a href="/contact#regions-media">Media Relations</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
-                                <h5>Global</h5>
-                                <p class="mega-desc">Engineering the full spectrum across Africa, India, and the Gulf.</p>
+                                <h5>Presence</h5>
+                                <p class="mega-desc">Mauritius · India · Serving Africa, Gulf & beyond</p>
                             </div>
                         </div>
                     </div>
@@ -51,33 +51,29 @@ export const components = {
                             <div class="mega-col">
                                 <h5>Marine & Coastal</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/capabilities#marine">Infrastructure</a></li>
-                                    <li><a href="/capabilities#coastal">Coastal Protection</a></li>
-                                    <li><a href="/capabilities#dredging">Dredging & Reclamation</a></li>
+                                    <li><a href="/marine">Overview</a></li>
+                                    <li><a href="/marine#marine-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Transport</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/capabilities#rail">Rail & Metro</a></li>
-                                    <li><a href="/capabilities#roads">Highways & Bridges</a></li>
-                                    <li><a href="/capabilities#ports">Port Terminals</a></li>
+                                    <li><a href="/transport">Overview</a></li>
+                                    <li><a href="/transport#transport-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Energy</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/capabilities#oilgas">Oil & Gas</a></li>
-                                    <li><a href="/capabilities#renewable">Renewables</a></li>
-                                    <li><a href="/capabilities#power">Power Systems</a></li>
+                                    <li><a href="/energy">Overview</a></li>
+                                    <li><a href="/energy#energy-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
-                                <h5>Advanced</h5>
+                                <h5>Construction Systems</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/capabilities#technical">Technical Surveys</a></li>
-                                    <li><a href="/capabilities#digital">Digital Twin</a></li>
-                                    <li><a href="/capabilities#consultancy">Global Consultancy</a></li>
+                                    <li><a href="/systems">Precast & GFRG</a></li>
+                                    <li><a href="/systems#technologies">Technologies</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -108,29 +104,28 @@ export const components = {
             <div class="footer-col">
                 <h5>Capabilities</h5>
                 <ul class="footer-links">
-                    <li><a href="/capabilities#marine" class="nav-link">Marine & Coastal</a></li>
-                    <li><a href="/capabilities#transport" class="nav-link">Transport</a></li>
-                    <li><a href="/capabilities#energy" class="nav-link">Energy</a></li>
-                    <li><a href="/capabilities#systems" class="nav-link">Advanced Systems</a></li>
+                    <li><a href="/marine" class="nav-link">Marine & Coastal</a></li>
+                    <li><a href="/transport" class="nav-link">Transport</a></li>
+                    <li><a href="/energy" class="nav-link">Energy</a></li>
+                    <li><a href="/systems" class="nav-link">Construction Systems</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h5>Company</h5>
                 <ul class="footer-links">
-                    <li><a href="/about" class="nav-link">About Us</a></li>
-                    <li><a href="/sustainability" class="nav-link">Sustainability</a></li>
+                    <li><a href="/about" class="nav-link">About SVGT</a></li>
                     <li><a href="/about#leadership" class="nav-link">Leadership</a></li>
+                    <li><a href="/sustainability" class="nav-link">Sustainability</a></li>
                     <li><a href="/contact" class="nav-link">Contact</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
-                <h5>Presence</h5>
-                <ul class="presence-labels">
-                    <li class="accent-marine">Africa</li>
-                    <li class="accent-energy">India</li>
-                    <li class="accent-page">Gulf</li>
+                <h5>Offices</h5>
+                <ul class="footer-links offices-footer">
+                    <li><strong>Mauritius</strong> · Port Louis</li>
+                    <li><strong>India</strong> · Chennai</li>
                 </ul>
             </div>
         </div>
@@ -144,13 +139,11 @@ export const components = {
             </div>
         </div>
     </footer>
-
     `
 };
 
 // Initialize components on DOM load
 export function initComponents() {
-    // Create header container if not exists
     let headerContainer = document.getElementById('header-mount');
     if (!headerContainer) {
         headerContainer = document.createElement('div');
@@ -159,7 +152,6 @@ export function initComponents() {
     }
     headerContainer.innerHTML = components.header();
 
-    // Create footer container if not exists  
     let footerContainer = document.getElementById('footer-mount');
     if (!footerContainer) {
         footerContainer = document.createElement('div');
@@ -168,7 +160,6 @@ export function initComponents() {
     }
     footerContainer.innerHTML = components.footer();
 
-    // Highlight active nav link
     highlightActiveNav();
 }
 

@@ -8,9 +8,14 @@ class Router {
             '/index.html': pages.home,
             '/about': pages.about,
             '/capabilities': pages.capabilities,
+            '/marine': pages.marine,
+            '/transport': pages.transport,
+            '/energy': pages.energy,
+            '/systems': pages.systems,
             '/sustainability': pages.sustainability,
             '/contact': pages.contact
         };
+
 
         window.addEventListener('popstate', () => this.handleRoute());
         document.addEventListener('click', (e) => this.interceptClick(e));
