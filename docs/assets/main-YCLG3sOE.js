@@ -28,7 +28,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
                 <h1 class="hero-title mb-6">${e.home.hero.title.replace("Full Spectrum","<span class='accent-page'>Full Spectrum</span>")}</h1>
                 <p class="hero-subtitle mb-24 text-secondary">${e.home.hero.subtitle}</p>
                 <div class="hero-actions">
-                    <a href="/capabilities" class="cta-button nav-link">${e.home.hero.ctaMain} →</a>
+                    <a href="#capabilities" class="cta-button nav-link">${e.home.hero.ctaMain} →</a>
                 </div>
             </div>
         </section>
@@ -39,7 +39,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
                     <h4 class="text-secondary mb-4">${e.home.about.title}</h4>
                     <p class="mb-4">${e.home.about.desc1}</p>
                     <p class="text-secondary">${e.home.about.desc2}</p>
-                    <a href="/about" class="card-link mt-6 nav-link">About SVGT →</a>
+                    <a href="#about" class="card-link mt-6 nav-link">About SVGT →</a>
                 </div>
                 <div class="nm-card img-card nm-inset">
                     <img src="${m("materials.png")}" alt="Engineering materials" class="brand-img">
@@ -56,7 +56,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
 
         <section id="closing" class="section-center">
             <h2 class="mb-6">${e.home.closing.title}</h2>
-            <a href="/contact" class="cta-button nav-link">${e.home.closing.cta} →</a>
+            <a href="#contact" class="cta-button nav-link">${e.home.closing.cta} →</a>
         </section>
     `},about:()=>{const e=c();return`
         <section id="about-hero" class="subpage-hero">
@@ -142,7 +142,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
         </section>
 
         <section id="marine-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Discuss a Marine Project →</a>
+            <a href="#contact" class="cta-button nav-link">Discuss a Marine Project →</a>
         </section>
     `},transport:()=>{const e=c();return`
         <section id="transport-hero" class="subpage-hero transport-bg">
@@ -164,7 +164,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
         </section>
 
         <section id="transport-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Discuss a Transport Project →</a>
+            <a href="#contact" class="cta-button nav-link">Discuss a Transport Project →</a>
         </section>
     `},energy:()=>{const e=c();return`
         <section id="energy-hero" class="subpage-hero energy-bg">
@@ -186,7 +186,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
         </section>
 
         <section id="energy-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Discuss an Energy Project →</a>
+            <a href="#contact" class="cta-button nav-link">Discuss an Energy Project →</a>
         </section>
     `},systems:()=>{const e=c();return`
         <section id="systems-hero" class="subpage-hero systems-bg">
@@ -217,7 +217,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
         </section>
 
         <section id="systems-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Enquire About Construction Systems →</a>
+            <a href="#contact" class="cta-button nav-link">Enquire About Construction Systems →</a>
         </section>
     `},sustainability:()=>{const e=c();return`
         <section id="sustain-hero" class="subpage-hero">
@@ -510,14 +510,14 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
                     
                     <div class="nm-card mt-4">
                         <h4 class="mb-4">Interested in Similar Projects?</h4>
-                        <a href="/contact" class="cta-button nav-link">Contact Us →</a>
+                        <a href="#contact" class="cta-button nav-link">Contact Us →</a>
                     </div>
                 </aside>
             </div>
         </section>
 
         <section id="back-link" class="section-center">
-            <a href="/capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
+            <a href="#capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
         </section>
     `},serviceDetail:(e,t)=>{const s={"structural-engineering":{title:"Structural Engineering",category:"Engineering Services",icon:"fas fa-building",description:"Comprehensive structural engineering services for buildings, bridges, and industrial facilities.",features:["Structural analysis and design","Foundation engineering","Earthquake-resistant design","Progressive collapse analysis","Structural health monitoring"],sectors:["Marine","Transport","Energy","Urban"]},"project-management":{title:"Project Management",category:"Management Services",icon:"fas fa-project-diagram",description:"End-to-end project management services ensuring on-time, on-budget delivery.",features:["Planning and scheduling","Cost management","Risk assessment","Quality control","Stakeholder coordination"],sectors:["All Sectors"]},"environmental-consulting":{title:"Environmental Consulting",category:"Sustainability Services",icon:"fas fa-leaf",description:"Environmental impact assessment and sustainable design solutions.",features:["Environmental Impact Assessment (EIA)","Green building certification","Carbon footprint analysis","Sustainable materials selection","Compliance monitoring"],sectors:["Marine","Energy","Urban"]}}[e]||{title:"Service Not Found",category:"Unknown",icon:"fas fa-question",description:"The requested service could not be found.",features:[],sectors:[]};return`
         <section class="page-hero detail-hero">
@@ -558,11 +558,11 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
         <section id="service-cta" class="section-center">
             <h2 class="mb-4">Need This Service?</h2>
             <p class="text-secondary mb-6">Let's discuss how we can help with your project.</p>
-            <a href="/contact" class="cta-button nav-link">Get in Touch →</a>
+            <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
         </section>
 
         <section id="back-link" class="section-center">
-            <a href="/capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
+            <a href="#capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
         </section>
     `},teamDetail:(e,t)=>{const a=c(),i=(window.TEAM_DATA||a.about?.team||[]).find(n=>n.name.toLowerCase().replace(/\s+/g,"-").replace(/[^a-z0-9-]/g,"")===e)||{name:"Team Member Not Found",role:"Unknown",desc:"The requested team member could not be found.",bio:"",photo:""};return`
         <section class="page-hero team-detail-hero">
@@ -593,12 +593,12 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
         </section>
 
         <section id="back-link" class="section-center">
-            <a href="/about" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to About</a>
+            <a href="#about" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to About</a>
         </section>
     `}};class A{constructor(t){this.mountPoint=t,this.routes={"":o.home,"/":o.home,about:o.about,capabilities:o.capabilities,marine:o.marine,transport:o.transport,energy:o.energy,systems:o.systems,sustainability:o.sustainability,contact:o.contact,careers:o.careers},this.dynamicRoutes={project:o.projectDetail,service:o.serviceDetail,team:o.teamDetail},window.addEventListener("hashchange",()=>this.handleRoute()),document.addEventListener("click",a=>this.interceptClick(a)),this.handleRoute()}interceptClick(t){const a=t.target.closest("a");if(a&&a.classList.contains("nav-link")){const s=a.getAttribute("href");if(s&&s.startsWith("/")&&!s.startsWith("//")){t.preventDefault();const i=s==="/"?"":s.substring(1);window.location.hash=i}}}navigate(t){window.location.hash=t}getHashPath(){let t=window.location.hash.substring(1);return t.startsWith("/")&&(t=t.substring(1)),t}getQueryParams(t){const a={},s=t.indexOf("?");return s>-1&&t.substring(s+1).split("&").forEach(n=>{const[r,l]=n.split("=");a[decodeURIComponent(r)]=decodeURIComponent(l||"")}),a}async handleRoute(){let t=this.getHashPath();const a=this.getQueryParams(t),s=t.indexOf("?");s>-1&&(t=t.substring(0,s));let i;const n=Object.keys(this.dynamicRoutes).find(l=>t.startsWith(l));n&&a.id?i=()=>this.dynamicRoutes[n](a.id,a):i=this.routes[t]||o.home;const r=this.mountPoint;window.gsap&&await window.gsap.to(r,{opacity:0,y:10,duration:.3,ease:"power2.in"}),r.innerHTML=i(),window.scrollTo(0,0),window.gsap&&window.gsap.fromTo(r,{opacity:0,y:10},{opacity:1,y:0,duration:.5,ease:"power2.out"}),window.dispatchEvent(new CustomEvent("routeChange",{detail:{path:t,queryParams:a}}))}}class P{constructor(t){this.canvas=document.getElementById(t),this.canvas&&(this.ctx=this.canvas.getContext("2d"),this.particles=[],this.sparks=[],this.worker={x:0,y:0,tx:0,ty:0,state:"idle",targetIdx:-1,weldTime:0,frame:0},this.mouse={x:-1e3,y:-1e3},this.dpr=window.devicePixelRatio||1,this.themeColor="#003366",this.accentColor="#9c4221",this.active=!0,this._resizeHandler=()=>this.resize(),this._mouseMoveHandler=a=>this.handleMouseMove(a),document.fonts?document.fonts.ready.then(()=>{this.active&&this.init()}):this.init(),this.animate(),window.addEventListener("resize",this._resizeHandler),window.addEventListener("mousemove",this._mouseMoveHandler),window.resetBrandBuild=()=>this.init())}init(){this.resize(),this.particles=[],this.sparks=[];const t=document.createElement("canvas"),a=t.getContext("2d"),s=1100,i=200;t.width=s,t.height=i,a.fillStyle="black",a.font="bold 90px Inter",a.textAlign="center",a.fillText("SAPTHAVARNAH",s/2,i/2+30);const n=a.getImageData(0,0,s,i).data,l=window.innerWidth<768?12:8,p=this.canvas.width/this.dpr,g=this.canvas.height/this.dpr;for(let h=0;h<i;h+=l)for(let u=0;u<s;u+=l){const C=(h*s+u)*4;if(n[C+3]>128){const y=p/2-s/2+u,I=g*.82-i/2+h,b=Math.random()>.4;this.particles.push({tx:y,ty:I,x:y+(Math.random()-.5)*50,y:-Math.random()*1500-100,vx:0,vy:5+Math.random()*10,c:b?this.accentColor:this.themeColor,size:b?7:4,delay:Math.random()*150,landed:!1,welded:!1,bounce:0})}}this.worker={x:p/2,y:g,tx:p/2,ty:g*.8,state:"idle",targetIdx:-1,weldTime:0,frame:0,scale:1.5}}resize(){if(!this.canvas)return;const t=this.canvas.parentElement;this.canvas.width=t.offsetWidth*this.dpr,this.canvas.height=t.offsetHeight*this.dpr,this.ctx.scale(this.dpr,this.dpr)}handleMouseMove(t){if(!this.canvas)return;const a=this.canvas.getBoundingClientRect();this.mouse.x=t.clientX-a.left,this.mouse.y=t.clientY-a.top}updateWorker(){if(this.worker.frame++,this.worker.state==="idle"||this.worker.state==="walking"){let t=1/0,a=-1;this.particles.forEach((s,i)=>{if(s.landed&&!s.welded){const n=s.tx-this.worker.x,r=s.ty-this.worker.y,l=n*n+r*r;l<t&&(t=l,a=i)}}),a!==-1&&(this.worker.targetIdx=a,this.worker.tx=this.particles[a].tx,this.worker.ty=this.particles[a].ty,this.worker.state="walking")}if(this.worker.state==="walking"){const t=this.worker.tx-this.worker.x,a=this.worker.ty-(this.worker.y-15);Math.sqrt(t*t+a*a)<10?(this.worker.state="welding",this.worker.weldTime=40):(this.worker.x+=t*.12,this.worker.y+=a*.12)}this.worker.state==="welding"&&(this.worker.weldTime>0?this.worker.weldTime--:(this.worker.targetIdx!==-1&&(this.particles[this.worker.targetIdx].welded=!0),this.worker.state="idle"))}drawWorker(){const{x:t,y:a,state:s,frame:i,scale:n}=this.worker,r=s==="walking"?Math.sin(i*.25)*4:0;this.ctx.save(),this.ctx.translate(t,a+r),this.ctx.scale(n,n),this.ctx.fillStyle="#1a202c",this.ctx.fillRect(-5,-6,3,6),this.ctx.fillRect(2,-6,3,6),this.ctx.fillStyle="#f6ad55",this.ctx.fillRect(-7,-22,14,16),this.ctx.fillStyle="rgba(255,255,255,0.9)",this.ctx.fillRect(-7,-18,14,2),this.ctx.fillRect(-7,-12,14,2),this.ctx.fillStyle="#4a5568",s==="welding"?this.ctx.fillRect(2,-18,12,3):(this.ctx.fillRect(7,-18,3,10),this.ctx.fillRect(-10,-18,3,10)),this.ctx.fillStyle="#f6e05e",this.ctx.beginPath(),this.ctx.arc(0,-25,6,Math.PI,0),this.ctx.fill(),this.ctx.fillRect(-8,-25,16,2),this.ctx.restore()}animate(){if(!this.active||!this.canvas)return;const t=this.canvas.width/this.dpr,a=this.canvas.height/this.dpr;this.ctx.clearRect(0,0,t,a),this.ctx.shadowBlur=0,this.particles.forEach(s=>{if(s.delay>0){s.delay--;return}s.landed?(s.x+=(s.tx-s.x)*.1,s.y+=(s.ty-s.y)*.1,s.bounce>0&&(s.y-=s.bounce,s.bounce*=-.5)):(s.y+=s.vy,s.vy+=.3,s.y>=s.ty&&(s.y=s.ty,s.landed=!0,s.bounce=6)),this.ctx.fillStyle=s.c,this.ctx.fillRect(s.x,s.y,s.size,s.size*.6),s.welded&&(this.ctx.fillStyle="rgba(255, 255, 255, 0.1)",this.ctx.fillRect(s.x,s.y,s.size,s.size*.1))}),this.updateWorker(),this.drawWorker(),requestAnimationFrame(()=>this.animate())}destroy(){this.active=!1,window.removeEventListener("resize",this._resizeHandler),window.removeEventListener("mousemove",this._mouseMoveHandler),this.canvas=null}}const R="/sapthavarna-web/".replace(/\/$/,"")||"",x=e=>`${R}/${e}`,k={header:()=>`
     <nav class="pill-nav">
         <div class="nav-container">
-            <a href="/" class="logo nav-link" aria-label="SapthaVarnah Home">
+            <a href="#" class="logo nav-link" aria-label="SapthaVarnah Home">
                 <div class="logo-crop">
                     <img src="${x("logo-master.png")}" alt="SapthaVarnah Logo" class="logo-img-master">
                 </div>
@@ -607,30 +607,30 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
             <div class="nav-links-wrapper">
                 <div class="nav-links">
                     <div class="nav-item-has-mega">
-                        <a href="/about" class="nav-link">Company</a>
+                        <a href="#about" class="nav-link">Company</a>
                         <div class="mega-menu">
                             <div class="mega-col">
                                 <h5>About SVGT</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/about">Company Overview</a></li>
-                                    <li><a href="/about#leadership">Leadership Team</a></li>
-                                    <li><a href="/about#culture">Careers & Culture</a></li>
+                                    <li><a href="#about">Company Overview</a></li>
+                                    <li><a href="#about#leadership">Leadership Team</a></li>
+                                    <li><a href="#about#culture">Careers & Culture</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Sustainability</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/sustainability">Our Approach</a></li>
-                                    <li><a href="/sustainability#pillars">Key Pillars</a></li>
-                                    <li><a href="/sustainability#practices">Practices</a></li>
+                                    <li><a href="#sustainability">Our Approach</a></li>
+                                    <li><a href="#sustainability#pillars">Key Pillars</a></li>
+                                    <li><a href="#sustainability#practices">Practices</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Connect</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/contact">Global Offices</a></li>
-                                    <li><a href="/contact#contact-details">Project Enquiry</a></li>
-                                    <li><a href="/contact#regions-media">Media Relations</a></li>
+                                    <li><a href="#contact">Global Offices</a></li>
+                                    <li><a href="#contact#contact-details">Project Enquiry</a></li>
+                                    <li><a href="#contact#regions-media">Media Relations</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
@@ -640,40 +640,40 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
                         </div>
                     </div>
                     <div class="nav-item-has-mega">
-                        <a href="/capabilities" class="nav-link">Capabilities</a>
+                        <a href="#capabilities" class="nav-link">Capabilities</a>
                         <div class="mega-menu">
                             <div class="mega-col">
                                 <h5>Marine & Coastal</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/marine">Overview</a></li>
-                                    <li><a href="/marine#marine-services">Services</a></li>
+                                    <li><a href="#marine">Overview</a></li>
+                                    <li><a href="#marine#marine-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Transport</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/transport">Overview</a></li>
-                                    <li><a href="/transport#transport-services">Services</a></li>
+                                    <li><a href="#transport">Overview</a></li>
+                                    <li><a href="#transport#transport-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Energy</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/energy">Overview</a></li>
-                                    <li><a href="/energy#energy-services">Services</a></li>
+                                    <li><a href="#energy">Overview</a></li>
+                                    <li><a href="#energy#energy-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Construction Systems</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/systems">Precast & GFRG</a></li>
-                                    <li><a href="/systems#technologies">Technologies</a></li>
+                                    <li><a href="#systems">Precast & GFRG</a></li>
+                                    <li><a href="#systems#technologies">Technologies</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <a href="/sustainability" class="nav-link">Sustainability</a>
-                    <a href="/contact" class="nav-link">Contact</a>
+                    <a href="#sustainability" class="nav-link">Sustainability</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </div>
             </div>
         </div>
@@ -682,7 +682,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
     <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-col brand-col">
-                <a href="/" class="logo nav-link mb-4">
+                <a href="#" class="logo nav-link mb-4">
                     <div class="logo-crop">
                         <img src="${x("logo-master.png")}" alt="SapthaVarnah Logo" class="logo-img-master">
                     </div>
@@ -696,20 +696,20 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
             <div class="footer-col">
                 <h5>Capabilities</h5>
                 <ul class="footer-links">
-                    <li><a href="/marine" class="nav-link">Marine & Coastal</a></li>
-                    <li><a href="/transport" class="nav-link">Transport</a></li>
-                    <li><a href="/energy" class="nav-link">Energy</a></li>
-                    <li><a href="/systems" class="nav-link">Construction Systems</a></li>
+                    <li><a href="#marine" class="nav-link">Marine & Coastal</a></li>
+                    <li><a href="#transport" class="nav-link">Transport</a></li>
+                    <li><a href="#energy" class="nav-link">Energy</a></li>
+                    <li><a href="#systems" class="nav-link">Construction Systems</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h5>Company</h5>
                 <ul class="footer-links">
-                    <li><a href="/about" class="nav-link">About SVGT</a></li>
-                    <li><a href="/about#leadership" class="nav-link">Leadership</a></li>
-                    <li><a href="/sustainability" class="nav-link">Sustainability</a></li>
-                    <li><a href="/contact" class="nav-link">Contact</a></li>
+                    <li><a href="#about" class="nav-link">About SVGT</a></li>
+                    <li><a href="#about#leadership" class="nav-link">Leadership</a></li>
+                    <li><a href="#sustainability" class="nav-link">Sustainability</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </div>
 
@@ -727,7 +727,7 @@ import S from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
             <div class="legal-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
-                <a href="/admin.html" class="admin-link">Admin</a>
+                <a href="#admin.html" class="admin-link">Admin</a>
             </div>
         </div>
     </footer>

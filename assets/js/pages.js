@@ -73,7 +73,7 @@ export const pages = {
                 <h1 class="hero-title mb-6">${content.home.hero.title.replace("Full Spectrum", "<span class='accent-page'>Full Spectrum</span>")}</h1>
                 <p class="hero-subtitle mb-24 text-secondary">${content.home.hero.subtitle}</p>
                 <div class="hero-actions">
-                    <a href="/capabilities" class="cta-button nav-link">${content.home.hero.ctaMain} →</a>
+                    <a href="#capabilities" class="cta-button nav-link">${content.home.hero.ctaMain} →</a>
                 </div>
             </div>
         </section>
@@ -84,7 +84,7 @@ export const pages = {
                     <h4 class="text-secondary mb-4">${content.home.about.title}</h4>
                     <p class="mb-4">${content.home.about.desc1}</p>
                     <p class="text-secondary">${content.home.about.desc2}</p>
-                    <a href="/about" class="card-link mt-6 nav-link">About SVGT →</a>
+                    <a href="#about" class="card-link mt-6 nav-link">About SVGT →</a>
                 </div>
                 <div class="nm-card img-card nm-inset">
                     <img src="${getImagePath('materials.png')}" alt="Engineering materials" class="brand-img">
@@ -101,7 +101,7 @@ export const pages = {
 
         <section id="closing" class="section-center">
             <h2 class="mb-6">${content.home.closing.title}</h2>
-            <a href="/contact" class="cta-button nav-link">${content.home.closing.cta} →</a>
+            <a href="#contact" class="cta-button nav-link">${content.home.closing.cta} →</a>
         </section>
     `;
     },
@@ -202,7 +202,7 @@ export const pages = {
         </section>
 
         <section id="marine-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Discuss a Marine Project →</a>
+            <a href="#contact" class="cta-button nav-link">Discuss a Marine Project →</a>
         </section>
     `;
     },
@@ -229,7 +229,7 @@ export const pages = {
         </section>
 
         <section id="transport-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Discuss a Transport Project →</a>
+            <a href="#contact" class="cta-button nav-link">Discuss a Transport Project →</a>
         </section>
     `;
     },
@@ -256,7 +256,7 @@ export const pages = {
         </section>
 
         <section id="energy-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Discuss an Energy Project →</a>
+            <a href="#contact" class="cta-button nav-link">Discuss an Energy Project →</a>
         </section>
     `;
     },
@@ -292,7 +292,7 @@ export const pages = {
         </section>
 
         <section id="systems-cta" class="section-center">
-            <a href="/contact" class="cta-button nav-link">Enquire About Construction Systems →</a>
+            <a href="#contact" class="cta-button nav-link">Enquire About Construction Systems →</a>
         </section>
     `;
     },
@@ -667,14 +667,14 @@ export const pages = {
                     
                     <div class="nm-card mt-4">
                         <h4 class="mb-4">Interested in Similar Projects?</h4>
-                        <a href="/contact" class="cta-button nav-link">Contact Us →</a>
+                        <a href="#contact" class="cta-button nav-link">Contact Us →</a>
                     </div>
                 </aside>
             </div>
         </section>
 
         <section id="back-link" class="section-center">
-            <a href="/capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
+            <a href="#capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
         </section>
     `;
     },
@@ -774,11 +774,11 @@ export const pages = {
         <section id="service-cta" class="section-center">
             <h2 class="mb-4">Need This Service?</h2>
             <p class="text-secondary mb-6">Let's discuss how we can help with your project.</p>
-            <a href="/contact" class="cta-button nav-link">Get in Touch →</a>
+            <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
         </section>
 
         <section id="back-link" class="section-center">
-            <a href="/capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
+            <a href="#capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
         </section>
     `;
     },
@@ -833,7 +833,7 @@ export const pages = {
         </section>
 
         <section id="back-link" class="section-center">
-            <a href="/about" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to About</a>
+            <a href="#about" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to About</a>
         </section>
     `;
     }

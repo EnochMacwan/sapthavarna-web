@@ -8,7 +8,7 @@ export const components = {
     header: () => `
     <nav class="pill-nav">
         <div class="nav-container">
-            <a href="/" class="logo nav-link" aria-label="SapthaVarnah Home">
+            <a href="#" class="logo nav-link" aria-label="SapthaVarnah Home">
                 <div class="logo-crop">
                     <img src="${getImagePath('logo-master.png')}" alt="SapthaVarnah Logo" class="logo-img-master">
                 </div>
@@ -17,30 +17,30 @@ export const components = {
             <div class="nav-links-wrapper">
                 <div class="nav-links">
                     <div class="nav-item-has-mega">
-                        <a href="/about" class="nav-link">Company</a>
+                        <a href="#about" class="nav-link">Company</a>
                         <div class="mega-menu">
                             <div class="mega-col">
                                 <h5>About SVGT</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/about">Company Overview</a></li>
-                                    <li><a href="/about#leadership">Leadership Team</a></li>
-                                    <li><a href="/about#culture">Careers & Culture</a></li>
+                                    <li><a href="#about">Company Overview</a></li>
+                                    <li><a href="#about#leadership">Leadership Team</a></li>
+                                    <li><a href="#about#culture">Careers & Culture</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Sustainability</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/sustainability">Our Approach</a></li>
-                                    <li><a href="/sustainability#pillars">Key Pillars</a></li>
-                                    <li><a href="/sustainability#practices">Practices</a></li>
+                                    <li><a href="#sustainability">Our Approach</a></li>
+                                    <li><a href="#sustainability#pillars">Key Pillars</a></li>
+                                    <li><a href="#sustainability#practices">Practices</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Connect</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/contact">Global Offices</a></li>
-                                    <li><a href="/contact#contact-details">Project Enquiry</a></li>
-                                    <li><a href="/contact#regions-media">Media Relations</a></li>
+                                    <li><a href="#contact">Global Offices</a></li>
+                                    <li><a href="#contact#contact-details">Project Enquiry</a></li>
+                                    <li><a href="#contact#regions-media">Media Relations</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
@@ -50,40 +50,40 @@ export const components = {
                         </div>
                     </div>
                     <div class="nav-item-has-mega">
-                        <a href="/capabilities" class="nav-link">Capabilities</a>
+                        <a href="#capabilities" class="nav-link">Capabilities</a>
                         <div class="mega-menu">
                             <div class="mega-col">
                                 <h5>Marine & Coastal</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/marine">Overview</a></li>
-                                    <li><a href="/marine#marine-services">Services</a></li>
+                                    <li><a href="#marine">Overview</a></li>
+                                    <li><a href="#marine#marine-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Transport</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/transport">Overview</a></li>
-                                    <li><a href="/transport#transport-services">Services</a></li>
+                                    <li><a href="#transport">Overview</a></li>
+                                    <li><a href="#transport#transport-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Energy</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/energy">Overview</a></li>
-                                    <li><a href="/energy#energy-services">Services</a></li>
+                                    <li><a href="#energy">Overview</a></li>
+                                    <li><a href="#energy#energy-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Construction Systems</h5>
                                 <ul class="mega-links">
-                                    <li><a href="/systems">Precast & GFRG</a></li>
-                                    <li><a href="/systems#technologies">Technologies</a></li>
+                                    <li><a href="#systems">Precast & GFRG</a></li>
+                                    <li><a href="#systems#technologies">Technologies</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <a href="/sustainability" class="nav-link">Sustainability</a>
-                    <a href="/contact" class="nav-link">Contact</a>
+                    <a href="#sustainability" class="nav-link">Sustainability</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@ export const components = {
     <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-col brand-col">
-                <a href="/" class="logo nav-link mb-4">
+                <a href="#" class="logo nav-link mb-4">
                     <div class="logo-crop">
                         <img src="${getImagePath('logo-master.png')}" alt="SapthaVarnah Logo" class="logo-img-master">
                     </div>
@@ -108,20 +108,20 @@ export const components = {
             <div class="footer-col">
                 <h5>Capabilities</h5>
                 <ul class="footer-links">
-                    <li><a href="/marine" class="nav-link">Marine & Coastal</a></li>
-                    <li><a href="/transport" class="nav-link">Transport</a></li>
-                    <li><a href="/energy" class="nav-link">Energy</a></li>
-                    <li><a href="/systems" class="nav-link">Construction Systems</a></li>
+                    <li><a href="#marine" class="nav-link">Marine & Coastal</a></li>
+                    <li><a href="#transport" class="nav-link">Transport</a></li>
+                    <li><a href="#energy" class="nav-link">Energy</a></li>
+                    <li><a href="#systems" class="nav-link">Construction Systems</a></li>
                 </ul>
             </div>
 
             <div class="footer-col">
                 <h5>Company</h5>
                 <ul class="footer-links">
-                    <li><a href="/about" class="nav-link">About SVGT</a></li>
-                    <li><a href="/about#leadership" class="nav-link">Leadership</a></li>
-                    <li><a href="/sustainability" class="nav-link">Sustainability</a></li>
-                    <li><a href="/contact" class="nav-link">Contact</a></li>
+                    <li><a href="#about" class="nav-link">About SVGT</a></li>
+                    <li><a href="#about#leadership" class="nav-link">Leadership</a></li>
+                    <li><a href="#sustainability" class="nav-link">Sustainability</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </div>
 
@@ -139,7 +139,7 @@ export const components = {
             <div class="legal-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
-                <a href="/admin.html" class="admin-link">Admin</a>
+                <a href="#admin.html" class="admin-link">Admin</a>
             </div>
         </div>
     </footer>
