@@ -593,7 +593,7 @@
                         <input type="text" class="form-control" id="form-role" value="${escapeHTML(data.role || '')}">
                     </div>
                     <div class="form-group">
-                        <label>Bio</label>
+                        <label>Bio <button type="button" class="ai-gen-btn" onclick="aiGenerateBio()"><i class="fas fa-robot"></i> Generate</button></label>
                         <textarea class="form-control" id="form-bio">${escapeHTML(data.bio || '')}</textarea>
                     </div>
                     <div class="form-group">
@@ -624,7 +624,7 @@
                         <input type="text" class="form-control" id="form-category" value="${escapeHTML(data.category || '')}">
                     </div>
                     <div class="form-group">
-                        <label>Description</label>
+                        <label>Description <button type="button" class="ai-gen-btn" onclick="aiGenerateDescription()"><i class="fas fa-robot"></i> Generate</button></label>
                         <textarea class="form-control" id="form-description">${escapeHTML(data.description || '')}</textarea>
                     </div>
                     <div class="form-group">
@@ -993,6 +993,92 @@
             const prompt = `Improve the following text while keeping the same meaning and length. Make it more professional and engaging:\n\n${text}`;
             const systemPrompt = 'You are a professional editor. Improve text clarity and professionalism. Return only the improved text without quotation marks.';
             return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        // ===== AI FORM HELPERS =====
+        async function aiGenerateBio() {
+            const name = document.getElementById('form-name')?.value || '';
+            const role = document.getElementById('form-role')?.value || '';
+            
+            if (!name || !role) {
+                showToast('Please enter name and role first', 'error');
+                return;
+            }
+            
+            try {
+                showToast('Generating bio...', 'info');
+                const bio = await generateBio(name, role);
+                document.getElementById('form-bio').value = bio;
+                showToast('Bio generated!', 'success');
+            } catch (error) {
+                showToast('Failed to generate bio: ' + error.message, 'error');
+            }
+        }
+        
+        async function aiGenerateDescription() {
+            const title = document.getElementById('form-title')?.value || '';
+            const category = document.getElementById('form-category')?.value || '';
+            
+            if (!title) {
+                showToast('Please enter a title first', 'error');
+                return;
+            }
+            
+            try {
+                showToast('Generating description...', 'info');
+                const desc = await generateDescription(title + (category ? ` (${category})` : ''));
+                document.getElementById('form-description').value = desc;
+                showToast('Description generated!', 'success');
+            } catch (error) {
+                showToast('Failed to generate description: ' + error.message, 'error');
+            }
+        }
+        
+        async function aiImproveField(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field || !field.value.trim()) {
+                showToast('Please enter some text first', 'error');
+                return;
+            }
+            
+            try {
+                showToast('Improving text...', 'info');
+                const improved = await improveText(field.value);
+                field.value = improved;
+                showToast('Text improved!', 'success');
+            } catch (error) {
+                showToast('Failed to improve text: ' + error.message, 'error');
+            }
+        }
+        
+        async function aiTranslate(text, targetLang = 'Hindi') {
+            const prompt = `Translate the following text to ${targetLang}. Return only the translation:\n\n${text}`;
+            const systemPrompt = 'You are a professional translator. Translate accurately and naturally.';
+            return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        async function aiSummarize(text) {
+            const prompt = `Summarize the following text in 1-2 sentences:\n\n${text}`;
+            const systemPrompt = 'You are an expert at concise summaries.';
+            return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        async function aiGenerateSEO(title) {
+            const prompt = `Generate SEO meta description (max 160 characters) for a page titled "${title}" on SapthaVarnah Geo Technologies website. The company specializes in marine infrastructure and geo-engineering consultancy.`;
+            const systemPrompt = 'You are an SEO expert. Write compelling meta descriptions that drive clicks.';
+            return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        async function aiGenerateTagline() {
+            try {
+                showToast('Generating tagline...', 'info');
+                const prompt = 'Generate a professional tagline for SapthaVarnah Geo Technologies, a marine infrastructure and geo-engineering consultancy. Keep it under 10 words.';
+                const result = await callGroqAPI(prompt, 'You are a branding expert. Write memorable taglines.');
+                showToast('Tagline: ' + result, 'success');
+                return result;
+            } catch (error) {
+                showToast('Failed: ' + error.message, 'error');
+            }
         }
         
         // AI Chat Assistant
