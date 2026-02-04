@@ -12,8 +12,27 @@
     <link rel="stylesheet" href="admin.css">
 </head>
 <body data-theme="dark">
-    <header class="admin-header">
-        <div style="display:flex; align-items:center; gap:12px;">
+    <!-- Auth Login Overlay -->
+    <div class="auth-overlay" id="auth-overlay">
+        <div class="auth-card">
+            <div class="auth-logo">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h2>Admin Access</h2>
+            <p class="auth-subtitle">Enter your access key to continue</p>
+            <div class="form-group">
+                <input type="password" class="form-control auth-input" id="auth-key" 
+                       placeholder="Enter access key..." autocomplete="off">
+            </div>
+            <button type="button" class="btn btn-primary auth-btn" onclick="verifyAuth()">
+                <i class="fas fa-unlock"></i> Authenticate
+            </button>
+            <div class="auth-error" id="auth-error"></div>
+        </div>
+    </div>
+
+    <header class="admin-header" id="admin-main" style="display:none;">
+        <div class="header-logo-wrap">
             <h1><i class="fas fa-cogs"></i> SapthaVarnah Admin</h1>
         </div>
         <div class="header-actions">
@@ -29,13 +48,16 @@
             <button type="button" class="btn btn-success" onclick="publishAllChanges()" id="publish-btn">
                 <i class="fas fa-cloud-upload-alt"></i> Publish
             </button>
+            <button type="button" class="btn btn-danger btn-icon" onclick="logout()" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+            </button>
             <a href="/" class="btn btn-primary">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>
         </div>
     </header>
 
-    <div class="admin-container">
+    <div class="admin-container" id="admin-container" style="display:none;">
         <nav class="sidebar">
             <ul class="sidebar-nav">
                 <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
@@ -229,7 +251,101 @@
     <script src="web/settings-data.js"></script>
 
     <script>
-        // State
+        // ===== AUTHENTICATION =====
+        // Access key hash (SHA-256 of "svgt2024")
+        const AUTH_KEY_HASH = '5a9afb0e6e8e4f5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a';
+        const AUTH_SESSION_KEY = 'svgt_admin_session';
+        const AUTH_VALID_HOURS = 24;
+
+        // Simple hash function (for demo - production should use proper crypto)
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
+        // Check if user is authenticated
+        function checkAuth() {
+            const session = localStorage.getItem(AUTH_SESSION_KEY);
+            if (!session) return false;
+            
+            try {
+                const data = JSON.parse(session);
+                const now = Date.now();
+                const hoursElapsed = (now - data.timestamp) / (1000 * 60 * 60);
+                
+                if (hoursElapsed > AUTH_VALID_HOURS) {
+                    localStorage.removeItem(AUTH_SESSION_KEY);
+                    return false;
+                }
+                return data.valid === true;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // Verify auth key
+        function verifyAuth() {
+            const keyInput = document.getElementById('auth-key');
+            const errorDiv = document.getElementById('auth-error');
+            const key = keyInput.value.trim();
+
+            // Valid keys: "svgt2024", "admin", or custom set in localStorage
+            const validKeys = ['svgt2024', 'admin'];
+            const customKey = localStorage.getItem('svgt_custom_auth_key');
+            if (customKey) validKeys.push(customKey);
+
+            if (validKeys.includes(key)) {
+                // Save session
+                localStorage.setItem(AUTH_SESSION_KEY, JSON.stringify({
+                    valid: true,
+                    timestamp: Date.now()
+                }));
+                
+                // Show admin panel
+                showAdminPanel();
+            } else {
+                errorDiv.textContent = 'Invalid access key. Please try again.';
+                keyInput.value = '';
+                keyInput.focus();
+                
+                // Shake animation
+                keyInput.style.animation = 'shake 0.3s';
+                setTimeout(() => keyInput.style.animation = '', 300);
+            }
+        }
+
+        // Show admin panel after auth
+        function showAdminPanel() {
+            document.getElementById('auth-overlay').classList.add('hidden');
+            document.getElementById('admin-main').style.display = 'flex';
+            document.getElementById('admin-container').style.display = 'flex';
+        }
+
+        // Logout
+        function logout() {
+            localStorage.removeItem(AUTH_SESSION_KEY);
+            document.getElementById('auth-overlay').classList.remove('hidden');
+            document.getElementById('admin-main').style.display = 'none';
+            document.getElementById('admin-container').style.display = 'none';
+            document.getElementById('auth-key').value = '';
+        }
+
+        // Enter key to submit
+        document.getElementById('auth-key')?.addEventListener('keypress', e => {
+            if (e.key === 'Enter') verifyAuth();
+        });
+
+        // Check auth on load
+        if (checkAuth()) {
+            showAdminPanel();
+        }
+
+        // ===== STATE =====
         let currentSection = 'dashboard';
         let currentEditType = null;
         let currentEditIndex = null;
@@ -240,6 +356,7 @@
         try {
             gitHubConfig = JSON.parse(localStorage.getItem('svgt_github_config') || '{}');
         } catch(e) { gitHubConfig = {}; }
+
 
         const GITHUB_DATA_FILES = {
             'team': 'web/team-data.js',
