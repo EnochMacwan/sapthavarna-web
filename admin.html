@@ -4,176 +4,432 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SapthaVarnah Admin</title>
-    <link rel="stylesheet" href="web/style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { padding: 0; display: flex; min-height: 100vh; background-color: #f0f2f5; }
-        
+        :root {
+            --bg-color: #f6f5f2;
+            --text-primary: #1c1c1c;
+            --text-secondary: #5a5a5a;
+            --page-accent: #003366;
+            --accent-energy: #9C4221;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
         .admin-sidebar {
-            width: 250px;
+            width: 260px;
             background: #fff;
-            padding: 30px;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.05);
+            padding: 30px 25px;
+            box-shadow: 4px 0 20px rgba(0,0,0,0.05);
             position: fixed;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--page-accent);
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--page-accent), var(--accent-energy));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .admin-menu {
+            flex: 1;
         }
 
         .admin-menu a {
-            display: block;
-            padding: 12px 20px;
-            color: #5a5a5a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 18px;
+            color: var(--text-secondary);
             text-decoration: none;
             border-radius: 12px;
             margin-bottom: 8px;
             font-weight: 500;
-            transition: 0.2s;
+            font-size: 0.95rem;
+            transition: all 0.25s ease;
         }
 
-        .admin-menu a:hover, .admin-menu a.active {
+        .admin-menu a:hover {
+            background: rgba(0, 51, 102, 0.08);
+            color: var(--page-accent);
+        }
+
+        .admin-menu a.active {
             background: var(--page-accent);
             color: white;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.25);
         }
 
+        .admin-menu-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .sidebar-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .sidebar-footer a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 10px 0;
+            transition: color 0.2s;
+        }
+
+        .sidebar-footer a:hover {
+            color: var(--page-accent);
+        }
+
+        /* Main Content */
         .admin-content {
-            margin-left: 250px;
-            padding: 50px;
-            width: calc(100% - 250px);
+            margin-left: 260px;
+            padding: 40px 50px;
+            width: calc(100% - 260px);
+            min-height: 100vh;
         }
-
-        .editor-form {
-            display: none;
-            max-width: 800px;
-        }
-        .editor-form.active { display: block; }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9rem;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background: #fff;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            color: #333;
-            transition: 0.3s;
-        }
-
-        input[type="text"]:focus, textarea:focus {
-            border-color: var(--page-accent);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
-        }
-
-        textarea { height: 100px; resize: vertical; }
 
         .admin-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
         }
 
-        .status-bar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #333;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: 0.3s;
+        .admin-header h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-primary);
         }
-        
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--page-accent);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.35);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--text-primary);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: #f8f8f8;
+        }
+
+        /* Editor Forms */
+        .editor-form {
+            display: none;
+            max-width: 900px;
+        }
+
+        .editor-form.active {
+            display: block;
+        }
+
+        .page-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-transform: capitalize;
+            color: var(--text-primary);
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .section-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--page-accent);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.06);
+            text-transform: capitalize;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 10px;
+            background: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: var(--page-accent);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.1);
+            background: white;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* Status Toast */
+        .status-toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--text-primary);
+            color: white;
+            padding: 16px 28px;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.35s ease;
+            font-weight: 500;
+            z-index: 1000;
+        }
+
+        .status-toast.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .admin-sidebar {
+                width: 80px;
+                padding: 20px 15px;
+            }
+
+            .admin-logo span,
+            .admin-menu a span,
+            .sidebar-footer span {
+                display: none;
+            }
+
+            .admin-logo {
+                justify-content: center;
+            }
+
+            .admin-menu a {
+                justify-content: center;
+                padding: 14px;
+            }
+
+            .admin-content {
+                margin-left: 80px;
+                width: calc(100% - 80px);
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                display: none;
+            }
+
+            .admin-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .header-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
 
     <aside class="admin-sidebar">
-        <h2 style="margin-bottom: 30px; color: var(--page-accent);">Admin</h2>
+        <div class="admin-logo">
+            <div class="admin-logo-icon">S</div>
+            <span>Admin</span>
+        </div>
         <nav class="admin-menu">
-            <a href="#" onclick="showSection('home')" class="active">Home</a>
-            <a href="#" onclick="showSection('about')">About</a>
-            <a href="#" onclick="showSection('capabilities')">Capabilities</a>
-            <a href="#" onclick="showSection('sustainability')">Sustainability</a>
-            <a href="#" onclick="showSection('contact')">Contact</a>
+            <a href="#" onclick="showSection('home')" class="active">
+                <span>🏠</span>
+                <span>Home</span>
+            </a>
+            <a href="#" onclick="showSection('about')">
+                <span>ℹ️</span>
+                <span>About</span>
+            </a>
+            <a href="#" onclick="showSection('capabilities')">
+                <span>⚙️</span>
+                <span>Capabilities</span>
+            </a>
+            <a href="#" onclick="showSection('sustainability')">
+                <span>🌱</span>
+                <span>Sustainability</span>
+            </a>
+            <a href="#" onclick="showSection('contact')">
+                <span>📧</span>
+                <span>Contact</span>
+            </a>
         </nav>
-        <div style="margin-top: 50px;">
-            <a href="/" target="_blank" style="font-size: 0.8rem; color: #666; border: 1px solid #ddd;">&rarr; View Site</a>
+        <div class="sidebar-footer">
+            <a href="/" target="_blank">
+                <span>🌐</span>
+                <span>View Live Site</span>
+            </a>
         </div>
     </aside>
 
     <main class="admin-content">
         <div class="admin-header">
             <h1>Content Editor</h1>
-            <div style="display: flex; gap: 10px;">
-                <button onclick="downloadConfig()" class="cta-button secondary" style="background:#fff;">Download Config</button>
-                <button onclick="saveChanges()" class="cta-button">Save & Publish Local</button>
+            <div class="header-actions">
+                <button onclick="resetContent()" class="btn btn-secondary">Reset to Default</button>
+                <button onclick="downloadConfig()" class="btn btn-secondary">Download Config</button>
+                <button onclick="saveChanges()" class="btn btn-primary">Save & Publish</button>
             </div>
         </div>
 
         <div id="editor-container"></div>
-
     </main>
 
-    <div id="status-bar" class="status-bar">Saved!</div>
+    <div id="status-toast" class="status-toast">Changes saved!</div>
 
     <script type="module">
         import { defaultContent } from './web/content.js';
 
-        let currentContent = defaultContent;
+        // Deep clone for reset functionality
+        const originalContent = JSON.parse(JSON.stringify(defaultContent));
+        let currentContent = JSON.parse(JSON.stringify(defaultContent));
 
         // Load from storage if exists
         const saved = localStorage.getItem('siteContent');
         if (saved) {
-            currentContent = JSON.parse(saved);
+            try {
+                currentContent = JSON.parse(saved);
+            } catch (e) {
+                console.warn('Failed to parse saved content, using defaults');
+            }
         }
 
         const editorContainer = document.getElementById('editor-container');
-        
-        // Helper to flatten object for form generation logic, or just iterate specific keys
+
         function generateInputs(sectionName, sectionData) {
             let html = `<div id="section-${sectionName}" class="editor-form ${sectionName === 'home' ? 'active' : ''}">`;
-            
-            html += `<h2 class="mb-6" style="text-transform:capitalize;">${sectionName} Page</h2>`;
+            html += `<h2 class="page-title">${sectionName} Page</h2>`;
 
-            // Recursively go through keys
             for (const [groupKey, groupVal] of Object.entries(sectionData)) {
-                 html += `<div class="nm-card mb-6" style="margin-bottom: 30px;">
-                            <h3 style="margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom:10px;">${groupKey}</h3>`;
-                 
-                 for (const [fieldKey, fieldVal] of Object.entries(groupVal)) {
-                     const inputId = `${sectionName}-${groupKey}-${fieldKey}`;
-                     const label = fieldKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()); // camelCase to Tile Case
-                     
-                     if (fieldVal.length > 60) {
-                         html += `
+                html += `<div class="section-card"><h3>${groupKey.replace(/([A-Z])/g, ' $1')}</h3>`;
+
+                for (const [fieldKey, fieldVal] of Object.entries(groupVal)) {
+                    const inputId = `${sectionName}-${groupKey}-${fieldKey}`;
+                    const label = fieldKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+                    const escapedVal = String(fieldVal).replace(/"/g, '&quot;');
+
+                    if (String(fieldVal).length > 80) {
+                        html += `
                             <div class="form-group">
-                                <label>${label}</label>
+                                <label for="${inputId}">${label}</label>
                                 <textarea id="${inputId}" onchange="updateContent('${sectionName}', '${groupKey}', '${fieldKey}', this.value)">${fieldVal}</textarea>
                             </div>`;
-                     } else {
-                         html += `
+                    } else {
+                        html += `
                             <div class="form-group">
-                                <label>${label}</label>
-                                <input type="text" id="${inputId}" value="${fieldVal}" onchange="updateContent('${sectionName}', '${groupKey}', '${fieldKey}', this.value)">
+                                <label for="${inputId}">${label}</label>
+                                <input type="text" id="${inputId}" value="${escapedVal}" onchange="updateContent('${sectionName}', '${groupKey}', '${fieldKey}', this.value)">
                             </div>`;
-                     }
-                 }
-                 html += `</div>`;
+                    }
+                }
+                html += `</div>`;
             }
 
             html += `</div>`;
@@ -187,43 +443,51 @@
         }
         editorContainer.innerHTML = allForms;
 
-        // Make update function global
+        // Global functions
         window.updateContent = (page, group, field, value) => {
             currentContent[page][group][field] = value;
         };
 
         window.saveChanges = () => {
             localStorage.setItem('siteContent', JSON.stringify(currentContent));
-            showStatus("Changes saved to LocalStorage! Check the main site tab.");
+            showToast("✓ Changes saved! Refresh the main site to see updates.");
         };
 
         window.downloadConfig = () => {
-             const dataStr = "export const defaultContent = " + JSON.stringify(currentContent, null, 4) + ";";
-             const blob = new Blob([dataStr], { type: "text/javascript" });
-             const url = URL.createObjectURL(blob);
-             const a = document.createElement("a");
-             a.href = url;
-             a.download = "content.js";
-             document.body.appendChild(a);
-             a.click();
-             document.body.removeChild(a);
+            const dataStr = "export const defaultContent = " + JSON.stringify(currentContent, null, 4) + ";";
+            const blob = new Blob([dataStr], { type: "text/javascript" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "content.js";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast("✓ Config file downloaded!");
+        };
+
+        window.resetContent = () => {
+            if (confirm('Reset all content to defaults? This cannot be undone.')) {
+                localStorage.removeItem('siteContent');
+                currentContent = JSON.parse(JSON.stringify(originalContent));
+                location.reload();
+            }
         };
 
         window.showSection = (sectionId) => {
             document.querySelectorAll('.editor-form').forEach(el => el.classList.remove('active'));
             document.querySelector(`#section-${sectionId}`).classList.add('active');
-            
+
             document.querySelectorAll('.admin-menu a').forEach(el => el.classList.remove('active'));
-            event.target.classList.add('active');
+            event.target.closest('a').classList.add('active');
         };
 
-        function showStatus(msg) {
-            const bar = document.getElementById('status-bar');
-            bar.innerText = msg;
-            bar.style.opacity = 1;
-            setTimeout(() => bar.style.opacity = 0, 3000);
+        function showToast(msg) {
+            const toast = document.getElementById('status-toast');
+            toast.textContent = msg;
+            toast.classList.add('visible');
+            setTimeout(() => toast.classList.remove('visible'), 3000);
         }
-
     </script>
 </body>
 </html>
