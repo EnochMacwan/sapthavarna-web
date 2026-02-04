@@ -801,6 +801,16 @@ nav {
   color: var(--text-secondary);
 }
 
+.legal-links .admin-link {
+  opacity: 0.5;
+  font-size: 0.7rem;
+}
+
+.legal-links .admin-link:hover {
+  opacity: 1;
+  color: var(--page-accent);
+}
+
 @media (max-width: 992px) {
   .footer-grid {
     grid-template-columns: 1fr 1fr;
