@@ -2,14 +2,17 @@ export class SpectrumAnimation {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
         if (!this.canvas) return;
-        this.ctx = this.canvas.getContext('2d');
+        this.ctx = this.canvas.getContext('2d', { alpha: true });
         this.particles = [];
         this.sparks = [];
         this.worker = { x: 0, y: 0, tx: 0, ty: 0, state: 'idle', targetIdx: -1, weldTime: 0, frame: 0 };
         this.mouse = { x: -1000, y: -1000 };
-        this.dpr = window.devicePixelRatio || 1;
+        
+        // High-DPI scaling (clamp to max 3x for performance)
+        this.dpr = Math.min(window.devicePixelRatio || 1, 3);
+        
         this.themeColor = '#003366'; // Cement Grey/Blue
-        this.accentColor = '#9c4221'; // Brick Red
+        this.accentColor = '#C69061'; // Warm accent (brand color)
         
         this.active = true;
 
@@ -37,20 +40,27 @@ export class SpectrumAnimation {
         this.particles = [];
         this.sparks = [];
         
+        // High-res text rendering canvas
         const tempCanvas = document.createElement('canvas');
         const tctx = tempCanvas.getContext('2d');
-        const w = 1100, h = 200;
+        
+        // Scale up for crisp text sampling
+        const textScale = 2;
+        const w = 1200 * textScale, h = 220 * textScale;
         tempCanvas.width = w; tempCanvas.height = h;
         
         tctx.fillStyle = 'black';
-        tctx.font = 'bold 90px Inter';
+        tctx.font = `bold ${100 * textScale}px Inter, system-ui, sans-serif`;
         tctx.textAlign = 'center';
-        tctx.fillText('SAPTHAVARNAH', w/2, h/2 + 30);
+        tctx.textBaseline = 'middle';
+        tctx.fillText('SAPTHAVARNAH', w/2, h/2);
         
         const imageData = tctx.getImageData(0, 0, w, h).data;
-        // Optimization: Increase gap for mobile devices to reduce particle count
+        
+        // Adaptive particle density based on screen size
         const isMobile = window.innerWidth < 768;
-        const gap = isMobile ? 12 : 8; 
+        const isHighDPI = this.dpr >= 2;
+        const gap = isMobile ? 14 * textScale : (isHighDPI ? 6 * textScale : 8 * textScale);
         
         const cw = (this.canvas.width / this.dpr);
         const ch = (this.canvas.height / this.dpr);
@@ -59,9 +69,12 @@ export class SpectrumAnimation {
             for (let x = 0; x < w; x += gap) {
                 const index = (y * w + x) * 4;
                 if (imageData[index + 3] > 128) {
-                    const tx = cw/2 - w/2 + x;
-                    const ty = ch * 0.82 - h/2 + y; // Lowered even more for balance
+                    const tx = cw/2 - (w/textScale)/2 + x/textScale;
+                    const ty = ch * 0.82 - (h/textScale)/2 + y/textScale;
                     const isBrick = Math.random() > 0.4;
+                    
+                    // Larger, crisper particles for high-DPI
+                    const baseSize = isBrick ? 8 : 5;
                     
                     this.particles.push({
                         tx, ty,
@@ -69,7 +82,7 @@ export class SpectrumAnimation {
                         y: -Math.random() * 1500 - 100,
                         vx: 0, vy: 5 + Math.random() * 10,
                         c: isBrick ? this.accentColor : this.themeColor,
-                        size: isBrick ? 7 : 4, // Chunkier bricks
+                        size: baseSize,
                         delay: Math.random() * 150,
                         landed: false, welded: false, bounce: 0
                     });
@@ -80,16 +93,28 @@ export class SpectrumAnimation {
         this.worker = { 
             x: cw/2, y: ch, tx: cw/2, ty: ch*0.8, 
             state: 'idle', targetIdx: -1, weldTime: 0, frame: 0,
-            scale: 1.5 // Scaled up worker presence
+            scale: 1.8 // Larger worker for visibility
         };
     }
 
     resize() {
         if (!this.canvas) return;
         const p = this.canvas.parentElement;
+        
+        // Set canvas size with proper DPI scaling
         this.canvas.width = p.offsetWidth * this.dpr;
         this.canvas.height = p.offsetHeight * this.dpr;
+        
+        // Set CSS size
+        this.canvas.style.width = p.offsetWidth + 'px';
+        this.canvas.style.height = p.offsetHeight + 'px';
+        
+        // Reset and scale context
+        this.ctx.setTransform(1, 0, 0, 1, 0, 0);
         this.ctx.scale(this.dpr, this.dpr);
+        
+        // Enable crisp rendering
+        this.ctx.imageSmoothingEnabled = false;
     }
 
     handleMouseMove(e) {
@@ -131,6 +156,16 @@ export class SpectrumAnimation {
         if (this.worker.state === 'welding') {
             if (this.worker.weldTime > 0) {
                 this.worker.weldTime--;
+                // Add welding sparks
+                if (Math.random() > 0.5) {
+                    this.sparks.push({
+                        x: this.worker.x + 10,
+                        y: this.worker.y - 15,
+                        vx: (Math.random() - 0.5) * 8,
+                        vy: -Math.random() * 6 - 2,
+                        life: 20 + Math.random() * 20
+                    });
+                }
             } else {
                 if (this.worker.targetIdx !== -1) this.particles[this.worker.targetIdx].welded = true;
                 this.worker.state = 'idle';
@@ -182,7 +217,7 @@ export class SpectrumAnimation {
         const cw = this.canvas.width / this.dpr, ch = this.canvas.height / this.dpr;
         this.ctx.clearRect(0, 0, cw, ch);
         
-        // Bricks/Particles
+        // Draw particles (bricks)
         this.ctx.shadowBlur = 0;
         this.particles.forEach(p => {
             if (p.delay > 0) { p.delay--; return; }
@@ -194,11 +229,32 @@ export class SpectrumAnimation {
                 if (p.bounce > 0) { p.y -= p.bounce; p.bounce *= -0.5; }
             }
             this.ctx.fillStyle = p.c;
-            this.ctx.fillRect(p.x, p.y, p.size, p.size * 0.6);
+            // Use rounded rectangles for crisper appearance
+            this.ctx.beginPath();
+            this.ctx.roundRect(p.x, p.y, p.size, p.size * 0.6, 1);
+            this.ctx.fill();
+            
+            // Highlight on welded bricks
             if (p.welded) {
-                this.ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-                this.ctx.fillRect(p.x, p.y, p.size, p.size * 0.1);
+                this.ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                this.ctx.fillRect(p.x, p.y, p.size, p.size * 0.15);
             }
+        });
+
+        // Draw welding sparks
+        this.sparks = this.sparks.filter(s => {
+            s.x += s.vx;
+            s.y += s.vy;
+            s.vy += 0.3;
+            s.life--;
+            
+            const alpha = s.life / 40;
+            this.ctx.fillStyle = `rgba(255, 200, 50, ${alpha})`;
+            this.ctx.beginPath();
+            this.ctx.arc(s.x, s.y, 2, 0, Math.PI * 2);
+            this.ctx.fill();
+            
+            return s.life > 0;
         });
 
         this.updateWorker();
