@@ -57,10 +57,10 @@ export class SpectrumAnimation {
         
         const imageData = tctx.getImageData(0, 0, w, h).data;
         
-        // Adaptive particle density based on screen size
+        // Higher particle density for denser text
         const isMobile = window.innerWidth < 768;
         const isHighDPI = this.dpr >= 2;
-        const gap = isMobile ? 14 * textScale : (isHighDPI ? 6 * textScale : 8 * textScale);
+        const gap = isMobile ? 8 * textScale : (isHighDPI ? 4 * textScale : 5 * textScale);
         
         const cw = (this.canvas.width / this.dpr);
         const ch = (this.canvas.height / this.dpr);
