@@ -3,659 +3,718 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SapthaVarnah Admin</title>
+    <title>SapthaVarnah Admin Panel</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #f6f5f2;
-            --text-primary: #1c1c1c;
-            --text-secondary: #5a5a5a;
-            --page-accent: #003366;
-            --accent-energy: #9C4221;
-            --success: #10b981;
-            --danger: #ef4444;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .admin-sidebar {
-            width: 260px;
-            background: #fff;
-            padding: 30px 25px;
-            box-shadow: 4px 0 20px rgba(0,0,0,0.05);
-            position: fixed;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-
-        .admin-logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--page-accent);
-            margin-bottom: 40px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .admin-logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--page-accent), var(--accent-energy));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-        }
-
-        .admin-menu { flex: 1; }
-
-        .admin-menu a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 18px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            font-weight: 500;
-            font-size: 0.95rem;
-            transition: all 0.25s ease;
-        }
-
-        .admin-menu a:hover {
-            background: rgba(0, 51, 102, 0.08);
-            color: var(--page-accent);
-        }
-
-        .admin-menu a.active {
-            background: var(--page-accent);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.25);
-        }
-
-        .sidebar-footer {
-            padding-top: 20px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .sidebar-footer a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 10px 0;
-        }
-
-        .admin-content {
-            margin-left: 260px;
-            padding: 40px 50px;
-            width: calc(100% - 260px);
-            min-height: 100vh;
-        }
-
-        .admin-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .admin-header h1 { font-size: 1.8rem; font-weight: 600; }
-
-        .header-actions { display: flex; gap: 12px; }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            border: none;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .btn-primary {
-            background: var(--page-accent);
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 51, 102, 0.25);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 51, 102, 0.35);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: var(--text-primary);
-            border: 1px solid rgba(0,0,0,0.1);
-        }
-
-        .btn-success {
-            background: var(--success);
-            color: white;
-        }
-
-        .btn-danger {
-            background: transparent;
-            color: var(--danger);
-            border: 1px solid var(--danger);
-            padding: 8px 16px;
-            font-size: 0.8rem;
-        }
-
-        .btn-add {
-            background: transparent;
-            color: var(--page-accent);
-            border: 2px dashed var(--page-accent);
-            width: 100%;
-            padding: 20px;
-            margin-top: 15px;
-            font-size: 0.9rem;
-        }
-
-        .btn-add:hover {
-            background: rgba(0, 51, 102, 0.05);
-        }
-
-        .editor-form { display: none; max-width: 1000px; }
-        .editor-form.active { display: block; }
-
-        .page-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            text-transform: capitalize;
-        }
-
-        .section-card {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.04);
-        }
-
-        .section-card h3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: var(--page-accent);
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            text-transform: capitalize;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .array-badge {
-            background: rgba(0, 51, 102, 0.1);
-            color: var(--page-accent);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group:last-child { margin-bottom: 0; }
-
-        .array-item {
-            background: var(--bg-color);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .array-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .array-item-header span {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 10px;
-            background: white;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            color: var(--text-primary);
-            transition: all 0.25s ease;
-        }
-
-        input[type="text"]:focus, textarea:focus {
-            border-color: var(--page-accent);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(0, 51, 102, 0.1);
-        }
-
-        textarea { min-height: 100px; resize: vertical; line-height: 1.6; }
-
-        .status-toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: var(--text-primary);
-            color: white;
-            padding: 16px 28px;
-            border-radius: 14px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.35s ease;
-            font-weight: 500;
-            z-index: 1000;
-        }
-
-        .status-toast.visible { opacity: 1; transform: translateY(0); }
-
-        .loading-msg { color: #888; text-align: center; padding: 60px; }
-
-        @media (max-width: 1024px) {
-            .admin-sidebar { width: 80px; padding: 20px 15px; }
-            .admin-logo span, .admin-menu a span:last-child, .sidebar-footer span:last-child { display: none; }
-            .admin-logo { justify-content: center; }
-            .admin-menu a { justify-content: center; padding: 14px; }
-            .admin-content { margin-left: 80px; width: calc(100% - 80px); padding: 30px; }
-        }
-
-        @media (max-width: 768px) {
-            .admin-sidebar { display: none; }
-            .admin-content { margin-left: 0; width: 100%; padding: 20px; }
-            .admin-header { flex-direction: column; gap: 20px; text-align: center; }
-            .header-actions { flex-wrap: wrap; justify-content: center; }
-        }
-    </style>
+    <link rel="stylesheet" href="admin.css">
 </head>
-<body>
-
-    <aside class="admin-sidebar">
-        <div class="admin-logo">
-            <div class="admin-logo-icon">S</div>
-            <span>Admin</span>
+<body data-theme="dark">
+    <header class="admin-header">
+        <div style="display:flex; align-items:center; gap:12px;">
+            <h1><i class="fas fa-cogs"></i> SapthaVarnah Admin</h1>
         </div>
-        <nav class="admin-menu" id="admin-menu"></nav>
-        <div class="sidebar-footer">
-            <a href="/" target="_blank">
-                <span>🌐</span>
-                <span>View Live Site</span>
+        <div class="header-actions">
+            <button type="button" class="btn btn-secondary btn-icon" onclick="toggleTheme()" title="Toggle Theme">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" onclick="openGitHubConfig()">
+                <i class="fab fa-github"></i> GitHub
+            </button>
+            <button type="button" class="btn btn-primary" onclick="loadDataFromGitHub()">
+                <i class="fas fa-sync"></i> Load
+            </button>
+            <button type="button" class="btn btn-success" onclick="publishAllChanges()" id="publish-btn">
+                <i class="fas fa-cloud-upload-alt"></i> Publish
+            </button>
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-external-link-alt"></i> View Site
             </a>
         </div>
-    </aside>
+    </header>
 
-    <main class="admin-content">
-        <div class="admin-header">
-            <h1>Content Editor</h1>
-            <div class="header-actions">
-                <button type="button" onclick="resetContent()" class="btn btn-secondary">Reset to Default</button>
-                <button type="button" onclick="downloadConfig()" class="btn btn-secondary">Download Config</button>
-                <button type="button" onclick="saveChanges()" class="btn btn-primary">Save & Publish</button>
+    <div class="admin-container">
+        <nav class="sidebar">
+            <ul class="sidebar-nav">
+                <li><a href="#" class="active" data-section="dashboard"><i class="fas fa-chart-pie"></i> Dashboard</a></li>
+                <li><a href="#" data-section="team"><i class="fas fa-users"></i> Team</a></li>
+                <li><a href="#" data-section="services"><i class="fas fa-layer-group"></i> Services</a></li>
+                <li><a href="#" data-section="locations"><i class="fas fa-map-marker-alt"></i> Locations</a></li>
+                <li><a href="#" data-section="content"><i class="fas fa-file-alt"></i> Content</a></li>
+                <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <!-- Dashboard -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="stats-grid" id="stats-grid"></div>
+                <div class="section-header" style="margin-top:30px;">
+                    <h2>Quick Actions</h2>
+                </div>
+                <div style="display:flex; gap:16px; flex-wrap:wrap;">
+                    <button class="btn btn-primary" onclick="showSection('team'); openAddModal('team')">
+                        <i class="fas fa-plus"></i> Add Team Member
+                    </button>
+                    <button class="btn btn-primary" onclick="showSection('services'); openAddModal('services')">
+                        <i class="fas fa-plus"></i> Add Service
+                    </button>
+                    <button class="btn btn-primary" onclick="showSection('locations'); openAddModal('locations')">
+                        <i class="fas fa-plus"></i> Add Location
+                    </button>
+                </div>
+            </section>
+
+            <!-- Team -->
+            <section id="team" class="content-section">
+                <div class="section-header">
+                    <h2>Team Members</h2>
+                    <button class="btn btn-primary" onclick="openAddModal('team')">
+                        <i class="fas fa-plus"></i> Add Member
+                    </button>
+                </div>
+                <div class="items-grid" id="team-grid"></div>
+            </section>
+
+            <!-- Services -->
+            <section id="services" class="content-section">
+                <div class="section-header">
+                    <h2>Services & Capabilities</h2>
+                    <button class="btn btn-primary" onclick="openAddModal('services')">
+                        <i class="fas fa-plus"></i> Add Service
+                    </button>
+                </div>
+                <div class="items-grid" id="services-grid"></div>
+            </section>
+
+            <!-- Locations -->
+            <section id="locations" class="content-section">
+                <div class="section-header">
+                    <h2>Global Locations</h2>
+                    <button class="btn btn-primary" onclick="openAddModal('locations')">
+                        <i class="fas fa-plus"></i> Add Location
+                    </button>
+                </div>
+                <div class="items-grid" id="locations-grid"></div>
+            </section>
+
+            <!-- Content -->
+            <section id="content" class="content-section">
+                <div class="section-header">
+                    <h2>Page Content</h2>
+                </div>
+                <div class="item-card" style="max-width:800px;">
+                    <div class="item-card-content">
+                        <p style="color:var(--text-muted);">Edit page content through the main content.js file. Changes here affect all pages.</p>
+                        <div class="form-group" style="margin-top:20px;">
+                            <label>Hero Title</label>
+                            <input type="text" class="form-control" id="hero-title" placeholder="Engineering the Full Spectrum...">
+                        </div>
+                        <div class="form-group">
+                            <label>Hero Subtitle</label>
+                            <textarea class="form-control" id="hero-subtitle" placeholder="Company tagline..."></textarea>
+                        </div>
+                        <button class="btn btn-success" onclick="saveContent()">
+                            <i class="fas fa-save"></i> Save Content
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings -->
+            <section id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>Global Settings</h2>
+                    <button class="btn btn-success" onclick="saveSettings()">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </div>
+                <div class="item-card" style="max-width:800px;">
+                    <div class="item-card-content">
+                        <div class="form-group">
+                            <label>Company Name</label>
+                            <input type="text" class="form-control" id="company-name" value="SapthaVarnah Geo Technologies">
+                        </div>
+                        <div class="form-group">
+                            <label>Contact Email</label>
+                            <input type="email" class="form-control" id="contact-email" placeholder="info@svgeotech.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Careers Email</label>
+                            <input type="email" class="form-control" id="careers-email" placeholder="careers@svgeotech.com">
+                        </div>
+                        <div class="form-group">
+                            <label>LinkedIn Profile</label>
+                            <input type="url" class="form-control" id="linkedin-url" placeholder="https://linkedin.com/company/...">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">Add Item</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body"></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn btn-success" onclick="saveItem()">
+                    <i class="fas fa-save"></i> Save
+                </button>
             </div>
         </div>
+    </div>
 
-        <div id="editor-container">
-            <p class="loading-msg">Loading content editor...</p>
+    <!-- GitHub Config Modal -->
+    <div class="modal-overlay" id="github-config-overlay">
+        <div class="modal" style="max-width:500px;">
+            <div class="modal-header">
+                <h3><i class="fab fa-github"></i> GitHub Configuration</h3>
+                <button class="modal-close" onclick="closeGitHubConfig()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="color:var(--text-muted); margin-bottom:20px;">
+                    Connect to GitHub to save changes directly to your repository.
+                </p>
+                <div class="form-group">
+                    <label>GitHub Owner/Username</label>
+                    <input type="text" class="form-control" id="github-owner" placeholder="EnochMacwan" value="EnochMacwan">
+                </div>
+                <div class="form-group">
+                    <label>Repository Name</label>
+                    <input type="text" class="form-control" id="github-repo" placeholder="sapthavarna-web" value="sapthavarna-web">
+                </div>
+                <div class="form-group">
+                    <label>Branch</label>
+                    <input type="text" class="form-control" id="github-branch" placeholder="master" value="master">
+                </div>
+                <div class="form-group">
+                    <label>Personal Access Token</label>
+                    <input type="password" class="form-control" id="github-token" placeholder="ghp_xxxx...">
+                    <small style="color:var(--text-muted); display:block; margin-top:8px;">
+                        <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--accent);">Generate token</a> with repo permissions.
+                    </small>
+                </div>
+                <div id="github-status"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeGitHubConfig()">Cancel</button>
+                <button class="btn btn-primary" onclick="testGitHubConnection()">
+                    <i class="fas fa-plug"></i> Test
+                </button>
+                <button class="btn btn-success" onclick="saveGitHubConfig()">
+                    <i class="fas fa-save"></i> Save
+                </button>
+            </div>
         </div>
-    </main>
+    </div>
 
-    <div id="status-toast" class="status-toast">Changes saved!</div>
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Load Data Files -->
+    <script src="web/content.js"></script>
+    <script src="web/team-data.js"></script>
+    <script src="web/services-data.js"></script>
+    <script src="web/locations-data.js"></script>
+    <script src="web/settings-data.js"></script>
 
     <script>
-        // Default content embedded directly
-        const defaultContent = {
-            home: {
-                hero: {
-                    title: "Engineering the Full Spectrum of the Earth",
-                    subtitle: "Marine, transport, energy, and advanced construction solutions across Africa, India, and the Gulf.",
-                    ctaMain: "Explore Capabilities",
-                    ctaSec: "Rebuild Signature"
-                },
-                about: {
-                    title: "Who We Are",
-                    desc1: "SapthaVarnah Geo Technologies is an infrastructure and geo-engineering company delivering climate-resilient, future-ready projects.",
-                    desc2: "Drawing inspiration from the seven colours of the earth, we integrate geology, engineering, and modern construction technologies into every solution."
-                },
-                capabilities: [
-                    { title: "Marine & Coastal Infrastructure", desc: "Ports, berths, breakwaters, coastal protection" },
-                    { title: "Transport Infrastructure", desc: "Aprons, bridges, logistics corridors, runways" },
-                    { title: "Energy Infrastructure", desc: "Renewables, substations, coastal energy assets" },
-                    { title: "Modern Precast Construction", desc: "Industrialised, high-precision structural systems" },
-                    { title: "GFRG Construction Systems", desc: "Rapid, sustainable, lightweight building solutions" }
-                ],
-                closing: {
-                    title: "Infrastructure built with respect for every layer of the earth it touches.",
-                    cta: "Contact SapthaVarnah"
-                }
-            },
-            about: {
-                hero: { label: "Our Philosophy", title: "Harmony with the Earth" },
-                philosophy: {
-                    desc1: "At SapthaVarnah, we believe infrastructure should work in harmony with the earth it is built upon.",
-                    desc2: "Our name reflects the seven colours of the earth — a symbol of diversity, balance, and completeness."
-                },
-                approach: {
-                    label: "Engineering Approach",
-                    title: "Bridging Tradition & Innovation",
-                    desc1: "We deliver integrated solutions spanning planning, engineering, construction, and modern building technologies.",
-                    desc2: "This allows us to meet the critical demands of climate resilience, speed of delivery, and long-term sustainability."
-                },
-                leadershipCards: [
-                    { title: "Regional Knowledge", desc: "Led by professionals with deep experience across marine works, transport infrastructure, and energy projects." },
-                    { title: "Technical Depth", desc: "Our teams integrate regional knowledge with technical depth and execution capability." }
-                ]
-            },
-            capabilities: {
-                hero: { label: "Core Capabilities", title: "Integrated Engineering Solutions" },
-                sectors: [
-                    { id: "marine", label: "Sector 01", title: "Marine & Coastal Infrastructure", desc: "We deliver robust marine infrastructure designed to withstand dynamic coastal and ocean conditions.", image: "marine.png", items: ["Ports & Harbours", "Breakwaters & Revetments", "Coastal Protection", "Marine Foundations"] },
-                    { id: "transport", label: "Sector 02", title: "Transport Infrastructure", desc: "Our transport solutions enhance connectivity and economic growth.", image: "transport.png", items: ["Roads & Highways", "Bridges & Structures", "Logistics Infrastructure"] },
-                    { id: "energy", label: "Sector 03", title: "Energy Infrastructure", desc: "Supporting energy transition and reliability.", image: "energy.png", items: ["Renewable Enabling Works", "Substations & Power", "Coastal Energy Facilities"] }
-                ],
-                systems: {
-                    label: "Sector 04",
-                    title: "Modern Construction Systems",
-                    cards: [
-                        { title: "Precast Construction", desc: "Industrialised precast solutions ensuring quality, speed, and precision.", image: "precast.png" },
-                        { title: "GFRG Systems", desc: "Rapid, lightweight, and sustainable building technology.", image: "gfrg.png" }
-                    ]
-                }
-            },
-            sustainability: {
-                hero: { label: "Sustainability", title: "Responsible Infrastructure" },
-                logic: { label: "Logic", title: "Balanced Performance", desc: "Sustainability at SapthaVarnah is embedded in engineering decisions, material selection, and construction methodology." },
-                focusCards: [
-                    { title: "Climate Adaptation", desc: "Designing coastal and inland infrastructure for long-term climate resilience.", image: "resilience.png" },
-                    { title: "Resource Efficiency", desc: "Utilising industrialised construction methods to reduce material consumption." },
-                    { title: "Asset Performance", desc: "Ensuring infrastructure is built for long-term maintainability." }
-                ],
-                initiatives: [
-                    { title: "Geo-informed design", desc: "Using site-specific geological data to optimize foundation depth." },
-                    { title: "Low-carbon precast", desc: "Shifting construction off-site to reduce waste and energy use." },
-                    { title: "BIM-enabled execution", desc: "Digital twins ensure precision in planning." }
-                ]
-            },
-            contact: {
-                hero: { label: "Get in Touch", title: "Connect with Our Team" },
-                details: { oppsLabel: "Project Opportunities", heading: "We welcome discussions on Infrastructure Challenges across our served regions.", email: "info@svgeotech.com", linkedin: "SapthaVarnah Geo Technologies" },
-                regions: { label: "Regions Served", desc: "Strategically positioned to serve emerging and established hubs.", items: ["Africa", "India", "Gulf Region"] }
-            }
+        // State
+        let currentSection = 'dashboard';
+        let currentEditType = null;
+        let currentEditIndex = null;
+        let pendingChanges = new Set();
+
+        // GitHub Config
+        let gitHubConfig = {};
+        try {
+            gitHubConfig = JSON.parse(localStorage.getItem('svgt_github_config') || '{}');
+        } catch(e) { gitHubConfig = {}; }
+
+        const GITHUB_DATA_FILES = {
+            'team': 'web/team-data.js',
+            'services': 'web/services-data.js',
+            'locations': 'web/locations-data.js',
+            'settings': 'web/settings-data.js',
+            'content': 'web/content.js'
         };
 
-        const originalContent = JSON.parse(JSON.stringify(defaultContent));
-        let currentContent = JSON.parse(JSON.stringify(defaultContent));
-
-        // Load from localStorage
-        const saved = localStorage.getItem('siteContent');
-        if (saved) {
-            try {
-                currentContent = JSON.parse(saved);
-            } catch (e) {
-                console.warn('Failed to parse saved content');
-            }
-        }
-
-        // Generate menu
-        function generateMenu() {
-            const icons = { home: '🏠', about: 'ℹ️', capabilities: '⚙️', sustainability: '🌱', contact: '📧' };
-            const menu = document.getElementById('admin-menu');
-            menu.innerHTML = Object.keys(currentContent).map((page, i) => `
-                <a href="#" onclick="showSection('${page}'); return false;" class="${i === 0 ? 'active' : ''}">
-                    <span>${icons[page] || '📄'}</span>
-                    <span>${page.charAt(0).toUpperCase() + page.slice(1)}</span>
-                </a>
-            `).join('');
-        }
-
-        // Render field input
-        function renderField(path, key, value) {
-            const inputId = path.join('-') + '-' + key;
-            const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
-            const escapedVal = String(value).replace(/"/g, '&quot;');
-            
-            if (String(value).length > 80) {
-                return `<div class="form-group">
-                    <label for="${inputId}">${label}</label>
-                    <textarea id="${inputId}" onchange="updateField(['${path.join("','")}'], '${key}', this.value)">${value}</textarea>
-                </div>`;
-            }
-            return `<div class="form-group">
-                <label for="${inputId}">${label}</label>
-                <input type="text" id="${inputId}" value="${escapedVal}" onchange="updateField(['${path.join("','")}'], '${key}', this.value)">
-            </div>`;
-        }
-
-        // Render array item
-        function renderArrayItem(path, index, item) {
-            const fields = Object.entries(item).map(([key, val]) => {
-                if (Array.isArray(val)) {
-                    return `<div class="form-group">
-                        <label>${key} (comma-separated)</label>
-                        <input type="text" value="${val.join(', ')}" onchange="updateArrayItemList(['${path.join("','")}'], ${index}, '${key}', this.value)">
-                    </div>`;
-                }
-                const inputId = path.join('-') + '-' + index + '-' + key;
-                const label = key.replace(/([A-Z])/g, ' $1').replace(/^./, s => s.toUpperCase());
-                return `<div class="form-group">
-                    <label for="${inputId}">${label}</label>
-                    <input type="text" id="${inputId}" value="${String(val).replace(/"/g, '&quot;')}" onchange="updateArrayItem(['${path.join("','")}'], ${index}, '${key}', this.value)">
-                </div>`;
-            }).join('');
-
-            return `<div class="array-item">
-                <div class="array-item-header">
-                    <span>Item ${index + 1}</span>
-                    <button type="button" class="btn btn-danger" onclick="removeArrayItem(['${path.join("','")}'], ${index})">Remove</button>
-                </div>
-                ${fields}
-            </div>`;
-        }
-
-        // Render section
-        function renderSection(pageName, sectionName, sectionData, path) {
-            const currentPath = [...path, sectionName];
-            
-            if (Array.isArray(sectionData)) {
-                const items = sectionData.map((item, i) => renderArrayItem(currentPath, i, item)).join('');
-                return `<div class="section-card">
-                    <h3>${sectionName.replace(/([A-Z])/g, ' $1')} <span class="array-badge">${sectionData.length} items</span></h3>
-                    ${items}
-                    <button type="button" class="btn btn-add" onclick="addArrayItem(['${currentPath.join("','")}'])">+ Add New Item</button>
-                </div>`;
-            }
-            
-            if (typeof sectionData === 'object') {
-                let html = `<div class="section-card"><h3>${sectionName.replace(/([A-Z])/g, ' $1')}</h3>`;
-                for (const [key, val] of Object.entries(sectionData)) {
-                    if (Array.isArray(val)) {
-                        const nestedPath = [...currentPath, key];
-                        const items = val.map((item, i) => {
-                            if (typeof item === 'object') {
-                                return renderArrayItem(nestedPath, i, item);
-                            }
-                            return `<div class="form-group">
-                                <input type="text" value="${item}" onchange="updateSimpleArrayItem(['${nestedPath.join("','")}'], ${i}, this.value)">
-                            </div>`;
-                        }).join('');
-                        html += `<div style="margin-top: 20px; padding: 15px; background: var(--bg-color); border-radius: 12px;">
-                            <label style="font-weight: 600; margin-bottom: 15px;">${key} <span class="array-badge">${val.length} items</span></label>
-                            ${items}
-                            <button type="button" class="btn btn-add" onclick="addArrayItem(['${nestedPath.join("','")}'])">+ Add</button>
-                        </div>`;
-                    } else if (typeof val === 'object') {
-                        const nested = Object.entries(val).map(([k, v]) => renderField(currentPath, k, v)).join('');
-                        html += `<div style="margin-top: 20px; padding: 15px; background: var(--bg-color); border-radius: 12px;">
-                            <label style="font-weight: 600; margin-bottom: 15px;">${key}</label>
-                            ${nested}
-                        </div>`;
-                    } else {
-                        html += renderField(currentPath, key, val);
-                    }
-                }
-                html += `</div>`;
-                return html;
-            }
-            
-            return '';
-        }
-
-        // Render all forms
-        function renderEditor() {
-            const container = document.getElementById('editor-container');
-            let html = '';
-            
-            for (const [page, data] of Object.entries(currentContent)) {
-                let pageHtml = `<div id="section-${page}" class="editor-form ${page === 'home' ? 'active' : ''}">`;
-                pageHtml += `<h2 class="page-title">${page} Page</h2>`;
-                
-                for (const [sectionName, sectionData] of Object.entries(data)) {
-                    pageHtml += renderSection(page, sectionName, sectionData, [page]);
-                }
-                
-                pageHtml += `</div>`;
-                html += pageHtml;
-            }
-            
-            container.innerHTML = html;
-        }
-
-        // Update functions
-        function updateField(path, key, value) {
-            let obj = currentContent;
-            for (const p of path) obj = obj[p];
-            obj[key] = value;
-        }
-
-        function updateArrayItem(path, index, key, value) {
-            let obj = currentContent;
-            for (const p of path) obj = obj[p];
-            obj[index][key] = value;
-        }
-
-        function updateArrayItemList(path, index, key, value) {
-            let obj = currentContent;
-            for (const p of path) obj = obj[p];
-            obj[index][key] = value.split(',').map(s => s.trim()).filter(s => s);
-        }
-
-        function updateSimpleArrayItem(path, index, value) {
-            let obj = currentContent;
-            for (const p of path) obj = obj[p];
-            obj[index] = value;
-        }
-
-        function addArrayItem(path) {
-            let obj = currentContent;
-            for (const p of path) obj = obj[p];
-            
-            if (obj.length > 0 && typeof obj[0] === 'object') {
-                const template = {};
-                for (const key of Object.keys(obj[0])) {
-                    template[key] = Array.isArray(obj[0][key]) ? [] : '';
-                }
-                obj.push(template);
-            } else {
-                obj.push('New Item');
-            }
-            renderEditor();
-        }
-
-        function removeArrayItem(path, index) {
-            if (!confirm('Remove this item?')) return;
-            let obj = currentContent;
-            for (const p of path) obj = obj[p];
-            obj.splice(index, 1);
-            renderEditor();
-        }
-
-        function saveChanges() {
-            localStorage.setItem('siteContent', JSON.stringify(currentContent));
-            showToast("✓ Changes saved! Refresh the main site to see updates.");
-        }
-
-        function downloadConfig() {
-            const dataStr = "export const defaultContent = " + JSON.stringify(currentContent, null, 4) + ";";
-            const blob = new Blob([dataStr], { type: "text/javascript" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "content.js";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            showToast("✓ Config file downloaded!");
-        }
-
-        function resetContent() {
-            if (confirm('Reset all content to defaults? This cannot be undone.')) {
-                localStorage.removeItem('siteContent');
-                currentContent = JSON.parse(JSON.stringify(originalContent));
-                location.reload();
-            }
-        }
-
-        function showSection(sectionId) {
-            document.querySelectorAll('.editor-form').forEach(el => el.classList.remove('active'));
-            document.querySelector(`#section-${sectionId}`)?.classList.add('active');
-            document.querySelectorAll('.admin-menu a').forEach(el => el.classList.remove('active'));
-            event.target.closest('a').classList.add('active');
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('status-toast');
-            toast.textContent = msg;
-            toast.classList.add('visible');
-            setTimeout(() => toast.classList.remove('visible'), 3000);
-        }
+        const GITHUB_VAR_NAMES = {
+            'team': 'TEAM_DATA',
+            'services': 'SERVICES_DATA',
+            'locations': 'LOCATIONS_DATA',
+            'settings': 'SETTINGS_DATA',
+            'content': 'defaultContent'
+        };
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            generateMenu();
-            renderEditor();
+            initNavigation();
+            renderDashboard();
+            renderAllSections();
+            loadTheme();
         });
+
+        // Theme
+        function toggleTheme() {
+            const theme = document.body.dataset.theme === 'dark' ? 'light' : 'dark';
+            document.body.dataset.theme = theme;
+            localStorage.setItem('adminTheme', theme);
+            document.getElementById('theme-icon').className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function loadTheme() {
+            const theme = localStorage.getItem('adminTheme') || 'dark';
+            document.body.dataset.theme = theme;
+            document.getElementById('theme-icon').className = theme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        // Navigation
+        function initNavigation() {
+            document.querySelectorAll('.sidebar-nav a').forEach(link => {
+                link.addEventListener('click', e => {
+                    e.preventDefault();
+                    showSection(link.dataset.section);
+                });
+            });
+        }
+
+        function showSection(section) {
+            document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
+            document.querySelector(`[data-section="${section}"]`)?.classList.add('active');
+            document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(section)?.classList.add('active');
+            currentSection = section;
+        }
+
+        // Dashboard
+        function renderDashboard() {
+            const stats = [
+                { icon: 'fa-users', value: (window.TEAM_DATA || []).length, label: 'Team Members' },
+                { icon: 'fa-layer-group', value: (window.SERVICES_DATA || []).length, label: 'Service Areas' },
+                { icon: 'fa-map-marker-alt', value: (window.LOCATIONS_DATA || []).length, label: 'Locations' }
+            ];
+
+            document.getElementById('stats-grid').innerHTML = stats.map(s => `
+                <div class="stat-card">
+                    <i class="fas ${s.icon}"></i>
+                    <div class="value">${s.value}</div>
+                    <div class="label">${s.label}</div>
+                </div>
+            `).join('');
+        }
+
+        // Render All
+        function renderAllSections() {
+            renderTeam();
+            renderServices();
+            renderLocations();
+        }
+
+        // Get Data
+        function getDataArray(type) {
+            switch(type) {
+                case 'team': return window.TEAM_DATA || [];
+                case 'services': return window.SERVICES_DATA || [];
+                case 'locations': return window.LOCATIONS_DATA || [];
+                default: return [];
+            }
+        }
+
+        // Render Team
+        function renderTeam() {
+            const data = window.TEAM_DATA || [];
+            const grid = document.getElementById('team-grid');
+            if (!grid) return;
+
+            grid.innerHTML = data.map((item, i) => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-header">
+                            <h3>${escapeHTML(item.name)}</h3>
+                            <span class="category">${escapeHTML(item.role)}</span>
+                        </div>
+                        <p>${escapeHTML(item.bio || '').substring(0, 100)}...</p>
+                        <div class="item-card-actions">
+                            <button class="btn btn-secondary btn-icon" onclick="editItem('team', ${i})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-icon" onclick="deleteItem('team', ${i})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<p style="color:var(--text-muted)">No team members yet.</p>';
+        }
+
+        // Render Services
+        function renderServices() {
+            const data = window.SERVICES_DATA || [];
+            const grid = document.getElementById('services-grid');
+            if (!grid) return;
+
+            grid.innerHTML = data.map((item, i) => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-header">
+                            <h3>${escapeHTML(item.title)}</h3>
+                            <span class="category">${escapeHTML(item.category)}</span>
+                        </div>
+                        <p>${escapeHTML(item.description || '').substring(0, 100)}...</p>
+                        <div class="item-card-actions">
+                            <button class="btn btn-secondary btn-icon" onclick="editItem('services', ${i})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-icon" onclick="deleteItem('services', ${i})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<p style="color:var(--text-muted)">No services yet.</p>';
+        }
+
+        // Render Locations
+        function renderLocations() {
+            const data = window.LOCATIONS_DATA || [];
+            const grid = document.getElementById('locations-grid');
+            if (!grid) return;
+
+            grid.innerHTML = data.map((item, i) => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-header">
+                            <h3>${escapeHTML(item.city)}, ${escapeHTML(item.country)}</h3>
+                            <span class="category">${escapeHTML(item.type)}</span>
+                        </div>
+                        <p>${escapeHTML(item.address || '')}</p>
+                        <div class="item-card-actions">
+                            <button class="btn btn-secondary btn-icon" onclick="editItem('locations', ${i})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-icon" onclick="deleteItem('locations', ${i})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<p style="color:var(--text-muted)">No locations yet.</p>';
+        }
+
+        // Modal Functions
+        function openAddModal(type) {
+            currentEditType = type;
+            currentEditIndex = null;
+            document.getElementById('modal-title').textContent = `Add ${capitalize(type.replace('s', ''))}`;
+            document.getElementById('modal-body').innerHTML = getFormHTML(type, {});
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function editItem(type, index) {
+            currentEditType = type;
+            currentEditIndex = index;
+            const data = getDataArray(type)[index];
+            document.getElementById('modal-title').textContent = `Edit ${capitalize(type.replace('s', ''))}`;
+            document.getElementById('modal-body').innerHTML = getFormHTML(type, data);
+            document.getElementById('modal-overlay').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').style.display = 'none';
+            currentEditType = null;
+            currentEditIndex = null;
+        }
+
+        function getFormHTML(type, data) {
+            if (type === 'team') {
+                return `
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="form-name" value="${escapeHTML(data.name || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Role / Title</label>
+                        <input type="text" class="form-control" id="form-role" value="${escapeHTML(data.role || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Bio</label>
+                        <textarea class="form-control" id="form-bio">${escapeHTML(data.bio || '')}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Photo Path</label>
+                        <input type="text" class="form-control" id="form-photo" value="${escapeHTML(data.photo || '')}" placeholder="team/name.jpg">
+                    </div>
+                `;
+            }
+            if (type === 'services') {
+                return `
+                    <div class="form-group">
+                        <label>Title</label>
+                        <input type="text" class="form-control" id="form-title" value="${escapeHTML(data.title || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <input type="text" class="form-control" id="form-category" value="${escapeHTML(data.category || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="form-control" id="form-description">${escapeHTML(data.description || '')}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Link</label>
+                        <input type="text" class="form-control" id="form-link" value="${escapeHTML(data.link || '')}" placeholder="/marine">
+                    </div>
+                `;
+            }
+            if (type === 'locations') {
+                return `
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" class="form-control" id="form-country" value="${escapeHTML(data.country || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" class="form-control" id="form-city" value="${escapeHTML(data.city || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Type</label>
+                        <input type="text" class="form-control" id="form-type" value="${escapeHTML(data.type || '')}" placeholder="Headquarters, Office, etc.">
+                    </div>
+                    <div class="form-group">
+                        <label>Full Address</label>
+                        <textarea class="form-control" id="form-address">${escapeHTML(data.address || '')}</textarea>
+                    </div>
+                `;
+            }
+            return '';
+        }
+
+        function saveItem() {
+            const data = getDataArray(currentEditType);
+            let item = {};
+
+            if (currentEditType === 'team') {
+                item = {
+                    id: document.getElementById('form-name').value.toLowerCase().replace(/\s+/g, '-'),
+                    name: document.getElementById('form-name').value,
+                    role: document.getElementById('form-role').value,
+                    bio: document.getElementById('form-bio').value,
+                    photo: document.getElementById('form-photo').value,
+                    order: currentEditIndex !== null ? data[currentEditIndex].order : data.length + 1
+                };
+            } else if (currentEditType === 'services') {
+                item = {
+                    id: document.getElementById('form-title').value.toLowerCase().replace(/\s+/g, '-'),
+                    title: document.getElementById('form-title').value,
+                    category: document.getElementById('form-category').value,
+                    description: document.getElementById('form-description').value,
+                    link: document.getElementById('form-link').value,
+                    services: currentEditIndex !== null ? data[currentEditIndex].services : []
+                };
+            } else if (currentEditType === 'locations') {
+                item = {
+                    id: document.getElementById('form-city').value.toLowerCase().replace(/\s+/g, '-'),
+                    country: document.getElementById('form-country').value,
+                    city: document.getElementById('form-city').value,
+                    type: document.getElementById('form-type').value,
+                    address: document.getElementById('form-address').value
+                };
+            }
+
+            if (currentEditIndex !== null) {
+                data[currentEditIndex] = item;
+            } else {
+                data.push(item);
+            }
+
+            pendingChanges.add(currentEditType);
+            closeModal();
+            renderAllSections();
+            renderDashboard();
+            showToast('Item saved! Click Publish to save to GitHub.');
+        }
+
+        function deleteItem(type, index) {
+            if (!confirm('Are you sure you want to delete this item?')) return;
+            const data = getDataArray(type);
+            data.splice(index, 1);
+            pendingChanges.add(type);
+            renderAllSections();
+            renderDashboard();
+            showToast('Item deleted.');
+        }
+
+        // GitHub Functions
+        function openGitHubConfig() {
+            document.getElementById('github-owner').value = gitHubConfig.owner || 'EnochMacwan';
+            document.getElementById('github-repo').value = gitHubConfig.repo || 'sapthavarna-web';
+            document.getElementById('github-branch').value = gitHubConfig.branch || 'master';
+            document.getElementById('github-token').value = gitHubConfig.token || '';
+            document.getElementById('github-status').innerHTML = '';
+            document.getElementById('github-config-overlay').style.display = 'flex';
+        }
+
+        function closeGitHubConfig() {
+            document.getElementById('github-config-overlay').style.display = 'none';
+        }
+
+        function saveGitHubConfig() {
+            gitHubConfig = {
+                owner: document.getElementById('github-owner').value.trim(),
+                repo: document.getElementById('github-repo').value.trim(),
+                branch: document.getElementById('github-branch').value.trim(),
+                token: document.getElementById('github-token').value.trim()
+            };
+            localStorage.setItem('svgt_github_config', JSON.stringify(gitHubConfig));
+            closeGitHubConfig();
+            showToast('GitHub settings saved!', 'success');
+        }
+
+        async function testGitHubConnection() {
+            const owner = document.getElementById('github-owner').value.trim();
+            const repo = document.getElementById('github-repo').value.trim();
+            const token = document.getElementById('github-token').value.trim();
+            const status = document.getElementById('github-status');
+
+            status.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Testing...';
+            status.style.color = 'var(--text)';
+
+            try {
+                const res = await fetch(`https://api.github.com/repos/${owner}/${repo}`, {
+                    headers: { 'Authorization': `token ${token}` }
+                });
+                if (res.ok) {
+                    status.innerHTML = '<i class="fas fa-check-circle"></i> Connected!';
+                    status.style.color = 'var(--success)';
+                } else {
+                    status.innerHTML = '<i class="fas fa-times-circle"></i> Connection failed';
+                    status.style.color = 'var(--danger)';
+                }
+            } catch(e) {
+                status.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Error: ' + e.message;
+                status.style.color = 'var(--danger)';
+            }
+        }
+
+        async function loadDataFromGitHub() {
+            if (!gitHubConfig.token) {
+                showToast('Configure GitHub first', 'error');
+                return;
+            }
+            showToast('Loading from GitHub...', 'info');
+
+            for (const type of Object.keys(GITHUB_DATA_FILES)) {
+                try {
+                    const res = await fetch(
+                        `https://raw.githubusercontent.com/${gitHubConfig.owner}/${gitHubConfig.repo}/${gitHubConfig.branch}/${GITHUB_DATA_FILES[type]}`
+                    );
+                    if (res.ok) {
+                        const content = await res.text();
+                        const match = content.match(/(?:const\s+\w+|window\.\w+)\s*=\s*(\{[\s\S]*?\}|\[[\s\S]*?\])\s*;/);
+                        if (match) {
+                            const data = new Function('return ' + match[1])();
+                            window[GITHUB_VAR_NAMES[type]] = data;
+                        }
+                    }
+                } catch(e) {
+                    console.log(`Could not load ${type}:`, e);
+                }
+            }
+
+            renderDashboard();
+            renderAllSections();
+            showToast('Data loaded from GitHub!', 'success');
+        }
+
+        async function publishAllChanges() {
+            if (!gitHubConfig.token) {
+                showToast('Configure GitHub first', 'error');
+                return;
+            }
+
+            if (pendingChanges.size === 0) {
+                showToast('No changes to publish', 'info');
+                return;
+            }
+
+            showToast('Publishing to GitHub...', 'info');
+
+            for (const type of pendingChanges) {
+                await saveToGitHub(type, getDataArray(type));
+            }
+
+            pendingChanges.clear();
+            showToast('Published successfully!', 'success');
+        }
+
+        async function saveToGitHub(type, data) {
+            const filePath = GITHUB_DATA_FILES[type];
+            const varName = GITHUB_VAR_NAMES[type];
+            if (!filePath || !varName) return;
+
+            const fileContent = `const ${varName} = ${JSON.stringify(data, null, 2)};`;
+
+            // Get current SHA
+            const apiUrl = `https://api.github.com/repos/${gitHubConfig.owner}/${gitHubConfig.repo}/contents/${filePath}`;
+            let sha = null;
+            try {
+                const getRes = await fetch(apiUrl, {
+                    headers: { 'Authorization': `token ${gitHubConfig.token}` }
+                });
+                if (getRes.ok) {
+                    const fileData = await getRes.json();
+                    sha = fileData.sha;
+                }
+            } catch(e) {}
+
+            // Update file
+            const body = {
+                message: `Update ${type} via Admin Panel`,
+                content: btoa(unescape(encodeURIComponent(fileContent))),
+                branch: gitHubConfig.branch
+            };
+            if (sha) body.sha = sha;
+
+            await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${gitHubConfig.token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(body)
+            });
+        }
+
+        // Utilities
+        function escapeHTML(str) {
+            if (typeof str !== 'string') return str;
+            return str.replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'times-circle' : 'info-circle'}"></i> ${message}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
     </script>
 </body>
 </html>

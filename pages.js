@@ -33,13 +33,20 @@ const renderServices = (services) => services.map(s => `
     </div>
 `).join('');
 
-// Render team cards
+// Render team cards - Tridel grid-card-wrapper pattern
 const renderTeam = (team) => team.map(member => `
-    <div class="nm-card team-card">
-        <div class="team-avatar">${member.name.charAt(0)}</div>
-        <h3>${member.name}</h3>
-        <h4 class="text-secondary mb-4">${member.role}</h4>
-        <p class="text-secondary">${member.desc}</p>
+    <div class="grid-card-wrapper">
+        <div class="grid-card-visual">
+            ${member.photo 
+                ? `<img src="${member.photo}" alt="${member.name}" loading="lazy">`
+                : `<div class="team-avatar-large">${member.name.charAt(0)}</div>`
+            }
+        </div>
+        <div class="grid-content-outside">
+            <h3>${member.name}</h3>
+            <h4>${member.role}</h4>
+            <p>${member.desc}</p>
+        </div>
     </div>
 `).join('');
 
