@@ -1,25 +1,27 @@
 import { defaultContent } from './web/content.js';
 
-// Logic to load content: Check LocalStorage (Admin edits) -> Fallback to defaultContent
-const loadContent = () => {
-    const saved = localStorage.getItem('siteContent');
-    return saved ? JSON.parse(saved) : defaultContent;
+// Helper to get current content (checks LocalStorage first, then falls back to default)
+const getContent = () => {
+    try {
+        const saved = localStorage.getItem('siteContent');
+        return saved ? JSON.parse(saved) : defaultContent;
+    } catch (e) {
+        return defaultContent;
+    }
 };
-
-// Start with current content state
-let content = loadContent();
 
 // Listen for updates from Admin Panel (live preview across tabs)
 window.addEventListener('storage', (e) => {
     if (e.key === 'siteContent') {
-        content = JSON.parse(e.newValue);
-        // creating a reload event or simple re-render might be needed here, 
-        // but for now, a refresh works.
+        // Content will be re-read on next page render
+        window.location.reload();
     }
 });
 
 export const pages = {
-    home: () => `
+    home: () => {
+        const content = getContent();
+        return `
         <section id="hero" class="hero">
             <canvas id="spectrum-canvas"></canvas>
             <div class="hero-overlay-content">
@@ -99,12 +101,15 @@ export const pages = {
         </section>
 
         <section id="closing" class="section-center">
-            <h2 class="mb-6">Infrastructure built with respect for <br>every layer of the earth it touches.</h2>
-            <a href="/contact" class="cta-button nav-link">Contact SapthaVarnah &rarr;</a>
+            <h2 class="mb-6">${content.home.closing.title}</h2>
+            <a href="/contact" class="cta-button nav-link">${content.home.closing.cta} &rarr;</a>
         </section>
-    `,
+    `;
+    },
 
-    about: () => `
+    about: () => {
+        const content = getContent();
+        return `
         <section id="philosophy-hero" class="subpage-hero">
             <h4 class="text-secondary mb-4">${content.about.philosophy.label}</h4>
             <h1>${content.about.philosophy.title.replace("Earth", "<span class='accent-page'>Earth</span>")}</h1>
@@ -188,20 +193,23 @@ export const pages = {
                 </div>
             </div>
         </section>
-    `,
+    `;
+    },
 
-    capabilities: () => `
+    capabilities: () => {
+        const content = getContent();
+        return `
         <section id="cap-hero" class="subpage-hero">
-            <h4 class="text-secondary mb-4">Core Capabilities</h4>
+            <h4 class="text-secondary mb-4">${content.capabilities.hero.label}</h4>
             <h1>Integrated <span class="accent-page">Engineering</span> Solutions</h1>
         </section>
 
         <section id="marine">
             <div class="featured-cap nm-card">
                 <div class="cap-info">
-                    <h4 class="text-secondary mb-4">Sector 01</h4>
-                    <h2>Marine & Coastal Infrastructure</h2>
-                    <p class="mt-4 mb-6">We deliver robust marine infrastructure designed to withstand dynamic coastal and ocean conditions.</p>
+                    <h4 class="text-secondary mb-4">${content.capabilities.marine.label}</h4>
+                    <h2>${content.capabilities.marine.title}</h2>
+                    <p class="mt-4 mb-6">${content.capabilities.marine.desc}</p>
                     <div class="marine-list-container">
                         <ul class="marine-list">
                             <li>&bull; Ports & Harbours</li>
@@ -229,9 +237,9 @@ export const pages = {
                     </div>
                 </div>
                 <div class="cap-info order-right">
-                    <h4 class="text-secondary mb-4">Sector 02</h4>
-                    <h2>Transport Infrastructure</h2>
-                    <p class="mt-4 mb-6">Our transport solutions enhance connectivity and economic growth across regional markets.</p>
+                    <h4 class="text-secondary mb-4">${content.capabilities.transport.label}</h4>
+                    <h2>${content.capabilities.transport.title}</h2>
+                    <p class="mt-4 mb-6">${content.capabilities.transport.desc}</p>
                     <ul class="clean-list">
                         <li>&bull; Roads & Highways</li>
                         <li>&bull; Bridges & Structures</li>
@@ -245,9 +253,9 @@ export const pages = {
         <section id="energy">
             <div class="featured-cap nm-card">
                 <div class="cap-info">
-                    <h4 class="text-secondary mb-4">Sector 03</h4>
-                    <h2>Energy Infrastructure</h2>
-                    <p class="mt-4 mb-6">Supporting energy transition and reliability through resilient infrastructure development.</p>
+                    <h4 class="text-secondary mb-4">${content.capabilities.energy.label}</h4>
+                    <h2>${content.capabilities.energy.title}</h2>
+                    <p class="mt-4 mb-6">${content.capabilities.energy.desc}</p>
                     <ul class="clean-list">
                         <li>&bull; Renewable Enabling Works</li>
                         <li>&bull; Substations & Power</li>
@@ -265,19 +273,19 @@ export const pages = {
 
         <section id="systems">
             <div class="nm-card">
-                <h4 class="text-secondary mb-4">Sector 04</h4>
-                <h2>Modern Construction Systems</h2>
+                <h4 class="text-secondary mb-4">${content.capabilities.systems.label}</h4>
+                <h2>${content.capabilities.systems.title}</h2>
                 <div class="grid-container mt-6 systems-grid">
                     <div>
-                        <h3>Precast Construction</h3>
-                        <p class="mt-4 text-secondary">Industrialised precast solutions ensuring quality, speed, and precision for large-scale infrastructure.</p>
+                        <h3>${content.capabilities.systems.precastTitle}</h3>
+                        <p class="mt-4 text-secondary">${content.capabilities.systems.precastDesc}</p>
                         <div class="nm-inset mt-4">
                              <img src="precast.png" alt="Precast yard" class="brand-img">
                         </div>
                     </div>
                     <div>
-                        <h3>GFRG Systems</h3>
-                        <p class="mt-4 text-secondary">Rapid, lightweight, and sustainable building technology for high-performance structural delivery.</p>
+                        <h3>${content.capabilities.systems.gfrgTitle}</h3>
+                        <p class="mt-4 text-secondary">${content.capabilities.systems.gfrgDesc}</p>
                         <div class="nm-inset mt-4">
                             <img src="gfrg.png" alt="GFRG material surface" class="brand-img">
                         </div>
@@ -285,20 +293,23 @@ export const pages = {
                 </div>
             </div>
         </section>
-    `,
+    `;
+    },
 
-    sustainability: () => `
+    sustainability: () => {
+        const content = getContent();
+        return `
         <section id="sustain-hero" class="subpage-hero">
-            <h4 class="text-secondary mb-4">Sustainability</h4>
+            <h4 class="text-secondary mb-4">${content.sustainability.hero.label}</h4>
             <h1>Responsible <span class="accent-page">Infrastructure</span></h1>
         </section>
 
         <section id="esg">
             <div class="nm-card">
-                <h4 class="text-secondary mb-4">Logic</h4>
+                <h4 class="text-secondary mb-4">${content.sustainability.logic.label}</h4>
                 <h2>Balanced <span class="accent-page">Performance</span></h2>
                 <p class="mt-4 esg-p">
-                    Sustainability at SapthaVarnah is embedded in engineering decisions, material selection, and construction methodology. Our focus is on delivering infrastructure that balances performance, environmental responsibility, and long-term value.
+                    ${content.sustainability.logic.desc}
                 </p>
             </div>
         </section>
@@ -329,16 +340,16 @@ export const pages = {
                 <div class="nm-card">
                     <ul class="initiative-list">
                         <li>
-                            <strong>Geo-informed design</strong>
-                            <p class="text-secondary">Using site-specific geological data to optimize foundation depth and material strength.</p>
+                            <strong>${content.sustainability.initiatives.item1Title}</strong>
+                            <p class="text-secondary">${content.sustainability.initiatives.item1Desc}</p>
                         </li>
                         <li>
-                            <strong>Low-carbon precast</strong>
-                            <p class="text-secondary">Shifting construction off-site to controlled environments to reduce waste and energy use.</p>
+                            <strong>${content.sustainability.initiatives.item2Title}</strong>
+                            <p class="text-secondary">${content.sustainability.initiatives.item2Desc}</p>
                         </li>
                         <li>
-                            <strong>BIM-enabled execution</strong>
-                            <p class="text-secondary">Digital twins ensure precision in planning, reducing rework and material errors.</p>
+                            <strong>${content.sustainability.initiatives.item3Title}</strong>
+                            <p class="text-secondary">${content.sustainability.initiatives.item3Desc}</p>
                         </li>
                     </ul>
                 </div>
@@ -366,18 +377,21 @@ export const pages = {
                 </div>
             </div>
         </section>
-    `,
+    `;
+    },
 
-    contact: () => `
+    contact: () => {
+        const content = getContent();
+        return `
         <section id="contact-hero" class="subpage-hero contact-hero-bg">
-            <h4 class="text-secondary mb-4">Get in Touch</h4>
+            <h4 class="text-secondary mb-4">${content.contact.hero.label}</h4>
             <h1>Connect with <span class="accent-page">Our Team</span></h1>
         </section>
 
         <section id="contact-details">
             <div class="grid-container contact-grid">
                 <div class="nm-card">
-                    <h4 class="text-secondary mb-4">Project Opportunities</h4>
+                    <h4 class="text-secondary mb-4">${content.contact.details.oppsLabel}</h4>
                     <h2>We welcome discussions on <span class="accent-page">Infrastructure Challenges</span> across our served regions.</h2>
                     <div class="mt-6 contact-links-row">
                         <div>
@@ -391,8 +405,8 @@ export const pages = {
                     </div>
                 </div>
                 <div class="nm-card img-card nm-inset">
-                    <h4 class="text-secondary mb-4">Regions Served</h4>
-                    <p class="mb-4">Strategically positioned to serve emerging and established hubs.</p>
+                    <h4 class="text-secondary mb-4">${content.contact.details.regionsLabel}</h4>
+                    <p class="mb-4">${content.contact.details.regionsDesc}</p>
                     <img src="regions.png" alt="Global regions focusing on Africa, India, and the Gulf" class="brand-img mb-4">
                     <ul class="regions-list">
                         <li>&bull; Africa</li>
@@ -402,5 +416,6 @@ export const pages = {
                 </div>
             </div>
         </section>
-    `
+    `;
+    }
 };
