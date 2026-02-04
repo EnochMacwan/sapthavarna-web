@@ -15,8 +15,7 @@ class Router {
             'energy': pages.energy,
             'systems': pages.systems,
             'sustainability': pages.sustainability,
-            'contact': pages.contact,
-            'careers': pages.careers
+            'contact': pages.contact
         };
 
         // Dynamic routes (query parameter based)

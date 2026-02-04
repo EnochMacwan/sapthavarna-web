@@ -812,7 +812,7 @@ export const pages = {
             <div class="team-detail-card nm-card">
                 <div class="team-detail-photo">
                     ${member.photo 
-                        ? `<img src="${member.photo}" alt="${member.name}">`
+                        ? `<img src="${getImagePath(member.photo)}" alt="${member.name}">`
                         : `<div class="team-avatar-xl">${member.name.charAt(0)}</div>`
                     }
                 </div>

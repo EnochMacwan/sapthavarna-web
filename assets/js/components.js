@@ -23,24 +23,24 @@ export const components = {
                                 <h5>About SVGT</h5>
                                 <ul class="mega-links">
                                     <li><a href="#about">Company Overview</a></li>
-                                    <li><a href="#about#leadership">Leadership Team</a></li>
-                                    <li><a href="#about#culture">Careers & Culture</a></li>
+                                    <li><a href="#about">Leadership Team</a></li>
+                                    <li><a href="#about">Careers & Culture</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Sustainability</h5>
                                 <ul class="mega-links">
                                     <li><a href="#sustainability">Our Approach</a></li>
-                                    <li><a href="#sustainability#pillars">Key Pillars</a></li>
-                                    <li><a href="#sustainability#practices">Practices</a></li>
+                                    <li><a href="#sustainability">Key Pillars</a></li>
+                                    <li><a href="#sustainability">Practices</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Connect</h5>
                                 <ul class="mega-links">
                                     <li><a href="#contact">Global Offices</a></li>
-                                    <li><a href="#contact#contact-details">Project Enquiry</a></li>
-                                    <li><a href="#contact#regions-media">Media Relations</a></li>
+                                    <li><a href="#contact-details">Project Enquiry</a></li>
+                                    <li><a href="#contact-media">Media Relations</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
@@ -56,28 +56,28 @@ export const components = {
                                 <h5>Marine & Coastal</h5>
                                 <ul class="mega-links">
                                     <li><a href="#marine">Overview</a></li>
-                                    <li><a href="#marine#marine-services">Services</a></li>
+                                    <li><a href="#marine-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Transport</h5>
                                 <ul class="mega-links">
                                     <li><a href="#transport">Overview</a></li>
-                                    <li><a href="#transport#transport-services">Services</a></li>
+                                    <li><a href="#transport-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Energy</h5>
                                 <ul class="mega-links">
                                     <li><a href="#energy">Overview</a></li>
-                                    <li><a href="#energy#energy-services">Services</a></li>
+                                    <li><a href="#energy-services">Services</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">
                                 <h5>Construction Systems</h5>
                                 <ul class="mega-links">
                                     <li><a href="#systems">Precast & GFRG</a></li>
-                                    <li><a href="#systems#technologies">Technologies</a></li>
+                                    <li><a href="#systems">Technologies</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -119,7 +119,7 @@ export const components = {
                 <h5>Company</h5>
                 <ul class="footer-links">
                     <li><a href="#about" class="nav-link">About SVGT</a></li>
-                    <li><a href="#about#leadership" class="nav-link">Leadership</a></li>
+                    <li><a href="#about" class="nav-link">Leadership</a></li>
                     <li><a href="#sustainability" class="nav-link">Sustainability</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
