@@ -6,6 +6,21 @@
   <title>SapthaVarnah Geo Technologies | Engineering the Full Spectrum</title>
   <meta name="description" content="SapthaVarnah Geo Technologies - Infrastructure and geo-engineering company delivering climate-resilient, future-ready projects across Africa, India, and the Gulf.">
   <link rel="icon" href="/sapthavarna-web/assets/logo-Ce9r-tB9.svg" type="image/svg+xml">
+  <script>
+    // Handle SPA redirect from 404.html
+    (function() {
+      const redirect = sessionStorage.getItem('spa_redirect');
+      if (redirect) {
+        sessionStorage.removeItem('spa_redirect');
+        // Remove base path to get the actual route
+        const basePath = '/sapthavarna-web';
+        const route = redirect.replace(basePath, '') || '/';
+        if (route !== '/' && route !== '/index.html') {
+          history.replaceState(null, '', route);
+        }
+      }
+    })();
+  </script>
   <script type="module" crossorigin src="/sapthavarna-web/assets/main-CT_mD_ey.js"></script>
   <link rel="stylesheet" crossorigin href="/sapthavarna-web/assets/main-OwLhovpz.css">
 </head>
