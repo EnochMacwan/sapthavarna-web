@@ -1,12 +1,16 @@
 // Shared UI Components - Header with Megamenu & Footer
 
+// Base path for GitHub Pages
+const BASE_PATH = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
+const getImagePath = (img) => `${BASE_PATH}/${img}`;
+
 export const components = {
     header: () => `
     <nav class="pill-nav">
         <div class="nav-container">
             <a href="/" class="logo nav-link" aria-label="SapthaVarnah Home">
                 <div class="logo-crop">
-                    <img src="/logo-master.png" alt="SapthaVarnah Logo" class="logo-img-master">
+                    <img src="${getImagePath('logo-master.png')}" alt="SapthaVarnah Logo" class="logo-img-master">
                 </div>
                 <span class="logo-text">SapthaVarnah</span>
             </a>
@@ -92,7 +96,7 @@ export const components = {
             <div class="footer-col brand-col">
                 <a href="/" class="logo nav-link mb-4">
                     <div class="logo-crop">
-                        <img src="/logo-master.png" alt="SapthaVarnah Logo" class="logo-img-master">
+                        <img src="${getImagePath('logo-master.png')}" alt="SapthaVarnah Logo" class="logo-img-master">
                     </div>
                     <span class="footer-brand-name">SapthaVarnah</span>
                 </a>
