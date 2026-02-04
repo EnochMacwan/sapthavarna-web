@@ -1,5 +1,6 @@
 import Router from './router.js';
 import { SpectrumAnimation } from './spectrum.js';
+import { initComponents, highlightActiveNav } from './components.js';
 import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
 
 let currentAnimation = null;
@@ -20,8 +21,6 @@ mermaid.initialize({
 
 // Animation & Interaction Logic
 const initPageInteractions = () => {
-    const currentPath = window.location.pathname;
-
     // Destroy previous animation if it exists
     if (currentAnimation) {
         currentAnimation.destroy();
@@ -62,18 +61,11 @@ const initPageInteractions = () => {
         mermaid.run();
     }
 
-    // Nav Links Highlight
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const linkPath = new URL(link.href).pathname;
-        if (linkPath === currentPath) {
-            link.classList.add('active');
-        } else {
-            link.classList.remove('active');
-        }
-    });
+    // Update nav highlighting
+    highlightActiveNav();
 };
 
-// Global Nav Setup
+// Global Nav Setup - Megamenu animations
 const initGlobalNav = () => {
     const megaTriggers = document.querySelectorAll('.nav-item-has-mega');
     megaTriggers.forEach(trigger => {
@@ -96,17 +88,25 @@ const initGlobalNav = () => {
 
 // App Initialization
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize shared header & footer components first
+    initComponents();
+    
+    // Initialize router for dynamic page content
     const appMount = document.getElementById('app');
     new Router(appMount);
 
+    // Setup megamenu animations
     initGlobalNav();
 
+    // Handle route changes
     window.addEventListener('routeChange', () => {
         initPageInteractions();
     });
 
+    // Initial page setup
     initPageInteractions();
-});// Animation Sampling Global Logic
+});
+// Animation Sampling Global Logic
 window.setAnimationMode = (mode) => {
     if (currentAnimation && typeof currentAnimation.setMode === 'function') {
         currentAnimation.setMode(mode);
