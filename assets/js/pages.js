@@ -1,4 +1,4 @@
-import { defaultContent } from './web/content.js';
+import { defaultContent } from '../data/content.js';
 
 // Helper to get current content
 const getContent = () => {

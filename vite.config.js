@@ -4,15 +4,15 @@ export default defineConfig({
   // Base path for GitHub Pages (repo name)
   base: '/sapthavarna-web/',
   
+  // Project root and public folder
+  publicDir: 'assets/images',
+  
   build: {
     // Output to docs folder for GitHub Pages
     outDir: 'docs',
     
-    // Don't empty the folder (in case of manual files)
+    // Clear the folder
     emptyOutDir: true,
-    
-    // Generate source maps for debugging
-    sourcemap: false,
     
     // Rollup options
     rollupOptions: {
