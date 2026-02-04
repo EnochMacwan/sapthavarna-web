@@ -119,3 +119,29 @@ window.setAnimationMode = (mode) => {
         });
     }
 };
+
+// EOI Form Handler (Careers Page)
+window.handleEOISubmit = (event) => {
+    event.preventDefault();
+    
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+    
+    // Add timestamp
+    data.submittedAt = new Date().toISOString();
+    
+    // Save to localStorage (for demo - in production, send to backend)
+    const submissions = JSON.parse(localStorage.getItem('eoi_submissions') || '[]');
+    submissions.push(data);
+    localStorage.setItem('eoi_submissions', JSON.stringify(submissions));
+    
+    // Hide form, show success
+    form.style.display = 'none';
+    document.getElementById('eoi-success').style.display = 'block';
+    
+    // Scroll to success message
+    document.getElementById('eoi-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    console.log('EOI Submitted:', data);
+};

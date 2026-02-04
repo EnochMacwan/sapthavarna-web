@@ -382,5 +382,168 @@ export const pages = {
             </div>
         </section>
     `;
+    },
+
+    careers: () => {
+        return `
+        <section id="careers-hero" class="page-hero careers-hero">
+            <div class="hero-overlay-content">
+                <h1 class="hero-title">Join Our <span class="accent-page">Team</span></h1>
+                <p class="hero-subtitle text-secondary">Build the infrastructure that shapes tomorrow</p>
+            </div>
+        </section>
+
+        <section id="careers-intro">
+            <div class="nm-card careers-intro-card">
+                <h2 class="mb-4">Expression of Interest</h2>
+                <p class="text-secondary mb-4">We're always looking for talented engineers, project managers, and specialists to join our growing team. If you share our vision for building better infrastructure, we'd like to hear from you.</p>
+                <p class="text-secondary">SapthaVarnah operates across multiple sectors including marine, transport, energy, and urban infrastructure. We offer opportunities for professionals at all stages of their careers.</p>
+            </div>
+        </section>
+
+        <section id="job-categories">
+            <h2 class="mb-6">We're Looking For</h2>
+            <div class="careers-grid">
+                <div class="nm-card career-category">
+                    <div class="career-icon"><i class="fas fa-hard-hat"></i></div>
+                    <h3>Civil Engineers</h3>
+                    <p class="text-secondary">Structural, geotechnical, and marine engineering specialists with experience in large-scale infrastructure projects.</p>
+                </div>
+                <div class="nm-card career-category">
+                    <div class="career-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>Project Managers</h3>
+                    <p class="text-secondary">Experienced PMs with a track record of delivering complex infrastructure projects on time and within budget.</p>
+                </div>
+                <div class="nm-card career-category">
+                    <div class="career-icon"><i class="fas fa-drafting-compass"></i></div>
+                    <h3>Design Engineers</h3>
+                    <p class="text-secondary">CAD specialists and design engineers proficient in AutoCAD, Revit, and other industry-standard tools.</p>
+                </div>
+                <div class="nm-card career-category">
+                    <div class="career-icon"><i class="fas fa-leaf"></i></div>
+                    <h3>Environmental Specialists</h3>
+                    <p class="text-secondary">Professionals focused on sustainable construction, environmental impact assessment, and green building practices.</p>
+                </div>
+                <div class="nm-card career-category">
+                    <div class="career-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Site Supervisors</h3>
+                    <p class="text-secondary">On-ground leaders who can manage construction crews and ensure quality execution.</p>
+                </div>
+                <div class="nm-card career-category">
+                    <div class="career-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3>Business Development</h3>
+                    <p class="text-secondary">Strategic thinkers who can identify opportunities and build lasting client relationships.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="why-join">
+            <h2 class="mb-6">Why Join SapthaVarnah?</h2>
+            <div class="benefits-grid">
+                <div class="nm-card benefit-card">
+                    <i class="fas fa-globe-asia"></i>
+                    <h4>Global Projects</h4>
+                    <p class="text-secondary">Work on landmark infrastructure across India, Middle East, and beyond.</p>
+                </div>
+                <div class="nm-card benefit-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Career Growth</h4>
+                    <p class="text-secondary">Continuous learning and development opportunities.</p>
+                </div>
+                <div class="nm-card benefit-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Collaborative Culture</h4>
+                    <p class="text-secondary">Work with industry experts in a supportive environment.</p>
+                </div>
+                <div class="nm-card benefit-card">
+                    <i class="fas fa-seedling"></i>
+                    <h4>Sustainable Impact</h4>
+                    <p class="text-secondary">Contribute to projects that make a real difference.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="eoi-form">
+            <div class="nm-card eoi-form-card">
+                <h2 class="mb-2">Submit Your Expression of Interest</h2>
+                <p class="text-secondary mb-6">Fill out the form below and we'll be in touch if a suitable opportunity arises.</p>
+                
+                <form id="careers-form" class="eoi-form" onsubmit="handleEOISubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eoi-name">Full Name *</label>
+                            <input type="text" id="eoi-name" name="name" class="form-input" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="eoi-email">Email Address *</label>
+                            <input type="email" id="eoi-email" name="email" class="form-input" required placeholder="your@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="eoi-phone">Phone Number</label>
+                            <input type="tel" id="eoi-phone" name="phone" class="form-input" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label for="eoi-location">Current Location</label>
+                            <input type="text" id="eoi-location" name="location" class="form-input" placeholder="City, Country">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eoi-role">Area of Interest *</label>
+                        <select id="eoi-role" name="role" class="form-input" required>
+                            <option value="">Select a category...</option>
+                            <option value="civil-engineer">Civil Engineering</option>
+                            <option value="project-manager">Project Management</option>
+                            <option value="design-engineer">Design Engineering</option>
+                            <option value="environmental">Environmental &amp; Sustainability</option>
+                            <option value="site-supervisor">Site Supervision</option>
+                            <option value="business-dev">Business Development</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eoi-experience">Years of Experience</label>
+                        <select id="eoi-experience" name="experience" class="form-input">
+                            <option value="">Select experience level...</option>
+                            <option value="0-2">0-2 years (Entry Level)</option>
+                            <option value="3-5">3-5 years (Mid Level)</option>
+                            <option value="6-10">6-10 years (Senior)</option>
+                            <option value="10+">10+ years (Expert)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eoi-resume">Resume/CV Link</label>
+                        <input type="url" id="eoi-resume" name="resume" class="form-input" placeholder="Link to your resume (Google Drive, Dropbox, etc.)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eoi-message">Tell Us About Yourself</label>
+                        <textarea id="eoi-message" name="message" class="form-input form-textarea" rows="5" placeholder="Brief introduction, relevant experience, and why you want to join SapthaVarnah..."></textarea>
+                    </div>
+
+                    <button type="submit" class="cta-button submit-btn">
+                        <i class="fas fa-paper-plane"></i> Submit Expression of Interest
+                    </button>
+                </form>
+
+                <div id="eoi-success" class="eoi-success" style="display:none;">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Thank You!</h3>
+                    <p>Your expression of interest has been submitted successfully. We'll review your profile and get in touch if a suitable opportunity arises.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="careers-contact" class="section-center">
+            <h2 class="mb-4">Have Questions?</h2>
+            <p class="text-secondary mb-6">Reach out to our HR team for any career-related inquiries.</p>
+            <a href="mailto:careers@sapthavarnah.com" class="cta-button nav-link"><i class="fas fa-envelope"></i> careers@sapthavarnah.com</a>
+        </section>
+    `;
     }
 };

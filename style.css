@@ -1181,3 +1181,181 @@ nav {
 .energy-bg { background: linear-gradient(135deg, rgba(156,66,33,0.05), transparent); }
 .systems-bg { background: linear-gradient(135deg, rgba(0,51,102,0.05), transparent); }
 
+/* ======== CAREERS PAGE ======== */
+
+/* Careers Hero */
+.careers-hero {
+  background: linear-gradient(135deg, rgba(0,51,102,0.9), rgba(0,77,128,0.8)), 
+              url('materials.png') center/cover;
+  min-height: 50vh;
+}
+
+.careers-intro-card {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Job Categories Grid */
+.careers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.career-category {
+  text-align: center;
+  padding: 40px 30px;
+}
+
+.career-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--accent-marine), #0077b6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.career-icon i {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.career-category h3 {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+.benefit-card {
+  text-align: center;
+  padding: 35px 25px;
+}
+
+.benefit-card > i {
+  font-size: 2.5rem;
+  color: var(--accent-marine);
+  margin-bottom: 15px;
+}
+
+.benefit-card h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+/* EOI Form */
+.eoi-form-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.eoi-form {
+  margin-top: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: var(--bg-color);
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: var(--text-primary);
+  box-shadow: var(--nm-shadow-inset);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent-marine);
+  box-shadow: 0 0 0 3px rgba(0,51,102,0.1);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}
+
+.submit-btn i {
+  margin-right: 10px;
+}
+
+/* EOI Success State */
+.eoi-success {
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.eoi-success i {
+  font-size: 4rem;
+  color: #2ecc71;
+  margin-bottom: 20px;
+}
+
+.eoi-success h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+}
+
+.eoi-success p {
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Responsive Careers */
+@media (max-width: 768px) {
+  .careers-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
