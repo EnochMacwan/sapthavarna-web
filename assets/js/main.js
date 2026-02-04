@@ -145,3 +145,182 @@ window.handleEOISubmit = (event) => {
     
     console.log('EOI Submitted:', data);
 };
+
+// ========================================
+// UI/UX ENHANCEMENTS
+// ========================================
+
+// Back-to-Top Button
+const initBackToTop = () => {
+    const btn = document.createElement('button');
+    btn.className = 'back-to-top';
+    btn.setAttribute('aria-label', 'Back to top');
+    btn.innerHTML = '<i class="fas fa-arrow-up"></i>';
+    document.body.appendChild(btn);
+    
+    btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            btn.classList.add('visible');
+        } else {
+            btn.classList.remove('visible');
+        }
+    });
+};
+
+// Mobile Hamburger Menu
+const initHamburgerMenu = () => {
+    const nav = document.querySelector('nav');
+    if (!nav) return;
+    
+    // Create hamburger button
+    const hamburger = document.createElement('div');
+    hamburger.className = 'hamburger';
+    hamburger.innerHTML = '<span></span><span></span><span></span>';
+    hamburger.setAttribute('aria-label', 'Toggle menu');
+    
+    // Create mobile nav overlay
+    const mobileNav = document.createElement('div');
+    mobileNav.className = 'mobile-nav';
+    mobileNav.innerHTML = `
+        <a href="#" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#capabilities" class="nav-link">Capabilities</a>
+        <a href="#marine" class="nav-link">Marine</a>
+        <a href="#transport" class="nav-link">Transport</a>
+        <a href="#energy" class="nav-link">Energy</a>
+        <a href="#systems" class="nav-link">Systems</a>
+        <a href="#sustainability" class="nav-link">Sustainability</a>
+        <a href="#careers" class="nav-link">Careers</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    `;
+    
+    // Insert elements
+    const navContainer = nav.querySelector('.nav-container');
+    if (navContainer) {
+        navContainer.appendChild(hamburger);
+    }
+    document.body.appendChild(mobileNav);
+    
+    // Toggle menu
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    // Close on link click
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    });
+};
+
+// Dark Mode Toggle
+const initDarkMode = () => {
+    const btn = document.createElement('button');
+    btn.className = 'theme-toggle';
+    btn.setAttribute('aria-label', 'Toggle dark mode');
+    btn.innerHTML = '<i class="fas fa-moon"></i>';
+    document.body.appendChild(btn);
+    
+    // Check saved preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-mode');
+        btn.innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    btn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        btn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    });
+};
+
+// Animated Stats Counter
+const initStatsCounter = () => {
+    const counters = document.querySelectorAll('.stat-number');
+    if (counters.length === 0) return;
+    
+    const animateCounter = (el) => {
+        const target = parseInt(el.getAttribute('data-target')) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+        const duration = 2000;
+        const start = 0;
+        const startTime = performance.now();
+        
+        const updateCounter = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            
+            // Easing function
+            const easeOut = 1 - Math.pow(1 - progress, 3);
+            const current = Math.floor(start + (target - start) * easeOut);
+            
+            el.textContent = current.toLocaleString() + suffix;
+            
+            if (progress < 1) {
+                requestAnimationFrame(updateCounter);
+            }
+        };
+        
+        requestAnimationFrame(updateCounter);
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                animateCounter(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => observer.observe(counter));
+};
+
+// Form Validation
+const initFormValidation = () => {
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('blur', () => {
+            if (input.required && !input.value.trim()) {
+                input.classList.add('invalid');
+                input.classList.remove('valid');
+            } else if (input.type === 'email' && input.value) {
+                const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value);
+                input.classList.toggle('valid', emailValid);
+                input.classList.toggle('invalid', !emailValid);
+            } else if (input.value.trim()) {
+                input.classList.add('valid');
+                input.classList.remove('invalid');
+            }
+        });
+        
+        input.addEventListener('input', () => {
+            input.classList.remove('invalid');
+        });
+    });
+};
+
+// Initialize all UI enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    initBackToTop();
+    initHamburgerMenu();
+    initDarkMode();
+    initStatsCounter();
+    initFormValidation();
+});
+
+// Reinitialize on route change
+window.addEventListener('routeChange', () => {
+    initStatsCounter();
+    initFormValidation();
+});

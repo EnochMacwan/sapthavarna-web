@@ -99,6 +99,63 @@ export const pages = {
             </div>
         </section>
 
+        <section id="stats" class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="25" data-suffix="+">0</div>
+                    <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="150" data-suffix="+">0</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="12" data-suffix="">0</div>
+                    <div class="stat-label">Countries Served</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="500" data-suffix="+">0</div>
+                    <div class="stat-label">Team Members</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <h2 class="mb-6 section-center">Client Testimonials</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">SapthaVarnah's expertise in marine infrastructure was instrumental in delivering our port expansion project on time and within budget. Their innovative approach to geotechnical challenges impressed our entire team.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RS</div>
+                        <div class="testimonial-info">
+                            <h4>Rajesh Sharma</h4>
+                            <span>Director, Chennai Port Authority</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">Working with SVGT on our highway project was exceptional. Their precast concrete technology reduced our construction timeline by 40% while maintaining the highest quality standards.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AK</div>
+                        <div class="testimonial-info">
+                            <h4>Amit Kumar</h4>
+                            <span>Project Manager, NHAI</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-quote">The SVGT team brought both technical expertise and sustainability focus to our solar farm development. Their commitment to environmental responsibility aligned perfectly with our vision.</p>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">PM</div>
+                        <div class="testimonial-info">
+                            <h4>Priya Menon</h4>
+                            <span>CEO, GreenPower Mauritius</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="closing" class="section-center">
             <h2 class="mb-6">${content.home.closing.title}</h2>
             <a href="#contact" class="cta-button nav-link">${content.home.closing.cta} →</a>
