@@ -3,6 +3,8 @@ import { pages } from './pages.js';
 class Router {
     constructor(mountPoint) {
         this.mountPoint = mountPoint;
+        
+        // Static routes
         this.routes = {
             '/': pages.home,
             '/index.html': pages.home,
@@ -17,6 +19,12 @@ class Router {
             '/careers': pages.careers
         };
 
+        // Dynamic routes (query parameter based)
+        this.dynamicRoutes = {
+            '/project': pages.projectDetail,
+            '/service': pages.serviceDetail,
+            '/team': pages.teamDetail
+        };
 
         window.addEventListener('popstate', () => this.handleRoute());
         document.addEventListener('click', (e) => this.interceptClick(e));
@@ -33,25 +41,45 @@ class Router {
             // Only SPA handle if it's the same origin
             if (url.origin === window.location.origin) {
                 e.preventDefault();
-                this.navigate(url.pathname + url.hash);
+                this.navigate(url.pathname + url.search + url.hash);
             }
         }
     }
 
-    navigate(pathWithHash) {
-        window.history.pushState({}, '', pathWithHash);
+    navigate(fullPath) {
+        window.history.pushState({}, '', fullPath);
         this.handleRoute();
+    }
+
+    getQueryParams() {
+        const params = {};
+        const search = window.location.search.substring(1);
+        if (search) {
+            search.split('&').forEach(pair => {
+                const [key, value] = pair.split('=');
+                params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+            });
+        }
+        return params;
     }
 
     async handleRoute() {
         let path = window.location.pathname;
         if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
         
-        // Find best match in routes
-        let routeKey = Object.keys(this.routes).find(key => path.endsWith(key));
-        if (path === '/' || path === '') routeKey = '/';
+        const queryParams = this.getQueryParams();
+        let renderer;
         
-        const renderer = this.routes[routeKey] || pages.home;
+        // Check dynamic routes first (with query params)
+        const dynamicKey = Object.keys(this.dynamicRoutes).find(key => path.endsWith(key));
+        if (dynamicKey && queryParams.id) {
+            renderer = () => this.dynamicRoutes[dynamicKey](queryParams.id, queryParams);
+        } else {
+            // Static routes
+            let routeKey = Object.keys(this.routes).find(key => path.endsWith(key));
+            if (path === '/' || path === '') routeKey = '/';
+            renderer = this.routes[routeKey] || pages.home;
+        }
         
         // Dynamic Transition Effect
         const app = this.mountPoint;
@@ -80,7 +108,7 @@ class Router {
         }
 
         // Dispatch an event to notify that content has changed
-        window.dispatchEvent(new CustomEvent('routeChange', { detail: { path } }));
+        window.dispatchEvent(new CustomEvent('routeChange', { detail: { path, queryParams } }));
     }
 }
 

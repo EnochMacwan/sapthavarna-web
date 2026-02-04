@@ -1359,3 +1359,238 @@ nav {
   }
 }
 
+/* ======== DETAIL PAGES ======== */
+
+/* Detail Hero */
+.detail-hero {
+  background: linear-gradient(135deg, rgba(0,51,102,0.9), rgba(0,77,128,0.8)), 
+              url('materials.png') center/cover;
+  min-height: 40vh;
+}
+
+.detail-category {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Detail Grid Layout */
+.detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.detail-image {
+  padding: 0;
+  overflow: hidden;
+}
+
+.detail-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.detail-sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Info Items */
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.info-value {
+  font-weight: 600;
+}
+
+/* Detail Features List */
+.detail-features {
+  list-style: none;
+  padding: 0;
+}
+
+.detail-features li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.detail-features li:last-child {
+  border-bottom: none;
+}
+
+.detail-features i {
+  color: var(--accent-marine);
+  font-size: 1rem;
+}
+
+/* Wide Content Layout (Services) */
+.detail-content-wide {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: rgba(0,51,102,0.03);
+  border-radius: 12px;
+}
+
+.feature-item i {
+  color: #2ecc71;
+  font-size: 1.2rem;
+}
+
+/* Sector Tags */
+.sector-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sector-tag {
+  display: inline-block;
+  background: var(--accent-marine);
+  color: white;
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Team Detail */
+.team-detail-hero {
+  background: linear-gradient(135deg, rgba(0,51,102,0.9), rgba(0,77,128,0.8));
+  min-height: 30vh;
+}
+
+.team-detail-card {
+  display: flex;
+  gap: 40px;
+  max-width: 900px;
+  margin: 0 auto;
+  align-items: flex-start;
+}
+
+@media (max-width: 700px) {
+  .team-detail-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.team-detail-photo {
+  width: 250px;
+  height: 250px;
+  flex-shrink: 0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--nm-shadow-inset);
+}
+
+.team-detail-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.team-avatar-xl {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent-marine), #0077b6);
+  color: white;
+  font-size: 4rem;
+  font-weight: 600;
+}
+
+.team-detail-info h1 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.team-detail-info h3 {
+  color: var(--accent-marine);
+  font-weight: 500;
+}
+
+.team-contact {
+  display: flex;
+  gap: 20px;
+}
+
+.team-contact .contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent-marine);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.team-contact .contact-link:hover {
+  text-decoration: underline;
+}
+
+/* Secondary CTA Button */
+.cta-button.secondary {
+  background: transparent;
+  border: 2px solid var(--text-primary);
+  color: var(--text-primary);
+}
+
+.cta-button.secondary:hover {
+  background: var(--text-primary);
+  color: var(--bg-color);
+}
+
+

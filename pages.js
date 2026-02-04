@@ -545,5 +545,286 @@ export const pages = {
             <a href="mailto:careers@sapthavarnah.com" class="cta-button nav-link"><i class="fas fa-envelope"></i> careers@sapthavarnah.com</a>
         </section>
     `;
+    },
+
+    // ===== DYNAMIC DETAIL PAGES =====
+
+    // Project Detail Page - /project?id=xxx
+    projectDetail: (id, params) => {
+        const content = getContent();
+        
+        // Sample project data (can be extended from content.js or admin)
+        const projects = {
+            'marine-terminal': {
+                title: 'Marine Terminal Development',
+                category: 'Marine Infrastructure',
+                image: 'materials.png',
+                description: 'A comprehensive marine terminal development project featuring state-of-the-art berthing facilities, cargo handling systems, and integrated logistics.',
+                details: [
+                    'Deep-water berths capable of handling Panamax vessels',
+                    'Modern container handling equipment',
+                    'Integrated road and rail connectivity',
+                    'Environmental protection measures'
+                ],
+                location: 'Chennai, India',
+                year: '2023-2025',
+                client: 'Chennai Port Authority'
+            },
+            'highway-bridge': {
+                title: 'National Highway Bridge',
+                category: 'Transport Infrastructure',
+                image: 'transport.png',
+                description: 'Design and construction of a major highway bridge spanning 1.2km with innovative precast concrete technology.',
+                details: [
+                    'Segmental precast construction',
+                    'Seismic-resistant design',
+                    '6-lane carriageway',
+                    'Integrated lighting and safety systems'
+                ],
+                location: 'Gujarat, India',
+                year: '2022-2024',
+                client: 'NHAI'
+            },
+            'solar-farm': {
+                title: 'Solar Energy Farm',
+                category: 'Energy Infrastructure',
+                image: 'energy.png',
+                description: '100MW solar power installation with grid integration and energy storage systems.',
+                details: [
+                    'Bifacial solar panels',
+                    'Battery energy storage system',
+                    'Smart grid integration',
+                    'Remote monitoring capabilities'
+                ],
+                location: 'Rajasthan, India',
+                year: '2024',
+                client: 'State Energy Corporation'
+            }
+        };
+
+        const project = projects[id] || {
+            title: 'Project Not Found',
+            category: 'Unknown',
+            description: 'The requested project could not be found.',
+            details: [],
+            location: 'N/A',
+            year: 'N/A',
+            client: 'N/A'
+        };
+
+        return `
+        <section class="page-hero detail-hero">
+            <div class="hero-overlay-content">
+                <span class="detail-category">${project.category}</span>
+                <h1 class="hero-title">${project.title}</h1>
+            </div>
+        </section>
+
+        <section id="project-detail">
+            <div class="detail-grid">
+                <div class="detail-main">
+                    ${project.image ? `<div class="nm-card detail-image nm-inset"><img src="${project.image}" alt="${project.title}"></div>` : ''}
+                    
+                    <div class="nm-card">
+                        <h2 class="mb-4">Project Overview</h2>
+                        <p class="text-secondary mb-6">${project.description}</p>
+                        
+                        ${project.details.length > 0 ? `
+                        <h4 class="mb-4">Key Features</h4>
+                        <ul class="detail-features">
+                            ${project.details.map(d => `<li><i class="fas fa-check"></i> ${d}</li>`).join('')}
+                        </ul>
+                        ` : ''}
+                    </div>
+                </div>
+                
+                <aside class="detail-sidebar">
+                    <div class="nm-card">
+                        <h4 class="text-secondary mb-4">Project Info</h4>
+                        <div class="info-item">
+                            <span class="info-label">Location</span>
+                            <span class="info-value">${project.location}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Timeline</span>
+                            <span class="info-value">${project.year}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Client</span>
+                            <span class="info-value">${project.client}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="nm-card mt-4">
+                        <h4 class="mb-4">Interested in Similar Projects?</h4>
+                        <a href="/contact" class="cta-button nav-link">Contact Us →</a>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <section id="back-link" class="section-center">
+            <a href="/capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
+        </section>
+    `;
+    },
+
+    // Service Detail Page - /service?id=xxx
+    serviceDetail: (id, params) => {
+        const services = {
+            'structural-engineering': {
+                title: 'Structural Engineering',
+                category: 'Engineering Services',
+                icon: 'fas fa-building',
+                description: 'Comprehensive structural engineering services for buildings, bridges, and industrial facilities.',
+                features: [
+                    'Structural analysis and design',
+                    'Foundation engineering',
+                    'Earthquake-resistant design',
+                    'Progressive collapse analysis',
+                    'Structural health monitoring'
+                ],
+                sectors: ['Marine', 'Transport', 'Energy', 'Urban']
+            },
+            'project-management': {
+                title: 'Project Management',
+                category: 'Management Services',
+                icon: 'fas fa-project-diagram',
+                description: 'End-to-end project management services ensuring on-time, on-budget delivery.',
+                features: [
+                    'Planning and scheduling',
+                    'Cost management',
+                    'Risk assessment',
+                    'Quality control',
+                    'Stakeholder coordination'
+                ],
+                sectors: ['All Sectors']
+            },
+            'environmental-consulting': {
+                title: 'Environmental Consulting',
+                category: 'Sustainability Services',
+                icon: 'fas fa-leaf',
+                description: 'Environmental impact assessment and sustainable design solutions.',
+                features: [
+                    'Environmental Impact Assessment (EIA)',
+                    'Green building certification',
+                    'Carbon footprint analysis',
+                    'Sustainable materials selection',
+                    'Compliance monitoring'
+                ],
+                sectors: ['Marine', 'Energy', 'Urban']
+            }
+        };
+
+        const service = services[id] || {
+            title: 'Service Not Found',
+            category: 'Unknown',
+            icon: 'fas fa-question',
+            description: 'The requested service could not be found.',
+            features: [],
+            sectors: []
+        };
+
+        return `
+        <section class="page-hero detail-hero">
+            <div class="hero-overlay-content">
+                <span class="detail-category">${service.category}</span>
+                <h1 class="hero-title"><i class="${service.icon}"></i> ${service.title}</h1>
+            </div>
+        </section>
+
+        <section id="service-detail">
+            <div class="detail-content-wide">
+                <div class="nm-card">
+                    <h2 class="mb-4">Service Overview</h2>
+                    <p class="text-secondary mb-6">${service.description}</p>
+                    
+                    ${service.features.length > 0 ? `
+                    <h4 class="mb-4">What We Offer</h4>
+                    <div class="features-grid">
+                        ${service.features.map(f => `
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>${f}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <div class="nm-card mt-4">
+                    <h4 class="mb-4">Applicable Sectors</h4>
+                    <div class="sector-tags">
+                        ${service.sectors.map(s => `<span class="sector-tag">${s}</span>`).join('')}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="service-cta" class="section-center">
+            <h2 class="mb-4">Need This Service?</h2>
+            <p class="text-secondary mb-6">Let's discuss how we can help with your project.</p>
+            <a href="/contact" class="cta-button nav-link">Get in Touch →</a>
+        </section>
+
+        <section id="back-link" class="section-center">
+            <a href="/capabilities" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to Capabilities</a>
+        </section>
+    `;
+    },
+
+    // Team Detail Page - /team?id=xxx
+    teamDetail: (id, params) => {
+        const content = getContent();
+        
+        // Get team from content or use sample
+        const teamData = window.TEAM_DATA || content.about?.team || [];
+        
+        // Find member by slug
+        const member = teamData.find(m => 
+            m.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '') === id
+        ) || {
+            name: 'Team Member Not Found',
+            role: 'Unknown',
+            desc: 'The requested team member could not be found.',
+            bio: '',
+            photo: ''
+        };
+
+        return `
+        <section class="page-hero team-detail-hero">
+            <div class="hero-overlay-content">
+                <h1 class="hero-title">Team</h1>
+            </div>
+        </section>
+
+        <section id="team-detail">
+            <div class="team-detail-card nm-card">
+                <div class="team-detail-photo">
+                    ${member.photo 
+                        ? `<img src="${member.photo}" alt="${member.name}">`
+                        : `<div class="team-avatar-xl">${member.name.charAt(0)}</div>`
+                    }
+                </div>
+                <div class="team-detail-info">
+                    <h1>${member.name}</h1>
+                    <h3 class="text-accent">${member.role}</h3>
+                    <p class="text-secondary mt-4">${member.desc}</p>
+                    ${member.bio ? `<p class="mt-4">${member.bio}</p>` : ''}
+                    
+                    ${member.linkedin || member.email ? `
+                    <div class="team-contact mt-6">
+                        ${member.email ? `<a href="mailto:${member.email}" class="contact-link"><i class="fas fa-envelope"></i> Email</a>` : ''}
+                        ${member.linkedin ? `<a href="${member.linkedin}" class="contact-link" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>` : ''}
+                    </div>
+                    ` : ''}
+                </div>
+            </div>
+        </section>
+
+        <section id="back-link" class="section-center">
+            <a href="/about" class="cta-button secondary nav-link"><i class="fas fa-arrow-left"></i> Back to About</a>
+        </section>
+    `;
     }
 };
