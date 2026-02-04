@@ -1,5 +1,15 @@
 import { defaultContent } from '../data/content.js';
 
+// Base path for GitHub Pages (empty for local dev, '/sapthavarna-web' for production)
+const BASE_PATH = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
+
+// Helper to get image path with base URL
+const getImagePath = (img) => {
+    if (!img) return '';
+    if (img.startsWith('http') || img.startsWith('data:')) return img;
+    return `${BASE_PATH}/${img}`;
+};
+
 // Helper to get current content
 const getContent = () => {
     try {
@@ -18,7 +28,7 @@ window.addEventListener('storage', (e) => {
 // Render cards grid
 const renderCards = (cards, extraClass = '') => cards.map(card => `
     <div class="nm-card uniform-card ${extraClass}">
-        ${card.image ? `<div class="card-image nm-inset"><img src="${card.image}" alt="${card.title}" class="brand-img"></div>` : ''}
+        ${card.image ? `<div class="card-image nm-inset"><img src="${getImagePath(card.image)}" alt="${card.title}" class="brand-img"></div>` : ''}
         <h3>${card.title}</h3>
         <p class="text-secondary mt-4">${card.desc}</p>
         ${card.link ? `<a href="${card.link}" class="card-link mt-4 nav-link">Learn More →</a>` : ''}
@@ -38,7 +48,7 @@ const renderTeam = (team) => team.map(member => `
     <div class="grid-card-wrapper">
         <div class="grid-card-visual">
             ${member.photo 
-                ? `<img src="${member.photo}" alt="${member.name}" loading="lazy">`
+                ? `<img src="${getImagePath(member.photo)}" alt="${member.name}" loading="lazy">`
                 : `<div class="team-avatar-large">${member.name.charAt(0)}</div>`
             }
         </div>
@@ -77,7 +87,7 @@ export const pages = {
                     <a href="/about" class="card-link mt-6 nav-link">About SVGT →</a>
                 </div>
                 <div class="nm-card img-card nm-inset">
-                    <img src="materials.png" alt="Engineering materials" class="brand-img">
+                    <img src="${getImagePath('materials.png')}" alt="Engineering materials" class="brand-img">
                 </div>
             </div>
         </section>
@@ -623,7 +633,7 @@ export const pages = {
         <section id="project-detail">
             <div class="detail-grid">
                 <div class="detail-main">
-                    ${project.image ? `<div class="nm-card detail-image nm-inset"><img src="${project.image}" alt="${project.title}"></div>` : ''}
+                    ${project.image ? `<div class="nm-card detail-image nm-inset"><img src="${getImagePath(project.image)}" alt="${project.title}"></div>` : ''}
                     
                     <div class="nm-card">
                         <h2 class="mb-4">Project Overview</h2>
