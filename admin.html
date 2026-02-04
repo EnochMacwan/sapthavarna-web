@@ -569,8 +569,19 @@
                         <textarea class="form-control" id="form-bio">${escapeHTML(data.bio || '')}</textarea>
                     </div>
                     <div class="form-group">
-                        <label>Photo Path</label>
-                        <input type="text" class="form-control" id="form-photo" value="${escapeHTML(data.photo || '')}" placeholder="team/name.jpg">
+                        <label>Photo</label>
+                        <div class="photo-upload-area">
+                            <div class="photo-preview" id="photo-preview">
+                                ${data.photo ? `<img src="${data.photo}" alt="Preview">` : '<i class="fas fa-user"></i>'}
+                            </div>
+                            <div class="photo-controls">
+                                <input type="file" id="form-photo-file" accept="image/*" onchange="handlePhotoUpload(this)" style="display:none;">
+                                <button type="button" class="btn btn-secondary" onclick="document.getElementById('form-photo-file').click()">
+                                    <i class="fas fa-upload"></i> Upload Photo
+                                </button>
+                                <input type="text" class="form-control" id="form-photo" value="${escapeHTML(data.photo || '')}" placeholder="Or enter URL/path">
+                            </div>
+                        </div>
                     </div>
                 `;
             }
@@ -821,6 +832,44 @@
 
         function capitalize(str) {
             return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Handle photo upload from device
+        function handlePhotoUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showToast('Please select an image file', 'error');
+                return;
+            }
+
+            // Validate file size (max 2MB)
+            if (file.size > 2 * 1024 * 1024) {
+                showToast('Image must be under 2MB', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64 = e.target.result;
+                
+                // Update preview
+                const preview = document.getElementById('photo-preview');
+                if (preview) {
+                    preview.innerHTML = `<img src="${base64}" alt="Preview">`;
+                }
+                
+                // Update hidden field with base64 data
+                const photoInput = document.getElementById('form-photo');
+                if (photoInput) {
+                    photoInput.value = base64;
+                }
+                
+                showToast('Photo uploaded!', 'success');
+            };
+            reader.readAsDataURL(file);
         }
 
         function showToast(message, type = 'success') {
