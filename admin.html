@@ -176,6 +176,34 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- AI Configuration -->
+                <div class="item-card" style="max-width:800px; margin-top:20px;">
+                    <div class="item-card-content">
+                        <h3 style="margin-bottom:20px; color:var(--accent);"><i class="fas fa-robot"></i> AI Assistant (Groq)</h3>
+                        <div class="form-group">
+                            <label>Groq API Key</label>
+                            <input type="password" class="form-control" id="groq-api-key" placeholder="gsk_xxxx...">
+                            <small style="color:var(--text-muted); display:block; margin-top:8px;">
+                                <a href="https://console.groq.com/keys" target="_blank" style="color:var(--accent);">Get free API key</a> - 14,400+ requests/day free
+                            </small>
+                        </div>
+                        <div class="form-group">
+                            <label>AI Model</label>
+                            <select class="form-control" id="groq-model">
+                                <option value="llama-3.3-70b-versatile">Llama 3.3 70B (Best Quality)</option>
+                                <option value="llama-3.1-8b-instant">Llama 3.1 8B (Faster)</option>
+                                <option value="mixtral-8x7b-32768">Mixtral 8x7B (Balanced)</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="saveAIConfig()">
+                            <i class="fas fa-save"></i> Save AI Settings
+                        </button>
+                        <button class="btn btn-secondary" onclick="testAI()" style="margin-left:10px;">
+                            <i class="fas fa-vial"></i> Test Connection
+                        </button>
+                    </div>
+                </div>
             </section>
         </main>
     </div>
@@ -880,6 +908,294 @@
             container.appendChild(toast);
             setTimeout(() => toast.remove(), 4000);
         }
+
+        // ===== AI INTEGRATION (GROQ) =====
+        const AI_CONFIG_KEY = 'svgt_ai_config';
+        
+        function getAIConfig() {
+            const saved = localStorage.getItem(AI_CONFIG_KEY);
+            return saved ? JSON.parse(saved) : { apiKey: '', model: 'llama-3.3-70b-versatile' };
+        }
+        
+        function saveAIConfig() {
+            const config = {
+                apiKey: document.getElementById('groq-api-key').value,
+                model: document.getElementById('groq-model').value
+            };
+            localStorage.setItem(AI_CONFIG_KEY, JSON.stringify(config));
+            showToast('AI settings saved!', 'success');
+        }
+        
+        function loadAIConfig() {
+            const config = getAIConfig();
+            const apiKeyInput = document.getElementById('groq-api-key');
+            const modelSelect = document.getElementById('groq-model');
+            if (apiKeyInput) apiKeyInput.value = config.apiKey || '';
+            if (modelSelect) modelSelect.value = config.model || 'llama-3.3-70b-versatile';
+        }
+        
+        async function callGroqAPI(prompt, systemPrompt = 'You are a helpful assistant.') {
+            const config = getAIConfig();
+            if (!config.apiKey) {
+                showToast('Please configure AI API key in Settings', 'error');
+                throw new Error('No API key configured');
+            }
+            
+            const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${config.apiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: config.model,
+                    messages: [
+                        { role: 'system', content: systemPrompt },
+                        { role: 'user', content: prompt }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 1024
+                })
+            });
+            
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.error?.message || 'API request failed');
+            }
+            
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+        
+        async function testAI() {
+            try {
+                showToast('Testing AI connection...', 'info');
+                const result = await callGroqAPI('Say "Hello! AI is working perfectly." in exactly those words.');
+                showToast('AI connected successfully!', 'success');
+            } catch (error) {
+                showToast('AI connection failed: ' + error.message, 'error');
+            }
+        }
+        
+        async function generateBio(name, role) {
+            const prompt = `Write a professional 2-3 sentence biography for ${name}, who works as ${role} at SapthaVarnah Geo Technologies, a company specializing in marine infrastructure and geo-engineering consultancy. Keep it concise and professional.`;
+            const systemPrompt = 'You are a professional copywriter. Write clear, engaging biographies. Do not use quotation marks around the output.';
+            return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        async function generateDescription(title, type = 'service') {
+            const prompt = `Write a professional 2-3 sentence description for a ${type} called "${title}" offered by SapthaVarnah Geo Technologies, a marine infrastructure and geo-engineering consultancy company. Keep it clear and compelling.`;
+            const systemPrompt = 'You are a professional copywriter for an engineering consultancy. Write technical but accessible descriptions. Do not use quotation marks around the output.';
+            return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        async function improveText(text) {
+            const prompt = `Improve the following text while keeping the same meaning and length. Make it more professional and engaging:\n\n${text}`;
+            const systemPrompt = 'You are a professional editor. Improve text clarity and professionalism. Return only the improved text without quotation marks.';
+            return await callGroqAPI(prompt, systemPrompt);
+        }
+        
+        // AI Chat Assistant
+        let aiChatOpen = false;
+        let aiChatHistory = [];
+        
+        function initAIChat() {
+            // Create floating AI button
+            const aiBtn = document.createElement('button');
+            aiBtn.id = 'ai-chat-btn';
+            aiBtn.className = 'ai-fab';
+            aiBtn.innerHTML = '<i class="fas fa-robot"></i>';
+            aiBtn.onclick = toggleAIChat;
+            document.body.appendChild(aiBtn);
+            
+            // Create chat container
+            const chatContainer = document.createElement('div');
+            chatContainer.id = 'ai-chat-container';
+            chatContainer.className = 'ai-chat-container';
+            chatContainer.innerHTML = `
+                <div class="ai-chat-header">
+                    <span><i class="fas fa-robot"></i> AI Assistant</span>
+                    <button type="button" onclick="toggleAIChat()" class="ai-chat-close">&times;</button>
+                </div>
+                <div class="ai-chat-messages" id="ai-chat-messages">
+                    <div class="ai-message ai">Hello! I'm your AI assistant powered by Groq. How can I help you with your content today?</div>
+                </div>
+                <div class="ai-chat-input">
+                    <input type="text" id="ai-chat-input" placeholder="Ask me anything..." onkeypress="if(event.key==='Enter')sendAIMessage()">
+                    <button type="button" onclick="sendAIMessage()"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            `;
+            document.body.appendChild(chatContainer);
+            
+            // Add AI chat styles
+            const style = document.createElement('style');
+            style.textContent = `
+                .ai-fab {
+                    position: fixed;
+                    bottom: 30px;
+                    right: 30px;
+                    width: 60px;
+                    height: 60px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    border: none;
+                    color: white;
+                    font-size: 24px;
+                    cursor: pointer;
+                    box-shadow: 0 4px 20px rgba(102,126,234,0.4);
+                    z-index: 9999;
+                    transition: transform 0.3s, box-shadow 0.3s;
+                }
+                .ai-fab:hover {
+                    transform: scale(1.1);
+                    box-shadow: 0 6px 30px rgba(102,126,234,0.6);
+                }
+                .ai-chat-container {
+                    position: fixed;
+                    bottom: 100px;
+                    right: 30px;
+                    width: 380px;
+                    height: 500px;
+                    background: var(--bg-color);
+                    border-radius: 16px;
+                    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                    display: none;
+                    flex-direction: column;
+                    z-index: 9998;
+                    overflow: hidden;
+                }
+                .ai-chat-container.open {
+                    display: flex;
+                }
+                .ai-chat-header {
+                    padding: 16px 20px;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    color: white;
+                    font-weight: 600;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .ai-chat-close {
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 24px;
+                    cursor: pointer;
+                }
+                .ai-chat-messages {
+                    flex: 1;
+                    overflow-y: auto;
+                    padding: 16px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 12px;
+                }
+                .ai-message {
+                    padding: 12px 16px;
+                    border-radius: 12px;
+                    max-width: 85%;
+                    line-height: 1.5;
+                }
+                .ai-message.user {
+                    background: var(--accent);
+                    color: white;
+                    align-self: flex-end;
+                    border-bottom-right-radius: 4px;
+                }
+                .ai-message.ai {
+                    background: var(--card-bg);
+                    color: var(--text-primary);
+                    align-self: flex-start;
+                    border-bottom-left-radius: 4px;
+                }
+                .ai-message.loading {
+                    opacity: 0.7;
+                }
+                .ai-chat-input {
+                    display: flex;
+                    padding: 12px;
+                    gap: 8px;
+                    border-top: 1px solid var(--border);
+                }
+                .ai-chat-input input {
+                    flex: 1;
+                    padding: 12px 16px;
+                    border-radius: 24px;
+                    border: 1px solid var(--border);
+                    background: var(--card-bg);
+                    color: var(--text-primary);
+                    outline: none;
+                }
+                .ai-chat-input button {
+                    width: 44px;
+                    height: 44px;
+                    border-radius: 50%;
+                    border: none;
+                    background: var(--accent);
+                    color: white;
+                    cursor: pointer;
+                }
+                .ai-gen-btn {
+                    margin-left: 8px;
+                    padding: 6px 12px;
+                    font-size: 12px;
+                    background: linear-gradient(135deg, #667eea, #764ba2);
+                    border: none;
+                    color: white;
+                    border-radius: 6px;
+                    cursor: pointer;
+                }
+                .ai-gen-btn:hover {
+                    opacity: 0.9;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        function toggleAIChat() {
+            const container = document.getElementById('ai-chat-container');
+            if (container) {
+                aiChatOpen = !aiChatOpen;
+                container.classList.toggle('open', aiChatOpen);
+            }
+        }
+        
+        async function sendAIMessage() {
+            const input = document.getElementById('ai-chat-input');
+            const messages = document.getElementById('ai-chat-messages');
+            const userMessage = input.value.trim();
+            
+            if (!userMessage) return;
+            
+            // Add user message
+            messages.innerHTML += `<div class="ai-message user">${userMessage}</div>`;
+            input.value = '';
+            
+            // Add loading message
+            const loadingId = 'loading-' + Date.now();
+            messages.innerHTML += `<div class="ai-message ai loading" id="${loadingId}"><i class="fas fa-spinner fa-spin"></i> Thinking...</div>`;
+            messages.scrollTop = messages.scrollHeight;
+            
+            try {
+                const systemPrompt = `You are an AI assistant for SapthaVarnah Geo Technologies admin panel. Help with content creation, writing team bios, service descriptions, and general questions. Be concise and helpful. The company specializes in marine infrastructure and geo-engineering consultancy.`;
+                const response = await callGroqAPI(userMessage, systemPrompt);
+                
+                // Replace loading with response
+                document.getElementById(loadingId).outerHTML = `<div class="ai-message ai">${response}</div>`;
+                aiChatHistory.push({ user: userMessage, ai: response });
+            } catch (error) {
+                document.getElementById(loadingId).outerHTML = `<div class="ai-message ai" style="color:#e74c3c;">Error: ${error.message}</div>`;
+            }
+            
+            messages.scrollTop = messages.scrollHeight;
+        }
+        
+        // Initialize AI chat on load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAIConfig();
+            initAIChat();
+        });
     </script>
 </body>
 </html>
