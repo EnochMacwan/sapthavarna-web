@@ -16,11 +16,7 @@
             --accent-energy: #9C4221;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -30,7 +26,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .admin-sidebar {
             width: 260px;
             background: #fff;
@@ -64,9 +59,7 @@
             font-weight: 700;
         }
 
-        .admin-menu {
-            flex: 1;
-        }
+        .admin-menu { flex: 1; }
 
         .admin-menu a {
             display: flex;
@@ -93,12 +86,6 @@
             box-shadow: 0 4px 15px rgba(0, 51, 102, 0.25);
         }
 
-        .admin-menu-icon {
-            width: 20px;
-            height: 20px;
-            opacity: 0.7;
-        }
-
         .sidebar-footer {
             padding-top: 20px;
             border-top: 1px solid rgba(0,0,0,0.05);
@@ -112,14 +99,8 @@
             color: var(--text-secondary);
             text-decoration: none;
             padding: 10px 0;
-            transition: color 0.2s;
         }
 
-        .sidebar-footer a:hover {
-            color: var(--page-accent);
-        }
-
-        /* Main Content */
         .admin-content {
             margin-left: 260px;
             padding: 40px 50px;
@@ -139,7 +120,6 @@
         .admin-header h1 {
             font-size: 1.8rem;
             font-weight: 600;
-            color: var(--text-primary);
         }
 
         .header-actions {
@@ -175,26 +155,14 @@
             border: 1px solid rgba(0,0,0,0.1);
         }
 
-        .btn-secondary:hover {
-            background: #f8f8f8;
-        }
-
-        /* Editor Forms */
-        .editor-form {
-            display: none;
-            max-width: 900px;
-        }
-
-        .editor-form.active {
-            display: block;
-        }
+        .editor-form { display: none; max-width: 900px; }
+        .editor-form.active { display: block; }
 
         .page-title {
             font-size: 1.4rem;
             font-weight: 600;
             margin-bottom: 30px;
             text-transform: capitalize;
-            color: var(--text-primary);
         }
 
         .section-card {
@@ -216,13 +184,8 @@
             text-transform: capitalize;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group:last-child {
-            margin-bottom: 0;
-        }
+        .form-group { margin-bottom: 20px; }
+        .form-group:last-child { margin-bottom: 0; }
 
         label {
             display: block;
@@ -251,13 +214,8 @@
             background: white;
         }
 
-        textarea {
-            min-height: 120px;
-            resize: vertical;
-            line-height: 1.6;
-        }
+        textarea { min-height: 120px; resize: vertical; line-height: 1.6; }
 
-        /* Status Toast */
         .status-toast {
             position: fixed;
             bottom: 30px;
@@ -279,56 +237,19 @@
             transform: translateY(0);
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
-            .admin-sidebar {
-                width: 80px;
-                padding: 20px 15px;
-            }
-
-            .admin-logo span,
-            .admin-menu a span,
-            .sidebar-footer span {
-                display: none;
-            }
-
-            .admin-logo {
-                justify-content: center;
-            }
-
-            .admin-menu a {
-                justify-content: center;
-                padding: 14px;
-            }
-
-            .admin-content {
-                margin-left: 80px;
-                width: calc(100% - 80px);
-                padding: 30px;
-            }
+            .admin-sidebar { width: 80px; padding: 20px 15px; }
+            .admin-logo span, .admin-menu a span:last-child, .sidebar-footer span:last-child { display: none; }
+            .admin-logo { justify-content: center; }
+            .admin-menu a { justify-content: center; padding: 14px; }
+            .admin-content { margin-left: 80px; width: calc(100% - 80px); padding: 30px; }
         }
 
         @media (max-width: 768px) {
-            .admin-sidebar {
-                display: none;
-            }
-
-            .admin-content {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-            }
-
-            .admin-header {
-                flex-direction: column;
-                gap: 20px;
-                text-align: center;
-            }
-
-            .header-actions {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+            .admin-sidebar { display: none; }
+            .admin-content { margin-left: 0; width: 100%; padding: 20px; }
+            .admin-header { flex-direction: column; gap: 20px; text-align: center; }
+            .header-actions { flex-wrap: wrap; justify-content: center; }
         }
     </style>
 </head>
@@ -339,27 +260,8 @@
             <div class="admin-logo-icon">S</div>
             <span>Admin</span>
         </div>
-        <nav class="admin-menu">
-            <a href="#" onclick="showSection('home')" class="active">
-                <span>🏠</span>
-                <span>Home</span>
-            </a>
-            <a href="#" onclick="showSection('about')">
-                <span>ℹ️</span>
-                <span>About</span>
-            </a>
-            <a href="#" onclick="showSection('capabilities')">
-                <span>⚙️</span>
-                <span>Capabilities</span>
-            </a>
-            <a href="#" onclick="showSection('sustainability')">
-                <span>🌱</span>
-                <span>Sustainability</span>
-            </a>
-            <a href="#" onclick="showSection('contact')">
-                <span>📧</span>
-                <span>Contact</span>
-            </a>
+        <nav class="admin-menu" id="admin-menu">
+            <!-- Menu items generated by JS -->
         </nav>
         <div class="sidebar-footer">
             <a href="/" target="_blank">
@@ -379,30 +281,149 @@
             </div>
         </div>
 
-        <div id="editor-container"></div>
+        <div id="editor-container">
+            <p style="color: #888;">Loading content editor...</p>
+        </div>
     </main>
 
     <div id="status-toast" class="status-toast">Changes saved!</div>
 
-    <script type="module">
-        import { defaultContent } from './web/content.js';
+    <script>
+        // Default content embedded directly to avoid module import issues
+        const defaultContent = {
+            home: {
+                hero: {
+                    title: "Engineering the Full Spectrum of the Earth",
+                    subtitle: "Marine, transport, energy, and advanced construction solutions across Africa, India, and the Gulf.",
+                    ctaMain: "Explore Capabilities",
+                    ctaSec: "Rebuild Signature"
+                },
+                about: {
+                    title: "Who We Are",
+                    desc1: "SapthaVarnah Geo Technologies is an infrastructure and geo-engineering company delivering climate-resilient, future-ready projects.",
+                    desc2: "Drawing inspiration from the seven colours of the earth, we integrate geology, engineering, and modern construction technologies into every solution."
+                },
+                closing: {
+                    title: "Infrastructure built with respect for every layer of the earth it touches.",
+                    cta: "Contact SapthaVarnah"
+                }
+            },
+            about: {
+                philosophy: {
+                    label: "Our Philosophy",
+                    title: "Harmony with the Earth",
+                    desc1: "At SapthaVarnah, we believe infrastructure should work in harmony with the earth it is built upon. Every site carries its own geological, environmental, and social context. Understanding these layers is fundamental to creating infrastructure that lasts.",
+                    desc2: "Our name reflects the seven colours of the earth — a symbol of diversity, balance, and completeness. This philosophy shapes our multidisciplinary approach to engineering and construction."
+                },
+                approach: {
+                    label: "Engineering Approach",
+                    title: "Bridging Tradition & Innovation",
+                    desc1: "We deliver integrated solutions spanning planning, engineering, construction, and modern building technologies. Our expertise bridges traditional civil engineering with advanced construction systems.",
+                    desc2: "This allows us to meet the critical demands of climate resilience, speed of delivery, and long-term sustainability for both public and private infrastructure."
+                },
+                leadership: {
+                    title: "Leadership & Expertise",
+                    card1Title: "Regional Knowledge",
+                    card1Desc: "Led by professionals with deep experience across marine works, transport infrastructure, and energy projects in Africa, India, and the Gulf.",
+                    card2Title: "Technical Depth",
+                    card2Desc: "Our teams integrate regional knowledge with technical depth and execution capability to ensure project reliability across diverse environments."
+                }
+            },
+            capabilities: {
+                hero: {
+                    label: "Core Capabilities",
+                    title: "Integrated Engineering Solutions"
+                },
+                marine: {
+                    label: "Sector 01",
+                    title: "Marine & Coastal Infrastructure",
+                    desc: "We deliver robust marine infrastructure designed to withstand dynamic coastal and ocean conditions."
+                },
+                transport: {
+                    label: "Sector 02",
+                    title: "Transport Infrastructure",
+                    desc: "Our transport solutions enhance connectivity and economic growth across regional markets."
+                },
+                energy: {
+                    label: "Sector 03",
+                    title: "Energy Infrastructure",
+                    desc: "Supporting energy transition and reliability through resilient infrastructure development."
+                },
+                systems: {
+                    label: "Sector 04",
+                    title: "Modern Construction Systems",
+                    precastTitle: "Precast Construction",
+                    precastDesc: "Industrialised precast solutions ensuring quality, speed, and precision for large-scale infrastructure.",
+                    gfrgTitle: "GFRG Systems",
+                    gfrgDesc: "Rapid, lightweight, and sustainable building technology for high-performance structural delivery."
+                }
+            },
+            sustainability: {
+                hero: {
+                    label: "Sustainability",
+                    title: "Responsible Infrastructure"
+                },
+                logic: {
+                    label: "Logic",
+                    title: "Balanced Performance",
+                    desc: "Sustainability at SapthaVarnah is embedded in engineering decisions, material selection, and construction methodology. Our focus is on delivering infrastructure that balances performance, environmental responsibility, and long-term value."
+                },
+                initiatives: {
+                    item1Title: "Geo-informed design",
+                    item1Desc: "Using site-specific geological data to optimize foundation depth and material strength.",
+                    item2Title: "Low-carbon precast",
+                    item2Desc: "Shifting construction off-site to controlled environments to reduce waste and energy use.",
+                    item3Title: "BIM-enabled execution",
+                    item3Desc: "Digital twins ensure precision in planning, reducing rework and material errors."
+                }
+            },
+            contact: {
+                hero: {
+                    label: "Get in Touch",
+                    title: "Connect with Our Team"
+                },
+                details: {
+                    oppsLabel: "Project Opportunities",
+                    regionsLabel: "Regions Served",
+                    regionsDesc: "Strategically positioned to serve emerging and established hubs."
+                }
+            }
+        };
 
-        // Deep clone for reset functionality
+        // Deep clone for reset
         const originalContent = JSON.parse(JSON.stringify(defaultContent));
         let currentContent = JSON.parse(JSON.stringify(defaultContent));
 
-        // Load from storage if exists
+        // Load from localStorage if exists
         const saved = localStorage.getItem('siteContent');
         if (saved) {
             try {
                 currentContent = JSON.parse(saved);
+                console.log('Loaded content from localStorage');
             } catch (e) {
                 console.warn('Failed to parse saved content, using defaults');
             }
         }
 
-        const editorContainer = document.getElementById('editor-container');
+        // Generate menu items
+        function generateMenu() {
+            const menuContainer = document.getElementById('admin-menu');
+            const icons = { home: '🏠', about: 'ℹ️', capabilities: '⚙️', sustainability: '🌱', contact: '📧' };
+            let menuHtml = '';
+            
+            Object.keys(currentContent).forEach((page, index) => {
+                menuHtml += `
+                    <a href="#" onclick="showSection('${page}'); return false;" class="${index === 0 ? 'active' : ''}">
+                        <span>${icons[page] || '📄'}</span>
+                        <span>${page.charAt(0).toUpperCase() + page.slice(1)}</span>
+                    </a>
+                `;
+            });
+            
+            menuContainer.innerHTML = menuHtml;
+        }
 
+        // Generate form inputs
         function generateInputs(sectionName, sectionData) {
             let html = `<div id="section-${sectionName}" class="editor-form ${sectionName === 'home' ? 'active' : ''}">`;
             html += `<h2 class="page-title">${sectionName} Page</h2>`;
@@ -436,24 +457,27 @@
             return html;
         }
 
-        // Render All Forms
-        let allForms = '';
-        for (const [page, data] of Object.entries(currentContent)) {
-            allForms += generateInputs(page, data);
+        // Render all forms
+        function renderEditor() {
+            const editorContainer = document.getElementById('editor-container');
+            let allForms = '';
+            for (const [page, data] of Object.entries(currentContent)) {
+                allForms += generateInputs(page, data);
+            }
+            editorContainer.innerHTML = allForms;
         }
-        editorContainer.innerHTML = allForms;
 
         // Global functions
-        window.updateContent = (page, group, field, value) => {
+        function updateContent(page, group, field, value) {
             currentContent[page][group][field] = value;
-        };
+        }
 
-        window.saveChanges = () => {
+        function saveChanges() {
             localStorage.setItem('siteContent', JSON.stringify(currentContent));
             showToast("✓ Changes saved! Refresh the main site to see updates.");
-        };
+        }
 
-        window.downloadConfig = () => {
+        function downloadConfig() {
             const dataStr = "export const defaultContent = " + JSON.stringify(currentContent, null, 4) + ";";
             const blob = new Blob([dataStr], { type: "text/javascript" });
             const url = URL.createObjectURL(blob);
@@ -464,23 +488,24 @@
             a.click();
             document.body.removeChild(a);
             showToast("✓ Config file downloaded!");
-        };
+        }
 
-        window.resetContent = () => {
+        function resetContent() {
             if (confirm('Reset all content to defaults? This cannot be undone.')) {
                 localStorage.removeItem('siteContent');
                 currentContent = JSON.parse(JSON.stringify(originalContent));
                 location.reload();
             }
-        };
+        }
 
-        window.showSection = (sectionId) => {
+        function showSection(sectionId) {
             document.querySelectorAll('.editor-form').forEach(el => el.classList.remove('active'));
-            document.querySelector(`#section-${sectionId}`).classList.add('active');
+            const section = document.querySelector(`#section-${sectionId}`);
+            if (section) section.classList.add('active');
 
             document.querySelectorAll('.admin-menu a').forEach(el => el.classList.remove('active'));
             event.target.closest('a').classList.add('active');
-        };
+        }
 
         function showToast(msg) {
             const toast = document.getElementById('status-toast');
@@ -488,6 +513,13 @@
             toast.classList.add('visible');
             setTimeout(() => toast.classList.remove('visible'), 3000);
         }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            generateMenu();
+            renderEditor();
+            console.log('Admin panel initialized with', Object.keys(currentContent).length, 'sections');
+        });
     </script>
 </body>
 </html>
