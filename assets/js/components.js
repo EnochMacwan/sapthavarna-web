@@ -24,7 +24,7 @@ export const components = {
                                 <ul class="mega-links">
                                     <li><a href="#about">Company Overview</a></li>
                                     <li><a href="#about">Leadership Team</a></li>
-                                    <li><a href="#about">Careers & Culture</a></li>
+                                    <li><a href="#careers">Careers & Culture</a></li>
                                 </ul>
                             </div>
                             <div class="mega-col">

@@ -147,7 +147,7 @@ export const pages = {
             <div class="nm-card section-center">
                 <h2 class="mb-4">${content.about.careers.title}</h2>
                 <p class="text-secondary mb-6">${content.about.careers.desc}</p>
-                <a href="mailto:${content.about.careers.ctaEmail}" class="cta-button">${content.about.careers.ctaText} →</a>
+                <a href="#careers" class="cta-button nav-link">${content.about.careers.ctaText} →</a>
             </div>
         </section>
     `;
