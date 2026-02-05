@@ -271,6 +271,10 @@ body {
     font-weight: 600;
 }
 
+.section-header-spaced {
+    margin-top: 30px;
+}
+
 /* Stats Grid */
 .stats-grid {
     display: grid;
@@ -301,6 +305,13 @@ body {
 .stat-card .label {
     color: var(--text-muted);
     font-size: 0.9rem;
+}
+
+/* Quick Actions */
+.quick-actions {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
 }
 
 /* Items Grid */
@@ -576,4 +587,31 @@ textarea.form-control {
     .items-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Utilities & Helpers */
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--accent); }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.ml-10 { margin-left: 10px; }
+.d-none { display: none !important; }
+
+.form-hint {
+    color: var(--text-muted);
+    display: block;
+    margin-top: 8px;
+    font-size: 0.85rem;
+}
+
+.form-hint a {
+    color: var(--accent);
+}
+
+.modal-sm { max-width: 500px; }
+.card-wide { max-width: 800px; }
+
+.card-title-accent {
+    margin-bottom: 20px; 
+    color: var(--accent);
 }
