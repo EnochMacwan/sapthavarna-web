@@ -13,7 +13,7 @@ import T from"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
 `).join(""),O=e=>e.map(t=>`
     <div class="grid-card-wrapper">
         <div class="grid-card-visual">
-            ${t.photo?`<img src="${v(t.photo)}" alt="${t.name}" loading="lazy">`:`<div class="team-avatar-large">${t.name.charAt(0)}</div>`}
+            ${t.photo?`<img src="${t.photo}" alt="${t.name}" loading="lazy">`:`<div class="team-avatar-large">${t.name.charAt(0)}</div>`}
         </div>
         <div class="grid-content-outside">
             <h3>${t.name}</h3>
