@@ -1,4 +1,4 @@
-const defaultContent = window.defaultContent = {
+export const defaultContent = {
     home: {
         hero: {
             title: "Engineering the Full Spectrum of the Earth",
