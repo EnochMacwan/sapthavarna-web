@@ -608,21 +608,30 @@ nav {
 
 /* Layout Grids */
 /* Layout Grids */
-.hero-grid, .about-grid, .structural-logic-grid, .grid-container {
+.hero-grid, .structural-logic-grid, .grid-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Enforce 3 columns */
-  gap: 40px; /* Tighter gap for 3-col fit */
-  align-items: stretch; /* Cards equal height */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  align-items: stretch;
 }
 
-/* 2-column override for specific sections */
-.systems-grid, .approach-grid, .contact-grid {
+/* 2-column grids */
+.about-grid, .systems-grid, .approach-grid, .contact-grid {
+  display: grid;
   grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  align-items: stretch;
 }
 
 @media (max-width: 1024px) {
-  .hero-grid, .about-grid, .structural-logic-grid, .grid-container {
+  .hero-grid, .structural-logic-grid, .grid-container {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-grid, .systems-grid, .approach-grid, .contact-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -637,19 +646,21 @@ nav {
 }
 
 .img-card {
-  padding: 10px; /* Reduced padding for compact look */
+  padding: 0;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   justify-content: center;
+  min-height: 150px;
 }
 
 .brand-img {
   width: 100%;
-  height: 220px; /* Fixed height for small card feel */
+  height: 100%;
+  min-height: 150px;
   border-radius: 16px;
   display: block;
-  object-fit: cover; /* Crop to fill */
+  object-fit: cover;
   transition: var(--transition-calm);
 }
 
@@ -943,27 +954,36 @@ nav {
   gap: 30px;
 }
 
-/* Grid Card Wrapper - Tridel style with photo */
+/* Grid Card Wrapper - Neumorphic style */
 .grid-card-wrapper {
-  background: var(--card-bg);
-  border-radius: var(--card-radius);
-  box-shadow: var(--card-shadow);
+  background: var(--bg-color);
+  border-radius: 24px;
+  box-shadow: var(--nm-shadow-light);
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: var(--transition-calm);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid rgba(255,255,255,0.5);
+  padding: 20px;
 }
 
 .grid-card-wrapper:hover {
-  transform: translateY(-5px);
-  box-shadow: 8px 8px 25px rgba(0,0,0,0.15), -4px -4px 15px rgba(255,255,255,0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--nm-shadow-hover);
 }
 
 .grid-card-visual {
-  height: 240px;
-  background: linear-gradient(135deg, rgba(0,51,102,0.1), rgba(156,66,33,0.08));
+  width: 400px;
+  height: 400px;
+  background: var(--bg-color);
+  box-shadow: var(--nm-shadow-inset);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  flex-shrink: 0;
+  border-radius: 16px;
 }
 
 .grid-card-visual img {
@@ -973,10 +993,9 @@ nav {
 }
 
 .grid-card-visual .team-avatar-large {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(135deg, var(--page-accent), var(--accent-energy));
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -986,27 +1005,30 @@ nav {
 }
 
 .grid-content-outside {
-  padding: 25px 30px 30px;
+  padding: 20px 5px 5px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid-content-outside h3 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   color: var(--text-primary);
 }
 
 .grid-content-outside h4 {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--page-accent);
   margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .grid-content-outside p {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.6;
+  display: none;
 }
 
 /* Simple Team Card (avatar only) */
@@ -1600,10 +1622,10 @@ nav {
 /* Back-to-Top Button */
 .back-to-top {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
+  bottom: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
   background: var(--bg-color);
   border: none;
   border-radius: 50%;
@@ -1618,7 +1640,7 @@ nav {
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   z-index: 999;
   color: var(--text-primary);
-  font-size: 1.2rem;
+  font-size: 0.85rem;
 }
 
 .back-to-top.visible {
@@ -1894,10 +1916,10 @@ nav {
 /* Dark Mode Toggle */
 .theme-toggle {
   position: fixed;
-  bottom: 90px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
+  bottom: 62px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
   background: var(--bg-color);
   border: none;
   border-radius: 50%;
@@ -1908,7 +1930,7 @@ nav {
   justify-content: center;
   z-index: 999;
   color: var(--text-primary);
-  font-size: 1.2rem;
+  font-size: 0.85rem;
   transition: all 0.4s ease;
 }
 

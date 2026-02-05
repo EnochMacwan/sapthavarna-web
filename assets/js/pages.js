@@ -48,7 +48,7 @@ const renderTeam = (team) => team.map(member => `
     <div class="grid-card-wrapper">
         <div class="grid-card-visual">
             ${member.photo 
-                ? `<img src="${getImagePath(member.photo)}" alt="${member.name}" loading="lazy">`
+                ? `<img src="${member.photo}" alt="${member.name}" loading="lazy">`
                 : `<div class="team-avatar-large">${member.name.charAt(0)}</div>`
             }
         </div>
