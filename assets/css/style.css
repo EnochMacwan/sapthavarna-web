@@ -1903,7 +1903,7 @@ nav {
   border-radius: 50%;
   box-shadow: var(--nm-shadow-light);
   cursor: pointer;
-  display: none;  /* Hidden for now */
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
