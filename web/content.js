@@ -311,8 +311,7 @@ export const defaultContent = {
     },
     shared: {
         phone: "+230 [XXX XXXX]",
-        socialLinks: { linkedin: "#", twitter: "#", youtube: "#" },
-        newsletter: { title: "Stay Updated", desc: "Subscribe to receive project updates and industry insights." }
+        socialLinks: { linkedin: "#", twitter: "#", youtube: "#" }
     },
     sectionVisibility: {
         home: { hero: true, stats: false, clientLogos: false, about: true, capabilities: true, projects: false, process: true, testimonials: false, trustStrip: false, closing: true },

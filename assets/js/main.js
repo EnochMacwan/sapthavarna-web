@@ -295,31 +295,11 @@ const initFormValidation = () => {
     });
 };
 
-// Newsletter Form Handler
-const initNewsletter = () => {
-    const form = document.getElementById('newsletter-form');
-    if (!form) return;
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const email = form.querySelector('.newsletter-input');
-        if (email && email.value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-            const subs = JSON.parse(localStorage.getItem('newsletter_subs') || '[]');
-            subs.push({ email: email.value, subscribedAt: new Date().toISOString() });
-            localStorage.setItem('newsletter_subs', JSON.stringify(subs));
-            email.value = '';
-            const btn = form.querySelector('.newsletter-btn');
-            btn.textContent = 'Subscribed!';
-            setTimeout(() => { btn.textContent = 'Subscribe'; }, 3000);
-        }
-    });
-};
-
 // Initialize all UI enhancements
 document.addEventListener('DOMContentLoaded', () => {
     initBackToTop();
     initHamburgerMenu();
     initFormValidation();
-    initNewsletter();
 });
 
 // Reinitialize on route change

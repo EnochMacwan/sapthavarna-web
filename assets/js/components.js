@@ -193,17 +193,6 @@ export const components = {
             </div>
         </div>
 
-        <div class="footer-newsletter">
-            <div class="newsletter-inner">
-                <h4>${shared.newsletter?.title || 'Stay Updated'}</h4>
-                <p>${shared.newsletter?.desc || 'Subscribe to receive project updates and industry insights.'}</p>
-                <form class="newsletter-form" id="newsletter-form" onsubmit="return false;">
-                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
-                    <button type="submit" class="newsletter-btn">Subscribe</button>
-                </form>
-            </div>
-        </div>
-
         <div class="footer-bottom">
             <p>&copy; ${new Date().getFullYear()} SapthaVarnah Geo Technologies. All rights reserved.</p>
             <div class="legal-links">
