@@ -71,7 +71,7 @@ export const defaultContent = {
             title: "SapthaVarnah Geo Technologies",
             desc1: "SVGT is a specialist infrastructure company focused on marine, transport, and energy sectors across emerging markets. We combine deep geotechnical expertise accumulated over decades with modern construction methodologies to deliver resilient infrastructure that serves communities for generations.",
             desc2: "Our name 'SapthaVarnah' — meaning 'seven colours' in Sanskrit — reflects the rich geological diversity of the earth we work with. From the deep marine sediments of coastal projects to the varied rock formations encountered in transport corridors, we bring a complete spectrum of geological and environmental understanding to every project.",
-            desc3: "Headquartered in Mauritius with technical operations in Chennai, India, we serve clients across the African continent, the Indian subcontinent, and the Gulf region. Our strategic positioning allows us to mobilise quickly and deliver projects efficiently across these dynamic markets."
+            desc3: "With offices in Vadodara, India and Moka, Mauritius, we serve clients across the African continent, the Indian subcontinent, and the Gulf region. Our strategic positioning allows us to mobilise quickly and deliver projects efficiently across these dynamic markets."
         },
         leadershipTeam: [
             { name: "Shaijan", role: "Founder & Managing Director", desc: "With over 25 years of experience in marine and coastal infrastructure, Shaijan has led major port development and coastal protection projects across emerging markets including Mauritius, East Africa, and the Gulf." },
@@ -286,13 +286,13 @@ export const defaultContent = {
         offices: {
             label: "Global Offices",
             locations: [
-                { country: "Mauritius", city: "Port Louis", type: "Global Headquarters", address: "Level 3, Hennessy Tower, Pope Hennessy Street" },
-                { country: "India", city: "Chennai", type: "Technical Centre", address: "Perungudi, OMR Technology Corridor" }
+                { country: "India", city: "Vadodara", type: "India Office", address: "11 New Samarpan Bungalows, Vasna Bhayali Road, Vadodara, Gujarat" },
+                { country: "Mauritius", city: "Moka", type: "Registered Office", address: "Level 1, The Country Side, Vivéa Business Park, St-Pierre, Moka" }
             ]
         },
         regions: {
             label: "Regions Served",
-            desc: "Strategically positioned in Mauritius and India to serve emerging and established markets across three continents with rapid mobilisation capability.",
+            desc: "Strategically positioned in India and Mauritius to serve emerging and established markets across three continents with rapid mobilisation capability.",
             items: ["East & Southern Africa", "West Africa", "Indian Subcontinent", "Gulf Cooperation Council", "Indian Ocean Islands"]
         },
         media: {
@@ -303,7 +303,7 @@ export const defaultContent = {
         phone: "+230 [XXX XXXX]",
         responseGuarantee: { title: "Quick Response", desc: "Our team responds to all project enquiries within 24-48 business hours." },
         faq: [
-            { question: "What regions do you operate in?", answer: "We serve clients across East and Southern Africa, West Africa, the Indian Subcontinent, Gulf Cooperation Council countries, and Indian Ocean Islands, with offices in Mauritius and India." },
+            { question: "What regions do you operate in?", answer: "We serve clients across East and Southern Africa, West Africa, the Indian Subcontinent, Gulf Cooperation Council countries, and Indian Ocean Islands, with offices in India and Mauritius." },
             { question: "What types of projects do you take on?", answer: "We deliver marine and coastal infrastructure, transport corridors, energy enabling works, and modern construction systems. Projects range from feasibility studies to full design-build delivery." },
             { question: "How do I request a proposal?", answer: "Submit a project enquiry through our contact form or email info@svgeotech.com with your project details, location, and timeline. Our team will respond with next steps." },
             { question: "Do you work with government and private sector clients?", answer: "Yes, we work with both public and private sector clients including government agencies, port authorities, energy developers, and private infrastructure investors." }

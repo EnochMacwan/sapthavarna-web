@@ -73,7 +73,7 @@ export const components = {
                             </div>
                             <div class="mega-col">
                                 <h5>Presence</h5>
-                                <p class="mega-desc">Mauritius \u00b7 India \u00b7 Serving Africa, Gulf & beyond</p>
+                                <p class="mega-desc">India \u00b7 Mauritius \u00b7 Serving Africa, Gulf & beyond</p>
                             </div>
                         </div>
                     </div>
@@ -186,8 +186,8 @@ export const components = {
             <div class="footer-col">
                 <h5>Offices</h5>
                 <ul class="footer-links offices-footer">
-                    <li><strong>Mauritius</strong> \u00b7 Port Louis</li>
-                    <li><strong>India</strong> \u00b7 Chennai</li>
+                    <li><strong>India</strong> · Vadodara, Gujarat</li>
+                    <li><strong>Mauritius</strong> · Moka</li>
                 </ul>
                 ${shared.phone ? `<p style="margin-top:12px;font-size:0.9rem;"><i class="fas fa-phone" style="margin-right:6px;color:var(--accent-marine);"></i>${shared.phone}</p>` : ''}
             </div>
