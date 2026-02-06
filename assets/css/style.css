@@ -124,7 +124,7 @@ nav {
   backdrop-filter: blur(20px);
   border-radius: 80px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.06);
-  z-index: 1000;
+  z-index: 1003;
   border: 1px solid rgba(0,0,0,0.04);
   transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -1394,10 +1394,11 @@ nav {
   background: var(--text-primary);
   border-radius: 2px;
   transition: all 0.3s ease;
+  transform-origin: center;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: translateY(7px) rotate(45deg);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -1405,7 +1406,7 @@ nav {
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* Mobile Menu Overlay */
