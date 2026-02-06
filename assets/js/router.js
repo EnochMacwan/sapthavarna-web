@@ -19,13 +19,6 @@ class Router {
             'careers': pages.careers
         };
 
-        // Dynamic routes (query parameter based)
-        this.dynamicRoutes = {
-            'project': pages.projectDetail,
-            'service': pages.serviceDetail,
-            'team': pages.teamDetail
-        };
-
         window.addEventListener('hashchange', () => this.handleRoute());
         document.addEventListener('click', (e) => this.interceptClick(e));
         
@@ -59,39 +52,9 @@ class Router {
         return hash;
     }
 
-    getQueryParams(hash) {
-        const params = {};
-        const queryIndex = hash.indexOf('?');
-        if (queryIndex > -1) {
-            const query = hash.substring(queryIndex + 1);
-            query.split('&').forEach(pair => {
-                const [key, value] = pair.split('=');
-                params[decodeURIComponent(key)] = decodeURIComponent(value || '');
-            });
-        }
-        return params;
-    }
-
     async handleRoute() {
-        let hash = this.getHashPath();
-        const queryParams = this.getQueryParams(hash);
-        
-        // Remove query string from path
-        const queryIndex = hash.indexOf('?');
-        if (queryIndex > -1) {
-            hash = hash.substring(0, queryIndex);
-        }
-        
-        let renderer;
-        
-        // Check dynamic routes first (with query params)
-        const dynamicKey = Object.keys(this.dynamicRoutes).find(key => hash.startsWith(key));
-        if (dynamicKey && queryParams.id) {
-            renderer = () => this.dynamicRoutes[dynamicKey](queryParams.id, queryParams);
-        } else {
-            // Static routes
-            renderer = this.routes[hash] || pages.home;
-        }
+        const hash = this.getHashPath();
+        const renderer = this.routes[hash] || pages.home;
         
         // Dynamic Transition Effect
         const app = this.mountPoint;
@@ -115,7 +78,7 @@ class Router {
         }
 
         // Dispatch an event to notify that content has changed
-        window.dispatchEvent(new CustomEvent('routeChange', { detail: { path: hash, queryParams } }));
+        window.dispatchEvent(new CustomEvent('routeChange', { detail: { path: hash } }));
     }
 }
 

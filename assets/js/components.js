@@ -179,8 +179,6 @@ export const components = {
         <div class="footer-bottom">
             <p>&copy; ${new Date().getFullYear()} SapthaVarnah Geo Technologies. All rights reserved.</p>
             <div class="legal-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
                 <a href="${BASE_PATH}/admin.html" class="admin-link">Admin</a>
             </div>
         </div>
