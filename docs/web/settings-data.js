@@ -1,4 +1,4 @@
-const SETTINGS_DATA = {
+var SETTINGS_DATA = {
     companyName: "SapthaVarnah Geo Technologies",
     tagline: "Engineering the Full Spectrum of the Earth",
     contact: {
