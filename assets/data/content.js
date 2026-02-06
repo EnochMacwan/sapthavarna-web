@@ -40,7 +40,7 @@ export const defaultContent = {
       "intro": true,
       "services": true,
       "featuredProject": false,
-      "whyChooseUs": true,
+      "whyChooseUs": false,
       "cta": true
     },
     "transport": {
