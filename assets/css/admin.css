@@ -612,6 +612,144 @@ textarea.form-control {
 .card-wide { max-width: 800px; }
 
 .card-title-accent {
-    margin-bottom: 20px; 
+    margin-bottom: 20px;
     color: var(--accent);
+}
+
+/* Content Page Tabs */
+.content-page-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.content-tab {
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg-input);
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.content-tab:hover {
+    color: var(--text);
+    background: var(--border);
+}
+
+.content-tab.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.content-header-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Array Editor */
+.array-editor {
+    margin-top: 16px;
+}
+
+.array-item {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+}
+
+.array-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.array-item-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--accent);
+}
+
+.array-item-controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.btn-sm {
+    padding: 6px 8px;
+    font-size: 12px;
+}
+
+/* String Array / Tag Editor */
+.string-array-editor .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    color: var(--text);
+}
+
+.tag-remove {
+    background: none;
+    border: none;
+    color: var(--danger);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0 2px;
+}
+
+.tag-input-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.tag-input-row .form-control {
+    flex: 1;
+}
+
+/* Navigation Column Editor */
+.nav-column-editor {
+    background: var(--bg-input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+}
+
+.nav-link-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.nav-link-row .form-control {
+    flex: 1;
 }

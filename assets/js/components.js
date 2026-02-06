@@ -4,18 +4,46 @@
 const BASE_PATH = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
 const getImagePath = (img) => `${BASE_PATH}/${img}`;
 
+// Build mega menu HTML from NAV_DATA if available
+function buildMegaMenu() {
+    const navData = window.NAV_DATA;
+    if (!navData) return null;
+
+    let html = '';
+
+    (navData.megaMenus || []).forEach(menu => {
+        html += `<div class="nav-item-has-mega">
+            <a href="${menu.href}" class="nav-link">${menu.label}</a>
+            <div class="mega-menu">`;
+
+        (menu.columns || []).forEach(col => {
+            html += `<div class="mega-col"><h5>${col.heading}</h5>`;
+            if (col.type === 'text') {
+                html += `<p class="mega-desc">${col.text}</p>`;
+            } else {
+                html += `<ul class="mega-links">`;
+                (col.links || []).forEach(link => {
+                    html += `<li><a href="${link.href}">${link.text}</a></li>`;
+                });
+                html += `</ul>`;
+            }
+            html += `</div>`;
+        });
+
+        html += `</div></div>`;
+    });
+
+    (navData.standaloneLinks || []).forEach(link => {
+        html += `<a href="${link.href}" class="nav-link">${link.label}</a>`;
+    });
+
+    return html;
+}
+
 export const components = {
-    header: () => `
-    <nav class="pill-nav">
-        <div class="nav-container">
-            <a href="#" class="logo nav-link" aria-label="SapthaVarnah Home">
-                <div class="logo-crop">
-                    <img src="${getImagePath('logo-master.png')}" alt="SapthaVarnah Logo" class="logo-img-master">
-                </div>
-                <span class="logo-text">SapthaVarnah</span>
-            </a>
-            <div class="nav-links-wrapper">
-                <div class="nav-links">
+    header: () => {
+        const dynamicNav = buildMegaMenu();
+        const navContent = dynamicNav || `
                     <div class="nav-item-has-mega">
                         <a href="#about" class="nav-link">Company</a>
                         <div class="mega-menu">
@@ -45,7 +73,7 @@ export const components = {
                             </div>
                             <div class="mega-col">
                                 <h5>Presence</h5>
-                                <p class="mega-desc">Mauritius · India · Serving Africa, Gulf & beyond</p>
+                                <p class="mega-desc">Mauritius \u00b7 India \u00b7 Serving Africa, Gulf & beyond</p>
                             </div>
                         </div>
                     </div>
@@ -83,12 +111,26 @@ export const components = {
                         </div>
                     </div>
                     <a href="#sustainability" class="nav-link">Sustainability</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                    <a href="#contact" class="nav-link">Contact</a>`;
+
+        return `
+    <nav class="pill-nav">
+        <div class="nav-container">
+            <a href="#" class="logo nav-link" aria-label="SapthaVarnah Home">
+                <div class="logo-crop">
+                    <img src="${getImagePath('logo-master.png')}" alt="SapthaVarnah Logo" class="logo-img-master">
+                </div>
+                <span class="logo-text">SapthaVarnah</span>
+            </a>
+            <div class="nav-links-wrapper">
+                <div class="nav-links">
+                    ${navContent}
                 </div>
             </div>
         </div>
     </nav>
-    `,
+    `;
+    },
 
     footer: () => `
     <footer class="main-footer">
@@ -104,7 +146,7 @@ export const components = {
                     Engineering the full spectrum of the Earth across Marine, Transport, and Energy sectors.
                 </p>
             </div>
-            
+
             <div class="footer-col">
                 <h5>Capabilities</h5>
                 <ul class="footer-links">
@@ -128,12 +170,12 @@ export const components = {
             <div class="footer-col">
                 <h5>Offices</h5>
                 <ul class="footer-links offices-footer">
-                    <li><strong>Mauritius</strong> · Port Louis</li>
-                    <li><strong>India</strong> · Chennai</li>
+                    <li><strong>Mauritius</strong> \u00b7 Port Louis</li>
+                    <li><strong>India</strong> \u00b7 Chennai</li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
             <p>&copy; ${new Date().getFullYear()} SapthaVarnah Geo Technologies. All rights reserved.</p>
             <div class="legal-links">

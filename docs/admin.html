@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" crossorigin href="/sapthavarna-web/assets/admin-BO0SkKDD.css">
+  <link rel="stylesheet" crossorigin href="/sapthavarna-web/assets/admin-C4M4KJy7.css">
 </head>
 <body data-theme="dark">
     <!-- Auth Login Overlay -->
@@ -65,6 +65,7 @@
                 <li><a href="#" data-section="services"><i class="fas fa-layer-group"></i> Services</a></li>
                 <li><a href="#" data-section="locations"><i class="fas fa-map-marker-alt"></i> Locations</a></li>
                 <li><a href="#" data-section="content"><i class="fas fa-file-alt"></i> Content</a></li>
+                <li><a href="#" data-section="navigation"><i class="fas fa-bars"></i> Navigation</a></li>
                 <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
         </nav>
@@ -129,23 +130,39 @@
             <section id="content" class="content-section">
                 <div class="section-header">
                     <h2>Page Content</h2>
-                </div>
-                <div class="item-card card-wide">
-                    <div class="item-card-content">
-                        <p class="text-muted">Edit page content through the main content.js file. Changes here affect all pages.</p>
-                        <div class="form-group mt-20">
-                            <label>Hero Title</label>
-                            <input type="text" class="form-control" id="hero-title" placeholder="Engineering the Full Spectrum...">
-                        </div>
-                        <div class="form-group">
-                            <label>Hero Subtitle</label>
-                            <textarea class="form-control" id="hero-subtitle" placeholder="Company tagline..."></textarea>
-                        </div>
-                        <button type="button" class="btn btn-success" onclick="saveContent()">
+                    <div class="content-header-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetContentToDefaults()">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="previewContent()">
+                            <i class="fas fa-eye"></i> Preview
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="saveAllContent()">
                             <i class="fas fa-save"></i> Save Content
                         </button>
                     </div>
                 </div>
+                <div class="content-page-tabs" id="content-page-tabs"></div>
+                <div id="content-editor-area"></div>
+            </section>
+
+            <!-- Navigation -->
+            <section id="navigation" class="content-section">
+                <div class="section-header">
+                    <h2>Mega Menu Navigation</h2>
+                    <button type="button" class="btn btn-success" onclick="saveNavigation()">
+                        <i class="fas fa-save"></i> Save Navigation
+                    </button>
+                </div>
+                <p class="text-muted mb-20">Manage the site's mega menu structure. Changes are published to GitHub with the Publish button.</p>
+                <div id="nav-mega-menus"></div>
+                <div class="section-header section-header-spaced">
+                    <h3>Standalone Links</h3>
+                    <button type="button" class="btn btn-primary" onclick="addStandaloneLink()">
+                        <i class="fas fa-plus"></i> Add Link
+                    </button>
+                </div>
+                <div id="nav-standalone-links"></div>
             </section>
 
             <!-- Settings -->
@@ -277,6 +294,7 @@
     <script src="web/services-data.js"></script>
     <script src="web/locations-data.js"></script>
     <script src="web/settings-data.js"></script>
+    <script src="web/nav-data.js"></script>
 
     <script>
         // ===== AUTHENTICATION =====
@@ -391,7 +409,8 @@
             'services': 'web/services-data.js',
             'locations': 'web/locations-data.js',
             'settings': 'web/settings-data.js',
-            'content': 'web/content.js'
+            'content': 'web/content.js',
+            'navigation': 'web/nav-data.js'
         };
 
         const GITHUB_VAR_NAMES = {
@@ -399,7 +418,213 @@
             'services': 'SERVICES_DATA',
             'locations': 'LOCATIONS_DATA',
             'settings': 'SETTINGS_DATA',
-            'content': 'defaultContent'
+            'content': 'defaultContent',
+            'navigation': 'NAV_DATA'
+        };
+
+        // Content editor state
+        let contentWorkingCopy = null;
+        let currentContentPage = 'home';
+
+        // ===== CONTENT SCHEMA =====
+        const CONTENT_SCHEMA = {
+            home: {
+                label: 'Home', icon: 'fa-home',
+                sections: {
+                    hero: { label: 'Hero Section', fields: {
+                        title: { type: 'text', label: 'Hero Title' },
+                        subtitle: { type: 'textarea', label: 'Hero Subtitle' },
+                        ctaMain: { type: 'text', label: 'Primary CTA Text' },
+                        ctaSec: { type: 'text', label: 'Secondary CTA Text' }
+                    }},
+                    about: { label: 'About Preview', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        desc1: { type: 'textarea', label: 'Description Paragraph 1' },
+                        desc2: { type: 'textarea', label: 'Description Paragraph 2' }
+                    }},
+                    capabilities: { label: 'Capability Cards', type: 'array', itemLabel: 'Capability', fields: {
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' },
+                        link: { type: 'text', label: 'Link (hash route)' }
+                    }},
+                    closing: { label: 'Closing Section', fields: {
+                        title: { type: 'text', label: 'Closing Statement' },
+                        cta: { type: 'text', label: 'CTA Button Text' }
+                    }}
+                }
+            },
+            about: {
+                label: 'About', icon: 'fa-building',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    company: { label: 'Company Description', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        desc1: { type: 'textarea', label: 'Paragraph 1' },
+                        desc2: { type: 'textarea', label: 'Paragraph 2' },
+                        desc3: { type: 'textarea', label: 'Paragraph 3' }
+                    }},
+                    leadershipTeam: { label: 'Leadership Team', type: 'array', itemLabel: 'Leader', fields: {
+                        name: { type: 'text', label: 'Name' },
+                        role: { type: 'text', label: 'Role' },
+                        desc: { type: 'textarea', label: 'Bio' }
+                    }},
+                    culture: { label: 'Culture & Values', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        desc1: { type: 'textarea', label: 'Description 1' },
+                        desc2: { type: 'textarea', label: 'Description 2' },
+                        values: { type: 'stringArray', label: 'Core Values' }
+                    }},
+                    careers: { label: 'Careers', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        desc: { type: 'textarea', label: 'Description' },
+                        ctaText: { type: 'text', label: 'CTA Button Text' },
+                        ctaEmail: { type: 'text', label: 'CTA Email' }
+                    }}
+                }
+            },
+            capabilities: {
+                label: 'Capabilities', icon: 'fa-th-large',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    overview: { label: 'Overview', fields: {
+                        desc: { type: 'textarea', label: 'Overview Description' }
+                    }},
+                    sectors: { label: 'Sector Cards', type: 'array', itemLabel: 'Sector', fields: {
+                        id: { type: 'text', label: 'ID (slug)' },
+                        label: { type: 'text', label: 'Label' },
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' },
+                        link: { type: 'text', label: 'Link' }
+                    }}
+                }
+            },
+            marine: {
+                label: 'Marine', icon: 'fa-water',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    intro: { label: 'Introduction', fields: {
+                        desc: { type: 'textarea', label: 'Intro Description' }
+                    }},
+                    services: { label: 'Services', type: 'array', itemLabel: 'Service', fields: {
+                        title: { type: 'text', label: 'Service Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }}
+                }
+            },
+            transport: {
+                label: 'Transport', icon: 'fa-road',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    intro: { label: 'Introduction', fields: {
+                        desc: { type: 'textarea', label: 'Intro Description' }
+                    }},
+                    services: { label: 'Services', type: 'array', itemLabel: 'Service', fields: {
+                        title: { type: 'text', label: 'Service Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }}
+                }
+            },
+            energy: {
+                label: 'Energy', icon: 'fa-bolt',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    intro: { label: 'Introduction', fields: {
+                        desc: { type: 'textarea', label: 'Intro Description' }
+                    }},
+                    services: { label: 'Services', type: 'array', itemLabel: 'Service', fields: {
+                        title: { type: 'text', label: 'Service Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }}
+                }
+            },
+            systems: {
+                label: 'Systems', icon: 'fa-cubes',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    intro: { label: 'Introduction', fields: {
+                        desc: { type: 'textarea', label: 'Intro Description' }
+                    }},
+                    technologies: { label: 'Technologies', type: 'array', itemLabel: 'Technology', fields: {
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' },
+                        image: { type: 'text', label: 'Image filename' }
+                    }},
+                    benefits: { label: 'Benefits', type: 'stringArray', itemLabel: 'Benefit' }
+                }
+            },
+            sustainability: {
+                label: 'Sustainability', icon: 'fa-leaf',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    plan: { label: 'Sustainability Plan', fields: {
+                        title: { type: 'text', label: 'Plan Title' },
+                        desc: { type: 'textarea', label: 'Plan Description' }
+                    }},
+                    pillars: { label: 'Key Pillars', type: 'array', itemLabel: 'Pillar', fields: {
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    practices: { label: 'Practices', type: 'array', itemLabel: 'Practice', fields: {
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }}
+                }
+            },
+            contact: {
+                label: 'Contact', icon: 'fa-envelope',
+                sections: {
+                    hero: { label: 'Hero', fields: {
+                        label: { type: 'text', label: 'Page Label' },
+                        title: { type: 'text', label: 'Page Title' }
+                    }},
+                    enquiry: { label: 'Project Enquiry', fields: {
+                        label: { type: 'text', label: 'Section Label' },
+                        heading: { type: 'textarea', label: 'Heading Text' },
+                        email: { type: 'text', label: 'Email' },
+                        linkedin: { type: 'text', label: 'LinkedIn Profile Name' }
+                    }},
+                    offices: { label: 'Offices', fields: {
+                        label: { type: 'text', label: 'Section Label' },
+                        locations: { type: 'array', itemLabel: 'Office', fields: {
+                            country: { type: 'text', label: 'Country' },
+                            city: { type: 'text', label: 'City' },
+                            type: { type: 'text', label: 'Office Type' },
+                            address: { type: 'text', label: 'Address' }
+                        }}
+                    }},
+                    regions: { label: 'Regions Served', fields: {
+                        label: { type: 'text', label: 'Section Label' },
+                        desc: { type: 'textarea', label: 'Description' },
+                        items: { type: 'stringArray', label: 'Regions List' }
+                    }},
+                    media: { label: 'Media Relations', fields: {
+                        label: { type: 'text', label: 'Section Label' },
+                        desc: { type: 'textarea', label: 'Description' },
+                        email: { type: 'text', label: 'Media Email' }
+                    }}
+                }
+            }
         };
 
         // Initialize
@@ -407,6 +632,8 @@
             initNavigation();
             renderDashboard();
             renderAllSections();
+            initContentEditor();
+            renderNavigationEditor();
             loadTheme();
         });
 
@@ -711,6 +938,453 @@
             showToast('Item deleted.');
         }
 
+        // ===== CONTENT EDITOR =====
+        async function initContentEditor() {
+            const saved = localStorage.getItem('siteContent');
+            if (saved) {
+                try { contentWorkingCopy = JSON.parse(saved); } catch(e) { contentWorkingCopy = null; }
+            }
+            if (!contentWorkingCopy) {
+                await loadDefaultContent();
+            }
+            renderContentPageTabs();
+            renderContentEditor(currentContentPage);
+        }
+
+        async function loadDefaultContent() {
+            try {
+                const res = await fetch('web/content.js');
+                const text = await res.text();
+                const match = text.match(/export\s+const\s+defaultContent\s*=\s*(\{[\s\S]*\})\s*;/);
+                if (match) {
+                    contentWorkingCopy = new Function('return ' + match[1])();
+                }
+            } catch(e) {
+                console.error('Failed to load default content:', e);
+                contentWorkingCopy = {};
+            }
+        }
+
+        function renderContentPageTabs() {
+            const container = document.getElementById('content-page-tabs');
+            if (!container) return;
+            container.innerHTML = Object.entries(CONTENT_SCHEMA).map(([key, schema]) => `
+                <button type="button" class="content-tab ${key === currentContentPage ? 'active' : ''}"
+                    onclick="switchContentPage('${key}')">
+                    <i class="fas ${schema.icon}"></i> ${schema.label}
+                </button>
+            `).join('');
+        }
+
+        function switchContentPage(pageKey) {
+            currentContentPage = pageKey;
+            renderContentPageTabs();
+            renderContentEditor(pageKey);
+        }
+
+        function renderContentEditor(pageKey) {
+            const area = document.getElementById('content-editor-area');
+            if (!area || !contentWorkingCopy) return;
+            const schema = CONTENT_SCHEMA[pageKey];
+            if (!schema) { area.innerHTML = '<p class="text-muted">No schema defined.</p>'; return; }
+            const pageData = contentWorkingCopy[pageKey] || {};
+            let html = '';
+            for (const [sectionKey, sectionSchema] of Object.entries(schema.sections)) {
+                const sectionData = pageData[sectionKey];
+                if (sectionSchema.type === 'stringArray') {
+                    html += renderStringArraySection(pageKey, sectionKey, sectionSchema, sectionData || []);
+                    continue;
+                }
+                html += `<div class="item-card card-wide mt-20"><div class="item-card-content">
+                    <h3 class="card-title-accent"><i class="fas fa-layer-group"></i> ${sectionSchema.label}</h3>`;
+                if (sectionSchema.type === 'array') {
+                    html += renderArraySection(pageKey, sectionKey, sectionSchema, sectionData || []);
+                } else if (sectionSchema.fields) {
+                    for (const [fieldKey, fieldDef] of Object.entries(sectionSchema.fields)) {
+                        if (fieldDef.type === 'array') {
+                            html += renderNestedArrayField(pageKey, sectionKey, fieldKey, fieldDef, sectionData ? sectionData[fieldKey] || [] : []);
+                        } else if (fieldDef.type === 'stringArray') {
+                            html += renderStringArrayField(pageKey, sectionKey, fieldKey, fieldDef, sectionData ? sectionData[fieldKey] || [] : []);
+                        } else {
+                            const value = sectionData ? (sectionData[fieldKey] || '') : '';
+                            html += renderSimpleField(pageKey, sectionKey, fieldKey, fieldDef, value);
+                        }
+                    }
+                }
+                html += `</div></div>`;
+            }
+            area.innerHTML = html;
+        }
+
+        function renderSimpleField(page, section, field, def, value) {
+            const id = `ce-${page}-${section}-${field}`;
+            const ev = escapeHTML(value);
+            if (def.type === 'textarea') {
+                return `<div class="form-group"><label>${def.label}</label>
+                    <textarea class="form-control" id="${id}" onchange="updateContentField('${page}','${section}','${field}',this.value)">${ev}</textarea></div>`;
+            }
+            return `<div class="form-group"><label>${def.label}</label>
+                <input type="text" class="form-control" id="${id}" value="${ev}" onchange="updateContentField('${page}','${section}','${field}',this.value)"></div>`;
+        }
+
+        function renderArraySection(page, section, schema, items) {
+            let html = `<div class="array-editor" id="ae-${page}-${section}">`;
+            items.forEach((item, index) => {
+                html += `<div class="array-item"><div class="array-item-header">
+                    <span class="array-item-title">${schema.itemLabel} ${index + 1}: ${escapeHTML(item.title || item.name || '')}</span>
+                    <div class="array-item-controls">
+                        <button type="button" class="btn btn-secondary btn-icon btn-sm" onclick="moveArrayItem('${page}','${section}',${index},-1)" ${index === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button>
+                        <button type="button" class="btn btn-secondary btn-icon btn-sm" onclick="moveArrayItem('${page}','${section}',${index},1)" ${index === items.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button>
+                        <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="removeArrayItem('${page}','${section}',${index})"><i class="fas fa-trash"></i></button>
+                    </div></div><div class="array-item-fields">`;
+                for (const [fk, fd] of Object.entries(schema.fields)) {
+                    const val = item[fk] || '';
+                    const fid = `ce-${page}-${section}-${index}-${fk}`;
+                    if (fd.type === 'textarea') {
+                        html += `<div class="form-group"><label>${fd.label}</label><textarea class="form-control" id="${fid}" onchange="updateArrayItemField('${page}','${section}',${index},'${fk}',this.value)">${escapeHTML(val)}</textarea></div>`;
+                    } else {
+                        html += `<div class="form-group"><label>${fd.label}</label><input type="text" class="form-control" id="${fid}" value="${escapeHTML(val)}" onchange="updateArrayItemField('${page}','${section}',${index},'${fk}',this.value)"></div>`;
+                    }
+                }
+                html += `</div></div>`;
+            });
+            html += `<button type="button" class="btn btn-primary mt-20" onclick="addArrayItem('${page}','${section}')"><i class="fas fa-plus"></i> Add ${schema.itemLabel}</button></div>`;
+            return html;
+        }
+
+        function renderNestedArrayField(page, section, field, def, items) {
+            let html = `<div class="form-group"><label style="font-weight:600;font-size:1rem;color:var(--accent)">${def.itemLabel}s</label></div>`;
+            html += `<div class="array-editor" id="ae-${page}-${section}-${field}">`;
+            items.forEach((item, index) => {
+                html += `<div class="array-item"><div class="array-item-header">
+                    <span class="array-item-title">${def.itemLabel} ${index + 1}: ${escapeHTML(item[Object.keys(def.fields)[0]] || '')}</span>
+                    <div class="array-item-controls">
+                        <button type="button" class="btn btn-secondary btn-icon btn-sm" onclick="moveNestedArrayItem('${page}','${section}','${field}',${index},-1)" ${index === 0 ? 'disabled' : ''}><i class="fas fa-arrow-up"></i></button>
+                        <button type="button" class="btn btn-secondary btn-icon btn-sm" onclick="moveNestedArrayItem('${page}','${section}','${field}',${index},1)" ${index === items.length - 1 ? 'disabled' : ''}><i class="fas fa-arrow-down"></i></button>
+                        <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="removeNestedArrayItem('${page}','${section}','${field}',${index})"><i class="fas fa-trash"></i></button>
+                    </div></div><div class="array-item-fields">`;
+                for (const [fk, fd] of Object.entries(def.fields)) {
+                    const val = item[fk] || '';
+                    const fid = `ce-${page}-${section}-${field}-${index}-${fk}`;
+                    if (fd.type === 'textarea') {
+                        html += `<div class="form-group"><label>${fd.label}</label><textarea class="form-control" id="${fid}" onchange="updateNestedArrayItemField('${page}','${section}','${field}',${index},'${fk}',this.value)">${escapeHTML(val)}</textarea></div>`;
+                    } else {
+                        html += `<div class="form-group"><label>${fd.label}</label><input type="text" class="form-control" id="${fid}" value="${escapeHTML(val)}" onchange="updateNestedArrayItemField('${page}','${section}','${field}',${index},'${fk}',this.value)"></div>`;
+                    }
+                }
+                html += `</div></div>`;
+            });
+            html += `<button type="button" class="btn btn-primary mt-20" onclick="addNestedArrayItem('${page}','${section}','${field}')"><i class="fas fa-plus"></i> Add ${def.itemLabel}</button></div>`;
+            return html;
+        }
+
+        function renderStringArrayField(page, section, field, def, items) {
+            const id = `sa-${page}-${section}-${field}`;
+            let html = `<div class="form-group"><label>${def.label}</label><div class="string-array-editor" id="${id}"><div class="tag-list">`;
+            items.forEach((item, i) => {
+                html += `<span class="tag">${escapeHTML(item)}<button type="button" class="tag-remove" onclick="removeStringArrayItem('${page}','${section}','${field}',${i})">&times;</button></span>`;
+            });
+            html += `</div><div class="tag-input-row"><input type="text" class="form-control" id="${id}-input" placeholder="Add item..." onkeypress="if(event.key==='Enter'){addStringArrayItem('${page}','${section}','${field}','${id}-input');event.preventDefault();}">
+                <button type="button" class="btn btn-secondary" onclick="addStringArrayItem('${page}','${section}','${field}','${id}-input')"><i class="fas fa-plus"></i></button></div></div></div>`;
+            return html;
+        }
+
+        function renderStringArraySection(page, section, schema, items) {
+            let html = `<div class="item-card card-wide mt-20"><div class="item-card-content">
+                <h3 class="card-title-accent"><i class="fas fa-list"></i> ${schema.label}</h3>`;
+            html += renderStringArrayField(page, section, '_self', { label: schema.label }, items);
+            html += `</div></div>`;
+            return html;
+        }
+
+        // Content mutation functions
+        function updateContentField(page, section, field, value) {
+            if (!contentWorkingCopy[page]) contentWorkingCopy[page] = {};
+            if (!contentWorkingCopy[page][section]) contentWorkingCopy[page][section] = {};
+            contentWorkingCopy[page][section][field] = value;
+            pendingChanges.add('content');
+        }
+
+        function updateArrayItemField(page, section, index, field, value) {
+            if (contentWorkingCopy[page] && contentWorkingCopy[page][section]) {
+                contentWorkingCopy[page][section][index][field] = value;
+                pendingChanges.add('content');
+            }
+        }
+
+        function addArrayItem(page, section) {
+            if (!contentWorkingCopy[page][section]) contentWorkingCopy[page][section] = [];
+            const schema = CONTENT_SCHEMA[page].sections[section];
+            const newItem = {};
+            for (const key of Object.keys(schema.fields)) { newItem[key] = ''; }
+            contentWorkingCopy[page][section].push(newItem);
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        function removeArrayItem(page, section, index) {
+            if (!confirm('Remove this item?')) return;
+            contentWorkingCopy[page][section].splice(index, 1);
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        function moveArrayItem(page, section, index, direction) {
+            const arr = contentWorkingCopy[page][section];
+            const newIndex = index + direction;
+            if (newIndex < 0 || newIndex >= arr.length) return;
+            [arr[index], arr[newIndex]] = [arr[newIndex], arr[index]];
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        // Nested array mutations (e.g. contact.offices.locations)
+        function updateNestedArrayItemField(page, section, field, index, fk, value) {
+            if (contentWorkingCopy[page] && contentWorkingCopy[page][section] && contentWorkingCopy[page][section][field]) {
+                contentWorkingCopy[page][section][field][index][fk] = value;
+                pendingChanges.add('content');
+            }
+        }
+
+        function addNestedArrayItem(page, section, field) {
+            if (!contentWorkingCopy[page][section][field]) contentWorkingCopy[page][section][field] = [];
+            const def = CONTENT_SCHEMA[page].sections[section].fields[field];
+            const newItem = {};
+            for (const key of Object.keys(def.fields)) { newItem[key] = ''; }
+            contentWorkingCopy[page][section][field].push(newItem);
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        function removeNestedArrayItem(page, section, field, index) {
+            if (!confirm('Remove this item?')) return;
+            contentWorkingCopy[page][section][field].splice(index, 1);
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        function moveNestedArrayItem(page, section, field, index, direction) {
+            const arr = contentWorkingCopy[page][section][field];
+            const ni = index + direction;
+            if (ni < 0 || ni >= arr.length) return;
+            [arr[index], arr[ni]] = [arr[ni], arr[index]];
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        // String array mutations
+        function addStringArrayItem(page, section, field, inputId) {
+            const input = document.getElementById(inputId);
+            const value = input.value.trim();
+            if (!value) return;
+            if (field === '_self') {
+                if (!contentWorkingCopy[page][section]) contentWorkingCopy[page][section] = [];
+                contentWorkingCopy[page][section].push(value);
+            } else {
+                if (!contentWorkingCopy[page][section][field]) contentWorkingCopy[page][section][field] = [];
+                contentWorkingCopy[page][section][field].push(value);
+            }
+            input.value = '';
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        function removeStringArrayItem(page, section, field, index) {
+            if (field === '_self') {
+                contentWorkingCopy[page][section].splice(index, 1);
+            } else {
+                contentWorkingCopy[page][section][field].splice(index, 1);
+            }
+            pendingChanges.add('content');
+            renderContentEditor(currentContentPage);
+        }
+
+        // Content save/preview/reset
+        function saveAllContent() {
+            localStorage.setItem('siteContent', JSON.stringify(contentWorkingCopy));
+            pendingChanges.add('content');
+            showToast('Content saved locally! Click Publish to push to GitHub.', 'success');
+        }
+
+        function previewContent() {
+            localStorage.setItem('siteContent', JSON.stringify(contentWorkingCopy));
+            window.open('index.html', '_blank');
+            showToast('Content saved for preview. Opening site...', 'info');
+        }
+
+        function resetContentToDefaults() {
+            if (!confirm('Reset all content to defaults? This cannot be undone.')) return;
+            localStorage.removeItem('siteContent');
+            contentWorkingCopy = null;
+            loadDefaultContent().then(() => {
+                renderContentEditor(currentContentPage);
+                showToast('Content reset to defaults.', 'info');
+            });
+        }
+
+        // ===== NAVIGATION EDITOR =====
+        function renderNavigationEditor() {
+            const navData = window.NAV_DATA || { megaMenus: [], standaloneLinks: [] };
+            const megaContainer = document.getElementById('nav-mega-menus');
+            if (megaContainer) {
+                megaContainer.innerHTML = navData.megaMenus.map((menu, mi) => `
+                    <div class="item-card card-wide mt-20"><div class="item-card-content">
+                        <div class="array-item-header">
+                            <h3 class="card-title-accent"><i class="fas fa-th"></i> Mega Menu: ${escapeHTML(menu.label)}</h3>
+                            <div class="array-item-controls">
+                                <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="removeMegaMenu(${mi})"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Menu Label</label>
+                            <input type="text" class="form-control" value="${escapeHTML(menu.label)}" onchange="updateMegaMenu(${mi},'label',this.value)"></div>
+                        <div class="form-group"><label>Link Href</label>
+                            <input type="text" class="form-control" value="${escapeHTML(menu.href)}" onchange="updateMegaMenu(${mi},'href',this.value)"></div>
+                        <h4 class="mt-20">Columns</h4>
+                        ${menu.columns.map((col, ci) => renderNavColumn(mi, ci, col)).join('')}
+                        <button type="button" class="btn btn-secondary mt-20" onclick="addNavColumn(${mi})"><i class="fas fa-plus"></i> Add Column</button>
+                    </div></div>
+                `).join('') + `<button type="button" class="btn btn-primary mt-20" onclick="addMegaMenu()"><i class="fas fa-plus"></i> Add Mega Menu</button>`;
+            }
+            const standaloneContainer = document.getElementById('nav-standalone-links');
+            if (standaloneContainer) {
+                standaloneContainer.innerHTML = navData.standaloneLinks.map((link, li) => `
+                    <div class="item-card mt-20" style="max-width:500px"><div class="item-card-content">
+                        <div class="array-item-header">
+                            <span>${escapeHTML(link.label)}</span>
+                            <div class="array-item-controls">
+                                <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="removeStandaloneLink(${li})"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                        <div class="form-group"><label>Label</label>
+                            <input type="text" class="form-control" value="${escapeHTML(link.label)}" onchange="updateStandaloneLink(${li},'label',this.value)"></div>
+                        <div class="form-group"><label>Href</label>
+                            <input type="text" class="form-control" value="${escapeHTML(link.href)}" onchange="updateStandaloneLink(${li},'href',this.value)"></div>
+                    </div></div>
+                `).join('');
+            }
+        }
+
+        function renderNavColumn(mi, ci, col) {
+            let linksHtml = '';
+            if (col.type === 'text') {
+                linksHtml = `<div class="form-group"><label>Text Content</label>
+                    <input type="text" class="form-control" value="${escapeHTML(col.text || '')}" onchange="updateNavColumn(${mi},${ci},'text',this.value)"></div>`;
+            } else {
+                linksHtml = (col.links || []).map((link, li) => `
+                    <div class="nav-link-row">
+                        <input type="text" class="form-control" value="${escapeHTML(link.text)}" placeholder="Link text" onchange="updateNavLink(${mi},${ci},${li},'text',this.value)">
+                        <input type="text" class="form-control" value="${escapeHTML(link.href)}" placeholder="#hash" onchange="updateNavLink(${mi},${ci},${li},'href',this.value)">
+                        <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="removeNavLink(${mi},${ci},${li})"><i class="fas fa-trash"></i></button>
+                    </div>`).join('');
+                linksHtml += `<button type="button" class="btn btn-secondary btn-sm mt-20" onclick="addNavLink(${mi},${ci})"><i class="fas fa-plus"></i> Add Link</button>`;
+            }
+            return `<div class="nav-column-editor">
+                <div class="array-item-header">
+                    <strong>Column ${ci + 1}</strong>
+                    <div class="array-item-controls">
+                        <select class="form-control" style="width:auto;display:inline" onchange="updateNavColumnType(${mi},${ci},this.value)">
+                            <option value="links" ${col.type !== 'text' ? 'selected' : ''}>Links</option>
+                            <option value="text" ${col.type === 'text' ? 'selected' : ''}>Text</option>
+                        </select>
+                        <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="removeNavColumn(${mi},${ci})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="form-group"><label>Column Heading</label>
+                    <input type="text" class="form-control" value="${escapeHTML(col.heading)}" onchange="updateNavColumn(${mi},${ci},'heading',this.value)"></div>
+                ${linksHtml}
+            </div>`;
+        }
+
+        // Navigation mutations
+        function updateMegaMenu(mi, field, value) {
+            window.NAV_DATA.megaMenus[mi][field] = value;
+            pendingChanges.add('navigation');
+        }
+
+        function addMegaMenu() {
+            window.NAV_DATA.megaMenus.push({ id: 'menu-' + Date.now(), label: 'New Menu', href: '#', columns: [] });
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function removeMegaMenu(mi) {
+            if (!confirm('Remove this mega menu?')) return;
+            window.NAV_DATA.megaMenus.splice(mi, 1);
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function addNavColumn(mi) {
+            window.NAV_DATA.megaMenus[mi].columns.push({ heading: 'New Column', links: [] });
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function removeNavColumn(mi, ci) {
+            window.NAV_DATA.megaMenus[mi].columns.splice(ci, 1);
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function updateNavColumn(mi, ci, field, value) {
+            window.NAV_DATA.megaMenus[mi].columns[ci][field] = value;
+            pendingChanges.add('navigation');
+        }
+
+        function updateNavColumnType(mi, ci, type) {
+            const col = window.NAV_DATA.megaMenus[mi].columns[ci];
+            if (type === 'text') {
+                col.type = 'text';
+                col.text = col.text || '';
+                delete col.links;
+            } else {
+                delete col.type;
+                delete col.text;
+                col.links = col.links || [];
+            }
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function updateNavLink(mi, ci, li, field, value) {
+            window.NAV_DATA.megaMenus[mi].columns[ci].links[li][field] = value;
+            pendingChanges.add('navigation');
+        }
+
+        function addNavLink(mi, ci) {
+            window.NAV_DATA.megaMenus[mi].columns[ci].links.push({ text: 'New Link', href: '#' });
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function removeNavLink(mi, ci, li) {
+            window.NAV_DATA.megaMenus[mi].columns[ci].links.splice(li, 1);
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function updateStandaloneLink(li, field, value) {
+            window.NAV_DATA.standaloneLinks[li][field] = value;
+            pendingChanges.add('navigation');
+        }
+
+        function addStandaloneLink() {
+            window.NAV_DATA.standaloneLinks.push({ label: 'New Link', href: '#' });
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function removeStandaloneLink(li) {
+            window.NAV_DATA.standaloneLinks.splice(li, 1);
+            pendingChanges.add('navigation');
+            renderNavigationEditor();
+        }
+
+        function saveNavigation() {
+            pendingChanges.add('navigation');
+            showToast('Navigation changes saved. Click Publish to push to GitHub.', 'success');
+        }
+
         // GitHub Functions
         function openGitHubConfig() {
             document.getElementById('github-owner').value = gitHubConfig.owner || 'EnochMacwan';
@@ -773,14 +1447,21 @@
             for (const type of Object.keys(GITHUB_DATA_FILES)) {
                 try {
                     const res = await fetch(
-                        `https://raw.githubusercontent.com/${gitHubConfig.owner}/${gitHubConfig.repo}/${gitHubConfig.branch}/${GITHUB_DATA_FILES[type]}`
+                        `https://raw.githubusercontent.com/${gitHubConfig.owner}/${gitHubConfig.repo}/${gitHubConfig.branch}/${GITHUB_DATA_FILES[type]}?t=${Date.now()}`
                     );
                     if (res.ok) {
                         const content = await res.text();
-                        const match = content.match(/(?:var\s+\w+|const\s+\w+|let\s+\w+|window\.\w+)\s*=\s*(\{[\s\S]*?\}|\[[\s\S]*?\])\s*;/);
-                        if (match) {
-                            const data = new Function('return ' + match[1])();
+                        let data = null;
+                        if (type === 'content') {
+                            const match = content.match(/export\s+const\s+defaultContent\s*=\s*(\{[\s\S]*\})\s*;/);
+                            if (match) data = new Function('return ' + match[1])();
+                        } else {
+                            const match = content.match(/(?:var\s+\w+|const\s+\w+|let\s+\w+|window\.\w+)\s*=\s*(\{[\s\S]*?\}|\[[\s\S]*?\])\s*;/);
+                            if (match) data = new Function('return ' + match[1])();
+                        }
+                        if (data) {
                             window[GITHUB_VAR_NAMES[type]] = data;
+                            if (type === 'content') contentWorkingCopy = data;
                         }
                     }
                 } catch(e) {
@@ -790,6 +1471,8 @@
 
             renderDashboard();
             renderAllSections();
+            renderContentEditor(currentContentPage);
+            renderNavigationEditor();
             showToast('Data loaded from GitHub!', 'success');
         }
 
@@ -807,7 +1490,15 @@
             showToast('Publishing to GitHub...', 'info');
 
             for (const type of pendingChanges) {
-                await saveToGitHub(type, getDataArray(type));
+                let data;
+                if (type === 'content') {
+                    data = contentWorkingCopy;
+                } else if (type === 'navigation') {
+                    data = window.NAV_DATA;
+                } else {
+                    data = getDataArray(type);
+                }
+                await saveToGitHub(type, data);
             }
 
             pendingChanges.clear();
@@ -819,9 +1510,22 @@
             const varName = GITHUB_VAR_NAMES[type];
             if (!filePath || !varName) return;
 
-            const fileContent = `var ${varName} = ${JSON.stringify(data, null, 2)};`;
+            let fileContent;
+            if (type === 'content') {
+                fileContent = `export const defaultContent = ${JSON.stringify(data, null, 2)};`;
+            } else {
+                fileContent = `var ${varName} = ${JSON.stringify(data, null, 2)};`;
+            }
 
-            // Get current SHA
+            await writeFileToGitHub(filePath, fileContent, `Update ${type} via Admin Panel`);
+
+            // Keep both content.js copies in sync
+            if (type === 'content') {
+                await writeFileToGitHub('assets/data/content.js', fileContent, 'Sync content.js source');
+            }
+        }
+
+        async function writeFileToGitHub(filePath, fileContent, message) {
             const apiUrl = `https://api.github.com/repos/${gitHubConfig.owner}/${gitHubConfig.repo}/contents/${filePath}`;
             let sha = null;
             try {
@@ -834,9 +1538,8 @@
                 }
             } catch(e) {}
 
-            // Update file
             const body = {
-                message: `Update ${type} via Admin Panel`,
+                message: message,
                 content: btoa(unescape(encodeURIComponent(fileContent))),
                 branch: gitHubConfig.branch
             };
