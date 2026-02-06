@@ -934,6 +934,7 @@
             if (!vis[page]) vis[page] = {};
             vis[page][section] = checked;
             pendingChanges.add('content');
+            localStorage.setItem('siteContent', JSON.stringify(contentWorkingCopy));
         }
 
         function saveVisibility() {
@@ -2014,10 +2015,7 @@
 
             await writeFileToGitHub(filePath, fileContent, `Update ${type} via Admin Panel`);
 
-            // Keep both content.js copies in sync
-            if (type === 'content') {
-                await writeFileToGitHub('assets/data/content.js', fileContent, 'Sync content.js source');
-            }
+            // content.js now lives only in web/ — no duplicate to sync
         }
 
         async function writeFileToGitHub(filePath, fileContent, message) {

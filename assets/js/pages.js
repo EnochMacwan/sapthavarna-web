@@ -1,4 +1,4 @@
-import { defaultContent } from '../data/content.js';
+import { defaultContent } from '../../web/content.js';
 
 // Base path for GitHub Pages (empty for local dev, '/sapthavarna-web' for production)
 const BASE_PATH = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
