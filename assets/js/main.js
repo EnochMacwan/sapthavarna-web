@@ -42,18 +42,17 @@ const initPageInteractions = () => {
         });
     }, observerOptions);
 
-    // Select elements to animate — reset and observe
-    const revealElements = document.querySelectorAll('.nm-card, .grid-card-wrapper, h2, .subpage-hero h1, .hero-content h1, .section-label, .lead-text, .cta-button, .value-tags, .benefits-list, .regions-tags');
+    // Select elements to animate — only cards and headings
+    const revealElements = document.querySelectorAll('.nm-card, .grid-card-wrapper');
 
-    revealElements.forEach((el, i) => {
-        // Set initial hidden state
-        gsap.set(el, { opacity: 0, y: 20 });
+    revealElements.forEach((el) => {
+        gsap.set(el, { opacity: 0, y: 15 });
         // Add stagger delay for cards in the same grid
         const parent = el.parentElement;
-        if (parent && parent.classList.contains('cards-grid')) {
+        if (parent && (parent.classList.contains('cards-grid') || parent.classList.contains('careers-grid') || parent.classList.contains('benefits-grid') || parent.classList.contains('team-grid'))) {
             const siblings = Array.from(parent.children);
             const index = siblings.indexOf(el);
-            el.dataset.delay = (index * 0.08).toFixed(2);
+            el.dataset.delay = (index * 0.06).toFixed(2);
         }
         currentObserver.observe(el);
     });

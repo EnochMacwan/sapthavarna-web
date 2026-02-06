@@ -3,7 +3,8 @@ import { pages } from './pages.js';
 class Router {
     constructor(mountPoint) {
         this.mountPoint = mountPoint;
-        
+        this._routeVersion = 0;
+
         // Static routes (hash-based for GitHub Pages compatibility)
         this.routes = {
             '': pages.home,
@@ -53,26 +54,30 @@ class Router {
     }
 
     async handleRoute() {
-        const hash = this.getHashPath();
-        const renderer = this.routes[hash] || pages.home;
-        
-        // Dynamic Transition Effect
+        const version = ++this._routeVersion;
         const app = this.mountPoint;
-        
+
         // Trigger exit animation if GSAP is available
         if (window.gsap) {
             await window.gsap.to(app, { opacity: 0, y: 10, duration: 0.3, ease: 'power2.in' });
         }
 
+        // Abort if a newer route was triggered during exit animation
+        if (version !== this._routeVersion) return;
+
+        // Read hash AFTER animation to get the latest route
+        const hash = this.getHashPath();
+        const renderer = this.routes[hash] || pages.home;
+
         app.innerHTML = renderer();
-        
+
         // Scroll to top
         window.scrollTo(0, 0);
 
         // Trigger entry animation
         if (window.gsap) {
-            window.gsap.fromTo(app, 
-                { opacity: 0, y: 10 }, 
+            window.gsap.fromTo(app,
+                { opacity: 0, y: 10 },
                 { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }
             );
         }

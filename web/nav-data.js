@@ -129,6 +129,10 @@ var NAV_DATA = {
       "href": "#sustainability"
     },
     {
+      "label": "Careers",
+      "href": "#careers"
+    },
+    {
       "label": "Contact",
       "href": "#contact"
     }
