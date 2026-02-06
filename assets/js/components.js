@@ -169,10 +169,11 @@ export function initComponents() {
 
 // Highlight current page in navigation
 export function highlightActiveNav() {
-    const currentPath = window.location.pathname;
+    const currentHash = window.location.hash.replace('#', '').split('?')[0];
     document.querySelectorAll('.nav-link').forEach(link => {
-        const linkPath = new URL(link.href, window.location.origin).pathname;
-        if (linkPath === currentPath || (currentPath === '/' && linkPath === '/')) {
+        const href = link.getAttribute('href') || '';
+        const linkHash = href.startsWith('#') ? href.substring(1) : '';
+        if (currentHash === linkHash || (currentHash === '' && linkHash === '')) {
             link.classList.add('active');
         } else {
             link.classList.remove('active');
