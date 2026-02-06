@@ -355,54 +355,122 @@ export const pages = {
         return `
         <section id="contact-hero" class="subpage-hero contact-hero-bg">
             <div class="section-label mb-4">${content.contact.hero.label}</div>
-            <h1>Connect with <span class="accent-gfrg">Our Team</span></h1>
+            <h1>Let's Build <span class="accent-gfrg">Together</span></h1>
+            <p class="hero-subtitle" style="color: rgba(255,255,255,0.8); max-width: 600px;">Have a project in mind? We'd love to hear about it. Reach out and let's explore how we can help.</p>
         </section>
 
-        <section id="contact-details" class="section-alt">
-            <div class="contact-grid">
-                <div class="nm-card contact-main-card">
-                    <div class="section-label mb-4">${content.contact.enquiry.label}</div>
-                    <h2 class="mb-6">${content.contact.enquiry.heading.replace("infrastructure challenges", "<span class='accent-page'>infrastructure challenges</span>")}</h2>
-                    <div class="contact-links-row mt-6">
-                        <div class="contact-link-block">
-                            <h4 class="text-secondary mb-4">Email</h4>
-                            <a href="mailto:${content.contact.enquiry.email}" class="contact-link-item">${content.contact.enquiry.email}</a>
-                        </div>
-                        <div class="contact-link-block">
-                            <h4 class="text-secondary mb-4">LinkedIn</h4>
-                            <span class="contact-link-item">${content.contact.enquiry.linkedin}</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="nm-card">
-                    <div class="section-label mb-4">${content.contact.offices.label}</div>
-                    <div class="offices-list">
-                        ${content.contact.offices.locations.map(loc => `
-                            <div class="office-item">
-                                <strong>${loc.country}</strong>
-                                <span class="text-secondary">${loc.city} · ${loc.type}</span>
+        <section id="contact-form-section" class="section-alt">
+            <div class="contact-form-layout">
+                <div class="contact-form-card nm-card">
+                    <div class="section-label mb-4">Send us a Message</div>
+                    <h2 class="mb-6">Project Enquiry</h2>
+                    <form id="contact-form" class="contact-form" onsubmit="return false;">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-name">Full Name <span class="required">*</span></label>
+                                <input type="text" id="contact-name" class="form-input" placeholder="John Smith" required>
+                                <span class="form-error">Please enter your name</span>
                             </div>
-                        `).join('')}
+                            <div class="form-group">
+                                <label for="contact-company">Company / Organisation</label>
+                                <input type="text" id="contact-company" class="form-input" placeholder="Your company name">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contact-email">Email Address <span class="required">*</span></label>
+                                <input type="email" id="contact-email" class="form-input" placeholder="john@company.com" required>
+                                <span class="form-error">Please enter a valid email</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="contact-phone">Phone Number</label>
+                                <input type="tel" id="contact-phone" class="form-input" placeholder="+230 5XXX XXXX">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-sector">Sector of Interest</label>
+                            <select id="contact-sector" class="form-input form-select">
+                                <option value="">Select a sector...</option>
+                                <option value="marine">Marine & Coastal Engineering</option>
+                                <option value="transport">Transport Infrastructure</option>
+                                <option value="energy">Energy & Power</option>
+                                <option value="systems">Construction Systems (GFRG/Precast)</option>
+                                <option value="multiple">Multiple Sectors</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-region">Project Region</label>
+                            <select id="contact-region" class="form-input form-select">
+                                <option value="">Select a region...</option>
+                                <option value="mauritius">Mauritius & Indian Ocean Islands</option>
+                                <option value="east-africa">East & Southern Africa</option>
+                                <option value="west-africa">West Africa</option>
+                                <option value="india">Indian Subcontinent</option>
+                                <option value="gcc">Gulf Cooperation Council</option>
+                                <option value="other">Other Region</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-message">Tell Us About Your Project <span class="required">*</span></label>
+                            <textarea id="contact-message" class="form-input form-textarea" placeholder="Describe your project, timeline, and any specific requirements..." required></textarea>
+                            <span class="form-error">Please describe your project</span>
+                        </div>
+                        <button type="submit" class="cta-button submit-btn"><i class="fas fa-paper-plane"></i> Send Enquiry</button>
+                    </form>
+                    <div id="contact-success" class="eoi-success" style="display:none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>Message Sent!</h3>
+                        <p>Thank you for reaching out. Our team will review your enquiry and get back to you within 24–48 hours.</p>
                     </div>
                 </div>
-            </div>
-        </section>
 
-        <section id="regions-media">
-            <div class="contact-grid">
-                <div class="nm-card">
-                    <div class="section-label mb-4">${content.contact.regions.label}</div>
-                    <p class="text-secondary mb-4">${content.contact.regions.desc}</p>
-                    <ul class="regions-tags">
-                        ${content.contact.regions.items.map(r => `<li>${r}</li>`).join('')}
-                    </ul>
-                </div>
+                <div class="contact-sidebar">
+                    <div class="nm-card contact-info-card">
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <a href="mailto:${content.contact.enquiry.email}" class="contact-link-item">${content.contact.enquiry.email}</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="fab fa-linkedin"></i></div>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <span class="contact-link-item">${content.contact.enquiry.linkedin}</span>
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="nm-card">
-                    <div class="section-label mb-4">${content.contact.media.label}</div>
-                    <p class="text-secondary mb-4">${content.contact.media.desc}</p>
-                    <a href="mailto:${content.contact.media.email}" class="contact-link-item">${content.contact.media.email}</a>
+                    <div class="nm-card">
+                        <div class="section-label mb-4">${content.contact.offices.label}</div>
+                        <div class="offices-list">
+                            ${content.contact.offices.locations.map(loc => `
+                                <div class="office-item">
+                                    <div class="office-icon"><i class="fas fa-map-marker-alt"></i></div>
+                                    <div>
+                                        <strong>${loc.country}</strong> · ${loc.city}
+                                        <span class="text-secondary" style="display:block; font-size: 0.85rem;">${loc.type}</span>
+                                        <span class="text-secondary" style="display:block; font-size: 0.85rem;">${loc.address}</span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="nm-card">
+                        <div class="section-label mb-4">${content.contact.regions.label}</div>
+                        <ul class="regions-tags">
+                            ${content.contact.regions.items.map(r => `<li>${r}</li>`).join('')}
+                        </ul>
+                    </div>
+
+                    <div class="nm-card">
+                        <div class="section-label mb-4">${content.contact.media.label}</div>
+                        <p class="text-secondary mb-4" style="font-size: 0.9rem;">${content.contact.media.desc}</p>
+                        <a href="mailto:${content.contact.media.email}" class="contact-link-item"><i class="fas fa-envelope" style="margin-right: 6px;"></i>${content.contact.media.email}</a>
+                    </div>
                 </div>
             </div>
         </section>

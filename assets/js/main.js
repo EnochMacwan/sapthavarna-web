@@ -97,10 +97,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Handle route changes
     window.addEventListener('routeChange', () => {
         initPageInteractions();
+        initContactForm();
     });
 
     // Initial page setup
     initPageInteractions();
+    initContactForm();
 });
 
 // EOI Form Handler (Careers Page)
@@ -125,6 +127,78 @@ window.handleEOISubmit = (event) => {
 
     // Scroll to success message
     document.getElementById('eoi-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
+};
+
+// Contact Form Handler
+const initContactForm = () => {
+    const form = document.getElementById('contact-form');
+    if (!form) return;
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Validate required fields
+        let valid = true;
+        const name = document.getElementById('contact-name');
+        const email = document.getElementById('contact-email');
+        const message = document.getElementById('contact-message');
+
+        [name, email, message].forEach(field => {
+            field.classList.remove('valid', 'invalid');
+            if (!field.value.trim()) {
+                field.classList.add('invalid');
+                valid = false;
+            } else {
+                field.classList.add('valid');
+            }
+        });
+
+        // Email format check
+        if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+            email.classList.remove('valid');
+            email.classList.add('invalid');
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        // Collect form data
+        const data = {
+            name: name.value,
+            company: document.getElementById('contact-company').value,
+            email: email.value,
+            phone: document.getElementById('contact-phone').value,
+            sector: document.getElementById('contact-sector').value,
+            region: document.getElementById('contact-region').value,
+            message: message.value,
+            submittedAt: new Date().toISOString()
+        };
+
+        // Save to localStorage (for demo - in production, send to backend)
+        const submissions = JSON.parse(localStorage.getItem('contact_submissions') || '[]');
+        submissions.push(data);
+        localStorage.setItem('contact_submissions', JSON.stringify(submissions));
+
+        // Hide form, show success
+        form.style.display = 'none';
+        const success = document.getElementById('contact-success');
+        success.style.display = 'block';
+        success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    // Live validation on blur
+    form.querySelectorAll('.form-input[required]').forEach(field => {
+        field.addEventListener('blur', () => {
+            field.classList.remove('valid', 'invalid');
+            if (field.value.trim()) {
+                if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
+                    field.classList.add('invalid');
+                } else {
+                    field.classList.add('valid');
+                }
+            }
+        });
+    });
 };
 
 // ========================================
