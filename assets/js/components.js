@@ -111,6 +111,7 @@ export const components = {
                         </div>
                     </div>
                     <a href="#sustainability" class="nav-link">Sustainability</a>
+                    <a href="#careers" class="nav-link">Careers</a>
                     <a href="#contact" class="nav-link">Contact</a>`;
 
         return `

@@ -3,6 +3,7 @@ import { SpectrumAnimation } from './spectrum.js';
 import { initComponents, highlightActiveNav } from './components.js';
 
 let currentAnimation = null;
+let currentObserver = null;
 
 // Animation & Interaction Logic
 const initPageInteractions = () => {
@@ -12,6 +13,12 @@ const initPageInteractions = () => {
         currentAnimation = null;
     }
 
+    // Disconnect previous observer
+    if (currentObserver) {
+        currentObserver.disconnect();
+        currentObserver = null;
+    }
+
     // Init Spectrum Animation if canvas exists
     const canvas = document.getElementById('spectrum-canvas');
     if (canvas) {
@@ -19,25 +26,36 @@ const initPageInteractions = () => {
     }
 
     // Reveal Observer for cards and headings
-    const observerOptions = { threshold: 0.05 };
-    const revealObserver = new IntersectionObserver((entries) => {
+    const observerOptions = { threshold: 0.05, rootMargin: '0px 0px -30px 0px' };
+    currentObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 gsap.to(entry.target, {
                     opacity: 1,
                     y: 0,
-                    duration: 0.8,
-                    ease: 'power2.out'
+                    duration: 0.7,
+                    ease: 'power2.out',
+                    delay: entry.target.dataset.delay || 0
                 });
-                revealObserver.unobserve(entry.target);
+                currentObserver.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    document.querySelectorAll('.nm-card, h2, #closing h2, .subpage-hero h1, .hero-content h1').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(15px)';
-        revealObserver.observe(el);
+    // Select elements to animate — reset and observe
+    const revealElements = document.querySelectorAll('.nm-card, .grid-card-wrapper, h2, .subpage-hero h1, .hero-content h1, .section-label, .lead-text, .cta-button, .value-tags, .benefits-list, .regions-tags');
+
+    revealElements.forEach((el, i) => {
+        // Set initial hidden state
+        gsap.set(el, { opacity: 0, y: 20 });
+        // Add stagger delay for cards in the same grid
+        const parent = el.parentElement;
+        if (parent && parent.classList.contains('cards-grid')) {
+            const siblings = Array.from(parent.children);
+            const index = siblings.indexOf(el);
+            el.dataset.delay = (index * 0.08).toFixed(2);
+        }
+        currentObserver.observe(el);
     });
 
     // Update nav highlighting
@@ -151,10 +169,10 @@ const initHamburgerMenu = () => {
         <a href="#" class="nav-link">Home</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#capabilities" class="nav-link">Capabilities</a>
-        <a href="#marine" class="nav-link">Marine</a>
+        <a href="#marine" class="nav-link">Marine & Coastal</a>
         <a href="#transport" class="nav-link">Transport</a>
         <a href="#energy" class="nav-link">Energy</a>
-        <a href="#systems" class="nav-link">Systems</a>
+        <a href="#systems" class="nav-link">Construction Systems</a>
         <a href="#sustainability" class="nav-link">Sustainability</a>
         <a href="#careers" class="nav-link">Careers</a>
         <a href="#contact" class="nav-link">Contact</a>
