@@ -489,7 +489,7 @@
                             <h3>${escapeHTML(item.name)}</h3>
                             <span class="category">${escapeHTML(item.role)}</span>
                         </div>
-                        <p>${escapeHTML(item.bio || '').substring(0, 100)}...</p>
+                        <p>${escapeHTML(item.desc || '').substring(0, 100)}...</p>
                         <div class="item-card-actions">
                             <button class="btn btn-secondary btn-icon" onclick="editItem('team', ${i})">
                                 <i class="fas fa-edit"></i>
@@ -594,7 +594,7 @@
                     </div>
                     <div class="form-group">
                         <label>Bio <button type="button" class="ai-gen-btn" onclick="aiGenerateBio()"><i class="fas fa-robot"></i> Generate</button></label>
-                        <textarea class="form-control" id="form-bio">${escapeHTML(data.bio || '')}</textarea>
+                        <textarea class="form-control" id="form-bio">${escapeHTML(data.desc || '')}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Photo</label>
@@ -665,7 +665,7 @@
                     id: document.getElementById('form-name').value.toLowerCase().replace(/\s+/g, '-'),
                     name: document.getElementById('form-name').value,
                     role: document.getElementById('form-role').value,
-                    bio: document.getElementById('form-bio').value,
+                    desc: document.getElementById('form-bio').value,
                     photo: document.getElementById('form-photo').value,
                     order: currentEditIndex !== null ? data[currentEditIndex].order : data.length + 1
                 };
@@ -777,7 +777,7 @@
                     );
                     if (res.ok) {
                         const content = await res.text();
-                        const match = content.match(/(?:const\s+\w+|window\.\w+)\s*=\s*(\{[\s\S]*?\}|\[[\s\S]*?\])\s*;/);
+                        const match = content.match(/(?:var\s+\w+|const\s+\w+|let\s+\w+|window\.\w+)\s*=\s*(\{[\s\S]*?\}|\[[\s\S]*?\])\s*;/);
                         if (match) {
                             const data = new Function('return ' + match[1])();
                             window[GITHUB_VAR_NAMES[type]] = data;
@@ -819,7 +819,7 @@
             const varName = GITHUB_VAR_NAMES[type];
             if (!filePath || !varName) return;
 
-            const fileContent = `const ${varName} = ${JSON.stringify(data, null, 2)};`;
+            const fileContent = `var ${varName} = ${JSON.stringify(data, null, 2)};`;
 
             // Get current SHA
             const apiUrl = `https://api.github.com/repos/${gitHubConfig.owner}/${gitHubConfig.repo}/contents/${filePath}`;
