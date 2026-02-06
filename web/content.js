@@ -20,7 +20,47 @@ export const defaultContent = {
         closing: {
             title: "Infrastructure built with respect for every layer of the earth it touches.",
             cta: "Contact SapthaVarnah"
-        }
+        },
+        stats: [
+            { icon: "fa-anchor", value: "XX+", label: "Marine Projects" },
+            { icon: "fa-road", value: "XX+", label: "Km of Roads" },
+            { icon: "fa-bolt", value: "XX+", label: "MW Energy Enabled" },
+            { icon: "fa-globe-africa", value: "XX+", label: "Countries Served" }
+        ],
+        clientLogos: [
+            { name: "[Client Name]" },
+            { name: "[Client Name]" },
+            { name: "[Client Name]" },
+            { name: "[Client Name]" },
+            { name: "[Client Name]" },
+            { name: "[Client Name]" }
+        ],
+        process: {
+            title: "How We Work",
+            steps: [
+                { icon: "fa-search", title: "Assess", desc: "Feasibility studies, site investigation, and geological assessment." },
+                { icon: "fa-drafting-compass", title: "Design", desc: "Detailed engineering design with BIM-enabled precision." },
+                { icon: "fa-hard-hat", title: "Build", desc: "Construction management with safety and quality focus." },
+                { icon: "fa-clipboard-check", title: "Deliver", desc: "Commissioning, handover, and ongoing asset support." }
+            ]
+        },
+        testimonials: [
+            { quote: "[Client testimonial placeholder — replace with actual quote]", name: "[Client Name]", role: "[Position]", company: "[Company]" },
+            { quote: "[Client testimonial placeholder — replace with actual quote]", name: "[Client Name]", role: "[Position]", company: "[Company]" }
+        ],
+        trustStrip: {
+            title: "Trusted & Certified",
+            badges: [
+                { icon: "fa-certificate", label: "[Certification]" },
+                { icon: "fa-shield-alt", label: "[Accreditation]" },
+                { icon: "fa-award", label: "[Standard]" },
+                { icon: "fa-check-circle", label: "[Quality Mark]" }
+            ]
+        },
+        projects: [
+            { title: "[Project Name]", sector: "marine", location: "[Location]", desc: "[Brief description of a marine infrastructure project]", stats: [{ value: "XX", label: "[Metric]" }, { value: "XX", label: "[Metric]" }] },
+            { title: "[Project Name]", sector: "transport", location: "[Location]", desc: "[Brief description of a transport infrastructure project]", stats: [{ value: "XX", label: "[Metric]" }, { value: "XX", label: "[Metric]" }] }
+        ]
     },
     about: {
         hero: {
@@ -49,7 +89,24 @@ export const defaultContent = {
             desc: "We're always looking for talented civil engineers, geotechnical specialists, project managers, and construction professionals to join our growing team. Whether you're an experienced professional or an emerging talent, if you share our vision for building better infrastructure, we'd like to hear from you.",
             ctaText: "Submit EOI",
             ctaEmail: "careers@svgeotech.com"
-        }
+        },
+        timeline: [
+            { year: "[Year]", title: "[Milestone Title]", desc: "[Description of company milestone]" },
+            { year: "[Year]", title: "[Milestone Title]", desc: "[Description of company milestone]" },
+            { year: "[Year]", title: "[Milestone Title]", desc: "[Description of company milestone]" },
+            { year: "[Year]", title: "[Milestone Title]", desc: "[Description of company milestone]" }
+        ],
+        certifications: [
+            { icon: "fa-certificate", title: "[Certification Name]" },
+            { icon: "fa-shield-alt", title: "[Accreditation Name]" },
+            { icon: "fa-award", title: "[Industry Standard]" },
+            { icon: "fa-check-circle", title: "[Quality Certification]" }
+        ],
+        partners: [
+            { name: "[Partner Organisation]" },
+            { name: "[Partner Organisation]" },
+            { name: "[Partner Organisation]" }
+        ]
     },
     capabilities: {
         hero: {
@@ -64,7 +121,22 @@ export const defaultContent = {
             { id: "transport", label: "Sector 02", title: "Transport", desc: "Strategic road networks, bridge engineering, airport infrastructure, and multimodal logistics corridors that connect regions and drive economic development.", link: "#transport" },
             { id: "energy", label: "Sector 03", title: "Energy", desc: "Enabling works and infrastructure for renewable energy installations, substations, and grid systems supporting the global energy transition.", link: "#energy" },
             { id: "systems", label: "Sector 04", title: "Construction Systems", desc: "Advanced precast concrete and GFRG building technologies delivering speed, precision, and sustainability in modern construction.", link: "#systems" }
-        ]
+        ],
+        differentiators: [
+            { icon: "fa-globe-africa", title: "Regional Expertise", desc: "Deep understanding of African, Indian, and Gulf markets with established local networks." },
+            { icon: "fa-layer-group", title: "Integrated Approach", desc: "End-to-end solutions from feasibility through construction to asset management." },
+            { icon: "fa-microscope", title: "Geo-Engineering Focus", desc: "Specialist geotechnical knowledge that optimises designs and reduces project risk." },
+            { icon: "fa-cubes", title: "Modern Methods", desc: "Industrialised construction technologies for faster, higher-quality delivery." }
+        ],
+        methodology: {
+            title: "Our Methodology",
+            steps: [
+                { icon: "fa-search", title: "Assess", desc: "Site investigation and feasibility analysis." },
+                { icon: "fa-drafting-compass", title: "Design", desc: "Detailed engineering with BIM precision." },
+                { icon: "fa-hard-hat", title: "Build", desc: "Quality-focused construction management." },
+                { icon: "fa-clipboard-check", title: "Deliver", desc: "Commissioning and asset support." }
+            ]
+        }
     },
     marine: {
         hero: {
@@ -81,6 +153,17 @@ export const defaultContent = {
             { title: "Marine Foundations", desc: "Driven piles, bored piles, caissons, and gravity-based foundations for marine structures. We specialise in challenging ground conditions including soft marine clays and coral formations." },
             { title: "Dredging & Reclamation", desc: "Technical support for capital and maintenance dredging, land reclamation design, and beneficial reuse of dredged materials for coastal development projects." },
             { title: "Climate Adaptation", desc: "Infrastructure designed for rising sea levels, increased storm intensity, and changing coastal conditions. We integrate climate projections into all our marine designs to ensure long-term resilience." }
+        ],
+        sectorStats: [
+            { value: "XX+", label: "Port Projects" },
+            { value: "XX+", label: "Km Coastline Protected" },
+            { value: "XX+", label: "Countries" }
+        ],
+        featuredProject: { title: "[Project Name]", location: "[Location]", desc: "[Description of a major marine project]", stats: [{ value: "XX", label: "[Metric]" }, { value: "XX", label: "[Metric]" }] },
+        whyChooseUs: [
+            { icon: "fa-water", title: "Marine Specialists", desc: "Decades of focused experience in marine and coastal engineering." },
+            { icon: "fa-shield-alt", title: "Climate-Resilient Design", desc: "Infrastructure designed for rising sea levels and increasing storm intensity." },
+            { icon: "fa-globe-africa", title: "Tropical Expertise", desc: "Proven track record in tropical marine environments across Africa and the Indian Ocean." }
         ]
     },
     transport: {
@@ -97,6 +180,17 @@ export const defaultContent = {
             { title: "Airport Infrastructure", desc: "Runway and taxiway pavements, aprons, terminal buildings, and associated airside infrastructure designed to aviation authority standards for commercial and cargo operations." },
             { title: "Logistics Infrastructure", desc: "Warehousing zones, freight corridors, inland container depots, and distribution hubs that support efficient goods movement and supply chain operations." },
             { title: "Multimodal Interfaces", desc: "Integration points between road, rail, port, and air transport modes, designed for seamless cargo transfer and optimised logistics operations across transport networks." }
+        ],
+        sectorStats: [
+            { value: "XX+", label: "Km of Roads" },
+            { value: "XX+", label: "Bridges Designed" },
+            { value: "XX+", label: "Airport Projects" }
+        ],
+        featuredProject: { title: "[Project Name]", location: "[Location]", desc: "[Description of a major transport project]", stats: [{ value: "XX", label: "[Metric]" }, { value: "XX", label: "[Metric]" }] },
+        whyChooseUs: [
+            { icon: "fa-road", title: "Full Lifecycle", desc: "From route selection and feasibility through design to construction supervision." },
+            { icon: "fa-thermometer-half", title: "Tropical Design", desc: "Pavements and structures optimised for high temperatures and heavy rainfall." },
+            { icon: "fa-truck", title: "Logistics Focus", desc: "Infrastructure designed to enable efficient goods movement and trade." }
         ]
     },
     energy: {
@@ -113,6 +207,17 @@ export const defaultContent = {
             { title: "Coastal Energy Facilities", desc: "Infrastructure for coastal and nearshore energy projects including LNG terminals, offshore wind support facilities, and tidal/wave energy installations." },
             { title: "Balance-of-Plant", desc: "Supporting infrastructure for power generation facilities including cooling water systems, fuel handling, ash disposal, and ancillary structures that ensure reliable plant operations." },
             { title: "Hydropower Civil Works", desc: "Dam construction, intake structures, penstocks, and powerhouse foundations for run-of-river and storage hydropower projects in challenging terrain." }
+        ],
+        sectorStats: [
+            { value: "XX+", label: "MW Enabled" },
+            { value: "XX+", label: "Substations Built" },
+            { value: "XX+", label: "Renewable Projects" }
+        ],
+        featuredProject: { title: "[Project Name]", location: "[Location]", desc: "[Description of a major energy project]", stats: [{ value: "XX", label: "[Metric]" }, { value: "XX", label: "[Metric]" }] },
+        whyChooseUs: [
+            { icon: "fa-bolt", title: "Energy Transition", desc: "Focused on enabling renewable energy deployment across emerging markets." },
+            { icon: "fa-plug", title: "Grid Infrastructure", desc: "Complete substation and transmission line civil works capability." },
+            { icon: "fa-leaf", title: "Clean Energy", desc: "Supporting the shift to sustainable power generation." }
         ]
     },
     systems: {
@@ -127,7 +232,18 @@ export const defaultContent = {
             { title: "Precast Concrete Systems", desc: "Factory-manufactured precast concrete elements including beams, columns, slabs, wall panels, and complete building systems. Our precast solutions ensure consistent quality control, faster site assembly, and reduced construction waste for projects ranging from industrial facilities to residential developments.", image: "precast.png" },
             { title: "GFRG Building Technology", desc: "Glass Fibre Reinforced Gypsum (GFRG) panels provide a rapid, lightweight, and sustainable building solution. These factory-produced panels can be assembled into complete structures in a fraction of conventional construction time, offering excellent thermal performance, fire resistance, and seismic resilience.", image: "gfrg.png" }
         ],
-        benefits: ["50-70% faster construction timelines", "Consistent factory quality control", "Up to 80% reduced on-site waste", "Lower embodied carbon footprint", "Significant cost efficiency at scale", "Reduced site labour requirements", "All-weather construction capability"]
+        benefits: ["50-70% faster construction timelines", "Consistent factory quality control", "Up to 80% reduced on-site waste", "Lower embodied carbon footprint", "Significant cost efficiency at scale", "Reduced site labour requirements", "All-weather construction capability"],
+        sectorStats: [
+            { value: "XX+", label: "Buildings Delivered" },
+            { value: "XX%", label: "Faster Construction" },
+            { value: "XX%", label: "Less Waste" }
+        ],
+        featuredProject: { title: "[Project Name]", location: "[Location]", desc: "[Description of a major construction systems project]", stats: [{ value: "XX", label: "[Metric]" }, { value: "XX", label: "[Metric]" }] },
+        whyChooseUs: [
+            { icon: "fa-industry", title: "Factory Precision", desc: "Off-site manufacturing ensures consistent quality control." },
+            { icon: "fa-clock", title: "Speed of Delivery", desc: "50-70% faster than conventional construction methods." },
+            { icon: "fa-recycle", title: "Sustainability", desc: "Up to 80% reduction in construction waste." }
+        ]
     },
     sustainability: {
         hero: {
@@ -149,6 +265,11 @@ export const defaultContent = {
             { title: "Low-carbon Construction", desc: "Off-site precast manufacturing, optimised concrete mixes with supplementary cementitious materials, and efficient logistics to reduce construction-phase carbon emissions." },
             { title: "BIM-enabled Execution", desc: "Digital Building Information Modelling for clash detection, construction sequencing, and efficient coordination — reducing errors, rework, and material waste." },
             { title: "Natural Solutions", desc: "Where appropriate, incorporating nature-based solutions such as living shorelines, constructed wetlands, and bioengineered slopes that provide infrastructure function with ecological co-benefits." }
+        ],
+        metrics: [
+            { icon: "fa-leaf", value: "XX%", label: "Carbon Reduction Target" },
+            { icon: "fa-recycle", value: "XX%", label: "Waste Diverted from Landfill" },
+            { icon: "fa-users", value: "XX+", label: "Community Projects" }
         ]
     },
     contact: {
@@ -178,6 +299,19 @@ export const defaultContent = {
             label: "Media Relations",
             desc: "For press enquiries, project announcements, and media requests, please contact our communications team.",
             email: "media@svgeotech.com"
-        }
+        },
+        phone: "+230 [XXX XXXX]",
+        responseGuarantee: { title: "Quick Response", desc: "Our team responds to all project enquiries within 24-48 business hours." },
+        faq: [
+            { question: "What regions do you operate in?", answer: "We serve clients across East and Southern Africa, West Africa, the Indian Subcontinent, Gulf Cooperation Council countries, and Indian Ocean Islands, with offices in Mauritius and India." },
+            { question: "What types of projects do you take on?", answer: "We deliver marine and coastal infrastructure, transport corridors, energy enabling works, and modern construction systems. Projects range from feasibility studies to full design-build delivery." },
+            { question: "How do I request a proposal?", answer: "Submit a project enquiry through our contact form or email info@svgeotech.com with your project details, location, and timeline. Our team will respond with next steps." },
+            { question: "Do you work with government and private sector clients?", answer: "Yes, we work with both public and private sector clients including government agencies, port authorities, energy developers, and private infrastructure investors." }
+        ]
+    },
+    shared: {
+        phone: "+230 [XXX XXXX]",
+        socialLinks: { linkedin: "#", twitter: "#", youtube: "#" },
+        newsletter: { title: "Stay Updated", desc: "Subscribe to receive project updates and industry insights." }
     }
 };

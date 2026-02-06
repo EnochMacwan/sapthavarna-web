@@ -64,6 +64,8 @@
                 <li><a href="#" data-section="team"><i class="fas fa-users"></i> Team</a></li>
                 <li><a href="#" data-section="services"><i class="fas fa-layer-group"></i> Services</a></li>
                 <li><a href="#" data-section="locations"><i class="fas fa-map-marker-alt"></i> Locations</a></li>
+                <li><a href="#" data-section="projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
+                <li><a href="#" data-section="testimonials"><i class="fas fa-quote-right"></i> Testimonials</a></li>
                 <li><a href="#" data-section="content"><i class="fas fa-file-alt"></i> Content</a></li>
                 <li><a href="#" data-section="navigation"><i class="fas fa-bars"></i> Navigation</a></li>
                 <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
@@ -89,6 +91,12 @@
                     </button>
                     <button type="button" class="btn btn-primary" onclick="showSection('locations'); openAddModal('locations')">
                         <i class="fas fa-plus"></i> Add Location
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="showSection('projects'); openAddModal('projects')">
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="showSection('testimonials'); openAddModal('testimonials')">
+                        <i class="fas fa-plus"></i> Add Testimonial
                     </button>
                 </div>
             </section>
@@ -124,6 +132,28 @@
                     </button>
                 </div>
                 <div class="items-grid" id="locations-grid"></div>
+            </section>
+
+            <!-- Projects -->
+            <section id="projects" class="content-section">
+                <div class="section-header">
+                    <h2>Projects</h2>
+                    <button type="button" class="btn btn-primary" onclick="openAddModal('projects')">
+                        <i class="fas fa-plus"></i> Add Project
+                    </button>
+                </div>
+                <div class="items-grid" id="projects-grid"></div>
+            </section>
+
+            <!-- Testimonials -->
+            <section id="testimonials" class="content-section">
+                <div class="section-header">
+                    <h2>Testimonials</h2>
+                    <button type="button" class="btn btn-primary" onclick="openAddModal('testimonials')">
+                        <i class="fas fa-plus"></i> Add Testimonial
+                    </button>
+                </div>
+                <div class="items-grid" id="testimonials-grid"></div>
             </section>
 
             <!-- Content -->
@@ -188,8 +218,20 @@
                             <input type="email" class="form-control" id="careers-email" placeholder="careers@svgeotech.com">
                         </div>
                         <div class="form-group">
-                            <label>LinkedIn Profile</label>
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" id="phone-number" placeholder="+230 XXX XXXX">
+                        </div>
+                        <div class="form-group">
+                            <label>LinkedIn URL</label>
                             <input type="url" class="form-control" id="linkedin-url" placeholder="https://linkedin.com/company/...">
+                        </div>
+                        <div class="form-group">
+                            <label>Twitter / X URL</label>
+                            <input type="url" class="form-control" id="twitter-url" placeholder="https://twitter.com/...">
+                        </div>
+                        <div class="form-group">
+                            <label>YouTube URL</label>
+                            <input type="url" class="form-control" id="youtube-url" placeholder="https://youtube.com/@...">
                         </div>
                     </div>
                 </div>
@@ -450,6 +492,41 @@
                     closing: { label: 'Closing Section', fields: {
                         title: { type: 'text', label: 'Closing Statement' },
                         cta: { type: 'text', label: 'CTA Button Text' }
+                    }},
+                    stats: { label: 'Key Stats', type: 'array', itemLabel: 'Stat', fields: {
+                        icon: { type: 'text', label: 'Icon (e.g. fa-anchor)' },
+                        value: { type: 'text', label: 'Value' },
+                        label: { type: 'text', label: 'Label' }
+                    }},
+                    clientLogos: { label: 'Client Logos', type: 'array', itemLabel: 'Client', fields: {
+                        name: { type: 'text', label: 'Client Name' }
+                    }},
+                    process: { label: 'How We Work', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        steps: { type: 'array', itemLabel: 'Step', fields: {
+                            icon: { type: 'text', label: 'Icon (e.g. fa-search)' },
+                            title: { type: 'text', label: 'Step Title' },
+                            desc: { type: 'textarea', label: 'Description' }
+                        }}
+                    }},
+                    testimonials: { label: 'Testimonials', type: 'array', itemLabel: 'Testimonial', fields: {
+                        quote: { type: 'textarea', label: 'Quote' },
+                        name: { type: 'text', label: 'Name' },
+                        role: { type: 'text', label: 'Role' },
+                        company: { type: 'text', label: 'Company' }
+                    }},
+                    trustStrip: { label: 'Trust Strip', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        badges: { type: 'array', itemLabel: 'Badge', fields: {
+                            icon: { type: 'text', label: 'Icon (e.g. fa-certificate)' },
+                            label: { type: 'text', label: 'Badge Label' }
+                        }}
+                    }},
+                    projects: { label: 'Featured Projects', type: 'array', itemLabel: 'Project', fields: {
+                        title: { type: 'text', label: 'Project Title' },
+                        sector: { type: 'text', label: 'Sector (e.g. marine, transport)' },
+                        location: { type: 'text', label: 'Location' },
+                        desc: { type: 'textarea', label: 'Description' }
                     }}
                 }
             },
@@ -482,6 +559,18 @@
                         desc: { type: 'textarea', label: 'Description' },
                         ctaText: { type: 'text', label: 'CTA Button Text' },
                         ctaEmail: { type: 'text', label: 'CTA Email' }
+                    }},
+                    timeline: { label: 'Company Timeline', type: 'array', itemLabel: 'Milestone', fields: {
+                        year: { type: 'text', label: 'Year' },
+                        title: { type: 'text', label: 'Milestone Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    certifications: { label: 'Certifications', type: 'array', itemLabel: 'Certification', fields: {
+                        icon: { type: 'text', label: 'Icon (e.g. fa-certificate)' },
+                        title: { type: 'text', label: 'Certification Title' }
+                    }},
+                    partners: { label: 'Partners', type: 'array', itemLabel: 'Partner', fields: {
+                        name: { type: 'text', label: 'Partner Name' }
                     }}
                 }
             },
@@ -501,6 +590,19 @@
                         title: { type: 'text', label: 'Title' },
                         desc: { type: 'textarea', label: 'Description' },
                         link: { type: 'text', label: 'Link' }
+                    }},
+                    differentiators: { label: 'Differentiators', type: 'array', itemLabel: 'Differentiator', fields: {
+                        icon: { type: 'text', label: 'Icon (e.g. fa-globe-africa)' },
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    methodology: { label: 'Methodology', fields: {
+                        title: { type: 'text', label: 'Section Title' },
+                        steps: { type: 'array', itemLabel: 'Step', fields: {
+                            icon: { type: 'text', label: 'Icon (e.g. fa-search)' },
+                            title: { type: 'text', label: 'Step Title' },
+                            desc: { type: 'textarea', label: 'Description' }
+                        }}
                     }}
                 }
             },
@@ -516,6 +618,20 @@
                     }},
                     services: { label: 'Services', type: 'array', itemLabel: 'Service', fields: {
                         title: { type: 'text', label: 'Service Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    sectorStats: { label: 'Sector Statistics', type: 'array', itemLabel: 'Stat', fields: {
+                        value: { type: 'text', label: 'Value' },
+                        label: { type: 'text', label: 'Label' }
+                    }},
+                    featuredProject: { label: 'Featured Project', fields: {
+                        title: { type: 'text', label: 'Project Title' },
+                        location: { type: 'text', label: 'Location' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    whyChooseUs: { label: 'Why Choose Us', type: 'array', itemLabel: 'Reason', fields: {
+                        icon: { type: 'text', label: 'Icon (e.g. fa-water)' },
+                        title: { type: 'text', label: 'Title' },
                         desc: { type: 'textarea', label: 'Description' }
                     }}
                 }
@@ -533,6 +649,20 @@
                     services: { label: 'Services', type: 'array', itemLabel: 'Service', fields: {
                         title: { type: 'text', label: 'Service Title' },
                         desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    sectorStats: { label: 'Sector Statistics', type: 'array', itemLabel: 'Stat', fields: {
+                        value: { type: 'text', label: 'Value' },
+                        label: { type: 'text', label: 'Label' }
+                    }},
+                    featuredProject: { label: 'Featured Project', fields: {
+                        title: { type: 'text', label: 'Project Title' },
+                        location: { type: 'text', label: 'Location' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    whyChooseUs: { label: 'Why Choose Us', type: 'array', itemLabel: 'Reason', fields: {
+                        icon: { type: 'text', label: 'Icon' },
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
                     }}
                 }
             },
@@ -548,6 +678,20 @@
                     }},
                     services: { label: 'Services', type: 'array', itemLabel: 'Service', fields: {
                         title: { type: 'text', label: 'Service Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    sectorStats: { label: 'Sector Statistics', type: 'array', itemLabel: 'Stat', fields: {
+                        value: { type: 'text', label: 'Value' },
+                        label: { type: 'text', label: 'Label' }
+                    }},
+                    featuredProject: { label: 'Featured Project', fields: {
+                        title: { type: 'text', label: 'Project Title' },
+                        location: { type: 'text', label: 'Location' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    whyChooseUs: { label: 'Why Choose Us', type: 'array', itemLabel: 'Reason', fields: {
+                        icon: { type: 'text', label: 'Icon' },
+                        title: { type: 'text', label: 'Title' },
                         desc: { type: 'textarea', label: 'Description' }
                     }}
                 }
@@ -567,7 +711,21 @@
                         desc: { type: 'textarea', label: 'Description' },
                         image: { type: 'text', label: 'Image filename' }
                     }},
-                    benefits: { label: 'Benefits', type: 'stringArray', itemLabel: 'Benefit' }
+                    benefits: { label: 'Benefits', type: 'stringArray', itemLabel: 'Benefit' },
+                    sectorStats: { label: 'Sector Statistics', type: 'array', itemLabel: 'Stat', fields: {
+                        value: { type: 'text', label: 'Value' },
+                        label: { type: 'text', label: 'Label' }
+                    }},
+                    featuredProject: { label: 'Featured Project', fields: {
+                        title: { type: 'text', label: 'Project Title' },
+                        location: { type: 'text', label: 'Location' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    whyChooseUs: { label: 'Why Choose Us', type: 'array', itemLabel: 'Reason', fields: {
+                        icon: { type: 'text', label: 'Icon' },
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }}
                 }
             },
             sustainability: {
@@ -588,6 +746,11 @@
                     practices: { label: 'Practices', type: 'array', itemLabel: 'Practice', fields: {
                         title: { type: 'text', label: 'Title' },
                         desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    metrics: { label: 'Sustainability Metrics', type: 'array', itemLabel: 'Metric', fields: {
+                        icon: { type: 'text', label: 'Icon (e.g. fa-leaf)' },
+                        value: { type: 'text', label: 'Value' },
+                        label: { type: 'text', label: 'Label' }
                     }}
                 }
             },
@@ -622,6 +785,34 @@
                         label: { type: 'text', label: 'Section Label' },
                         desc: { type: 'textarea', label: 'Description' },
                         email: { type: 'text', label: 'Media Email' }
+                    }},
+                    phone: { label: 'Phone Number', fields: {
+                        _self: { type: 'text', label: 'Phone Number' }
+                    }},
+                    responseGuarantee: { label: 'Response Guarantee', fields: {
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
+                    }},
+                    faq: { label: 'FAQ', type: 'array', itemLabel: 'FAQ Item', fields: {
+                        question: { type: 'text', label: 'Question' },
+                        answer: { type: 'textarea', label: 'Answer' }
+                    }}
+                }
+            },
+            shared: {
+                label: 'Shared / Global', icon: 'fa-globe',
+                sections: {
+                    phone: { label: 'Phone Number', fields: {
+                        _self: { type: 'text', label: 'Phone Number' }
+                    }},
+                    socialLinks: { label: 'Social Media Links', fields: {
+                        linkedin: { type: 'text', label: 'LinkedIn URL' },
+                        twitter: { type: 'text', label: 'Twitter/X URL' },
+                        youtube: { type: 'text', label: 'YouTube URL' }
+                    }},
+                    newsletter: { label: 'Newsletter', fields: {
+                        title: { type: 'text', label: 'Title' },
+                        desc: { type: 'textarea', label: 'Description' }
                     }}
                 }
             }
@@ -632,7 +823,9 @@
             initNavigation();
             renderDashboard();
             renderAllSections();
-            initContentEditor();
+            initContentEditor().then(() => {
+                loadSettingsFields();
+            });
             renderNavigationEditor();
             loadTheme();
         });
@@ -671,10 +864,14 @@
 
         // Dashboard
         function renderDashboard() {
+            const projectsCount = contentWorkingCopy && contentWorkingCopy.home && contentWorkingCopy.home.projects ? contentWorkingCopy.home.projects.length : 0;
+            const testimonialsCount = contentWorkingCopy && contentWorkingCopy.home && contentWorkingCopy.home.testimonials ? contentWorkingCopy.home.testimonials.length : 0;
             const stats = [
                 { icon: 'fa-users', value: (window.TEAM_DATA || []).length, label: 'Team Members' },
                 { icon: 'fa-layer-group', value: (window.SERVICES_DATA || []).length, label: 'Service Areas' },
-                { icon: 'fa-map-marker-alt', value: (window.LOCATIONS_DATA || []).length, label: 'Locations' }
+                { icon: 'fa-map-marker-alt', value: (window.LOCATIONS_DATA || []).length, label: 'Locations' },
+                { icon: 'fa-project-diagram', value: projectsCount, label: 'Projects' },
+                { icon: 'fa-quote-right', value: testimonialsCount, label: 'Testimonials' }
             ];
 
             document.getElementById('stats-grid').innerHTML = stats.map(s => `
@@ -691,6 +888,8 @@
             renderTeam();
             renderServices();
             renderLocations();
+            renderProjects();
+            renderTestimonials();
         }
 
         // Get Data
@@ -699,6 +898,16 @@
                 case 'team': return window.TEAM_DATA || [];
                 case 'services': return window.SERVICES_DATA || [];
                 case 'locations': return window.LOCATIONS_DATA || [];
+                case 'projects':
+                    if (!contentWorkingCopy) contentWorkingCopy = {};
+                    if (!contentWorkingCopy.home) contentWorkingCopy.home = {};
+                    if (!contentWorkingCopy.home.projects) contentWorkingCopy.home.projects = [];
+                    return contentWorkingCopy.home.projects;
+                case 'testimonials':
+                    if (!contentWorkingCopy) contentWorkingCopy = {};
+                    if (!contentWorkingCopy.home) contentWorkingCopy.home = {};
+                    if (!contentWorkingCopy.home.testimonials) contentWorkingCopy.home.testimonials = [];
+                    return contentWorkingCopy.home.testimonials;
                 default: return [];
             }
         }
@@ -784,11 +993,70 @@
             `).join('') || '<p style="color:var(--text-muted)">No locations yet.</p>';
         }
 
+        // Render Projects
+        function renderProjects() {
+            const data = getDataArray('projects');
+            const grid = document.getElementById('projects-grid');
+            if (!grid) return;
+
+            grid.innerHTML = data.map((item, i) => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-header">
+                            <h3>${escapeHTML(item.title || '')}</h3>
+                            <span class="category">${escapeHTML(item.sector || '')}</span>
+                        </div>
+                        <p>${escapeHTML(item.location || '')} &mdash; ${escapeHTML((item.desc || '').substring(0, 100))}...</p>
+                        <div class="item-card-actions">
+                            <button class="btn btn-secondary btn-icon" onclick="editItem('projects', ${i})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-icon" onclick="deleteItem('projects', ${i})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<p style="color:var(--text-muted)">No projects yet.</p>';
+        }
+
+        // Render Testimonials
+        function renderTestimonials() {
+            const data = getDataArray('testimonials');
+            const grid = document.getElementById('testimonials-grid');
+            if (!grid) return;
+
+            grid.innerHTML = data.map((item, i) => `
+                <div class="item-card">
+                    <div class="item-card-content">
+                        <div class="item-card-header">
+                            <h3>${escapeHTML(item.name || '')}</h3>
+                            <span class="category">${escapeHTML(item.role || '')}${item.company ? ', ' + escapeHTML(item.company) : ''}</span>
+                        </div>
+                        <p>"${escapeHTML((item.quote || '').substring(0, 120))}..."</p>
+                        <div class="item-card-actions">
+                            <button class="btn btn-secondary btn-icon" onclick="editItem('testimonials', ${i})">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-danger btn-icon" onclick="deleteItem('testimonials', ${i})">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('') || '<p style="color:var(--text-muted)">No testimonials yet.</p>';
+        }
+
         // Modal Functions
+        function getItemLabel(type) {
+            const labels = { team: 'Team Member', services: 'Service', locations: 'Location', projects: 'Project', testimonials: 'Testimonial' };
+            return labels[type] || capitalize(type);
+        }
+
         function openAddModal(type) {
             currentEditType = type;
             currentEditIndex = null;
-            document.getElementById('modal-title').textContent = `Add ${capitalize(type.replace('s', ''))}`;
+            document.getElementById('modal-title').textContent = `Add ${getItemLabel(type)}`;
             document.getElementById('modal-body').innerHTML = getFormHTML(type, {});
             document.getElementById('modal-overlay').style.display = 'flex';
         }
@@ -797,7 +1065,7 @@
             currentEditType = type;
             currentEditIndex = index;
             const data = getDataArray(type)[index];
-            document.getElementById('modal-title').textContent = `Edit ${capitalize(type.replace('s', ''))}`;
+            document.getElementById('modal-title').textContent = `Edit ${getItemLabel(type)}`;
             document.getElementById('modal-body').innerHTML = getFormHTML(type, data);
             document.getElementById('modal-overlay').style.display = 'flex';
         }
@@ -880,6 +1148,51 @@
                     </div>
                 `;
             }
+            if (type === 'projects') {
+                return `
+                    <div class="form-group">
+                        <label>Project Title</label>
+                        <input type="text" class="form-control" id="form-title" value="${escapeHTML(data.title || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Sector</label>
+                        <select class="form-control" id="form-sector">
+                            <option value="marine" ${data.sector === 'marine' ? 'selected' : ''}>Marine</option>
+                            <option value="transport" ${data.sector === 'transport' ? 'selected' : ''}>Transport</option>
+                            <option value="energy" ${data.sector === 'energy' ? 'selected' : ''}>Energy</option>
+                            <option value="systems" ${data.sector === 'systems' ? 'selected' : ''}>Construction Systems</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" class="form-control" id="form-location" value="${escapeHTML(data.location || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Description <button type="button" class="ai-gen-btn" onclick="aiGenerateDescription()"><i class="fas fa-robot"></i> Generate</button></label>
+                        <textarea class="form-control" id="form-description">${escapeHTML(data.desc || '')}</textarea>
+                    </div>
+                `;
+            }
+            if (type === 'testimonials') {
+                return `
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control" id="form-name" value="${escapeHTML(data.name || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Role / Position</label>
+                        <input type="text" class="form-control" id="form-role" value="${escapeHTML(data.role || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Company</label>
+                        <input type="text" class="form-control" id="form-company" value="${escapeHTML(data.company || '')}">
+                    </div>
+                    <div class="form-group">
+                        <label>Quote / Testimonial</label>
+                        <textarea class="form-control" id="form-quote">${escapeHTML(data.quote || '')}</textarea>
+                    </div>
+                `;
+            }
             return '';
         }
 
@@ -913,6 +1226,21 @@
                     type: document.getElementById('form-type').value,
                     address: document.getElementById('form-address').value
                 };
+            } else if (currentEditType === 'projects') {
+                item = {
+                    title: document.getElementById('form-title').value,
+                    sector: document.getElementById('form-sector').value,
+                    location: document.getElementById('form-location').value,
+                    desc: document.getElementById('form-description').value,
+                    stats: currentEditIndex !== null && data[currentEditIndex] ? data[currentEditIndex].stats || [] : []
+                };
+            } else if (currentEditType === 'testimonials') {
+                item = {
+                    quote: document.getElementById('form-quote').value,
+                    name: document.getElementById('form-name').value,
+                    role: document.getElementById('form-role').value,
+                    company: document.getElementById('form-company').value
+                };
             }
 
             if (currentEditIndex !== null) {
@@ -921,7 +1249,8 @@
                 data.push(item);
             }
 
-            pendingChanges.add(currentEditType);
+            const changeType = (currentEditType === 'projects' || currentEditType === 'testimonials') ? 'content' : currentEditType;
+            pendingChanges.add(changeType);
             closeModal();
             renderAllSections();
             renderDashboard();
@@ -932,10 +1261,68 @@
             if (!confirm('Are you sure you want to delete this item?')) return;
             const data = getDataArray(type);
             data.splice(index, 1);
-            pendingChanges.add(type);
+            const changeType = (type === 'projects' || type === 'testimonials') ? 'content' : type;
+            pendingChanges.add(changeType);
             renderAllSections();
             renderDashboard();
             showToast('Item deleted.');
+        }
+
+        // ===== SETTINGS =====
+        function saveSettings() {
+            const companyName = document.getElementById('company-name').value;
+            const contactEmail = document.getElementById('contact-email').value;
+            const careersEmail = document.getElementById('careers-email').value;
+            const phone = document.getElementById('phone-number').value;
+            const linkedin = document.getElementById('linkedin-url').value;
+            const twitter = document.getElementById('twitter-url').value;
+            const youtube = document.getElementById('youtube-url').value;
+
+            // Update SETTINGS_DATA
+            window.SETTINGS_DATA = window.SETTINGS_DATA || {};
+            window.SETTINGS_DATA.companyName = companyName;
+            window.SETTINGS_DATA.contactEmail = contactEmail;
+            window.SETTINGS_DATA.careersEmail = careersEmail;
+            window.SETTINGS_DATA.phone = phone;
+            window.SETTINGS_DATA.linkedin = linkedin;
+            window.SETTINGS_DATA.twitter = twitter;
+            window.SETTINGS_DATA.youtube = youtube;
+            pendingChanges.add('settings');
+
+            // Also update shared content data
+            if (contentWorkingCopy) {
+                if (!contentWorkingCopy.shared) contentWorkingCopy.shared = {};
+                contentWorkingCopy.shared.phone = phone;
+                if (!contentWorkingCopy.shared.socialLinks) contentWorkingCopy.shared.socialLinks = {};
+                contentWorkingCopy.shared.socialLinks.linkedin = linkedin;
+                contentWorkingCopy.shared.socialLinks.twitter = twitter;
+                contentWorkingCopy.shared.socialLinks.youtube = youtube;
+                pendingChanges.add('content');
+            }
+
+            showToast('Settings saved! Click Publish to push to GitHub.', 'success');
+        }
+
+        function loadSettingsFields() {
+            const settings = window.SETTINGS_DATA || {};
+            if (settings.companyName) document.getElementById('company-name').value = settings.companyName;
+            if (settings.contactEmail) document.getElementById('contact-email').value = settings.contactEmail;
+            if (settings.careersEmail) document.getElementById('careers-email').value = settings.careersEmail;
+            if (settings.phone) document.getElementById('phone-number').value = settings.phone;
+            if (settings.linkedin) document.getElementById('linkedin-url').value = settings.linkedin;
+            if (settings.twitter) document.getElementById('twitter-url').value = settings.twitter;
+            if (settings.youtube) document.getElementById('youtube-url').value = settings.youtube;
+
+            // Also try to load from shared content
+            if (contentWorkingCopy && contentWorkingCopy.shared) {
+                const shared = contentWorkingCopy.shared;
+                if (shared.phone && !settings.phone) document.getElementById('phone-number').value = shared.phone;
+                if (shared.socialLinks) {
+                    if (shared.socialLinks.linkedin && !settings.linkedin) document.getElementById('linkedin-url').value = shared.socialLinks.linkedin;
+                    if (shared.socialLinks.twitter && !settings.twitter) document.getElementById('twitter-url').value = shared.socialLinks.twitter;
+                    if (shared.socialLinks.youtube && !settings.youtube) document.getElementById('youtube-url').value = shared.socialLinks.youtube;
+                }
+            }
         }
 
         // ===== CONTENT EDITOR =====
@@ -1001,7 +1388,11 @@
                     html += renderArraySection(pageKey, sectionKey, sectionSchema, sectionData || []);
                 } else if (sectionSchema.fields) {
                     for (const [fieldKey, fieldDef] of Object.entries(sectionSchema.fields)) {
-                        if (fieldDef.type === 'array') {
+                        if (fieldKey === '_self') {
+                            // Bare value field (e.g. phone string)
+                            const value = typeof sectionData === 'string' ? sectionData : (sectionData || '');
+                            html += renderSimpleField(pageKey, sectionKey, fieldKey, fieldDef, value);
+                        } else if (fieldDef.type === 'array') {
                             html += renderNestedArrayField(pageKey, sectionKey, fieldKey, fieldDef, sectionData ? sectionData[fieldKey] || [] : []);
                         } else if (fieldDef.type === 'stringArray') {
                             html += renderStringArrayField(pageKey, sectionKey, fieldKey, fieldDef, sectionData ? sectionData[fieldKey] || [] : []);
@@ -1100,8 +1491,13 @@
         // Content mutation functions
         function updateContentField(page, section, field, value) {
             if (!contentWorkingCopy[page]) contentWorkingCopy[page] = {};
-            if (!contentWorkingCopy[page][section]) contentWorkingCopy[page][section] = {};
-            contentWorkingCopy[page][section][field] = value;
+            if (field === '_self') {
+                // Bare value field (e.g. phone string)
+                contentWorkingCopy[page][section] = value;
+            } else {
+                if (!contentWorkingCopy[page][section]) contentWorkingCopy[page][section] = {};
+                contentWorkingCopy[page][section][field] = value;
+            }
             pendingChanges.add('content');
         }
 
@@ -1473,6 +1869,7 @@
             renderAllSections();
             renderContentEditor(currentContentPage);
             renderNavigationEditor();
+            loadSettingsFields();
             showToast('Data loaded from GitHub!', 'success');
         }
 

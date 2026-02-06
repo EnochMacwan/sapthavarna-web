@@ -133,7 +133,16 @@ export const components = {
     `;
     },
 
-    footer: () => `
+    footer: () => {
+        // Get shared content for social links and newsletter
+        let shared = {};
+        try {
+            const saved = localStorage.getItem('siteContent');
+            const content = saved ? JSON.parse(saved) : null;
+            shared = content?.shared || {};
+        } catch (e) { /* use defaults */ }
+
+        return `
     <footer class="main-footer">
         <div class="footer-grid">
             <div class="footer-col brand-col">
@@ -146,6 +155,11 @@ export const components = {
                 <p class="text-secondary footer-tagline">
                     Engineering the full spectrum of the Earth across Marine, Transport, and Energy sectors.
                 </p>
+                <div class="social-links">
+                    <a href="${shared.socialLinks?.linkedin || '#'}" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="${shared.socialLinks?.twitter || '#'}" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="${shared.socialLinks?.youtube || '#'}" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
             </div>
 
             <div class="footer-col">
@@ -164,6 +178,7 @@ export const components = {
                     <li><a href="#about" class="nav-link">About SVGT</a></li>
                     <li><a href="#about" class="nav-link">Leadership</a></li>
                     <li><a href="#sustainability" class="nav-link">Sustainability</a></li>
+                    <li><a href="#careers" class="nav-link">Careers</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </div>
@@ -174,6 +189,18 @@ export const components = {
                     <li><strong>Mauritius</strong> \u00b7 Port Louis</li>
                     <li><strong>India</strong> \u00b7 Chennai</li>
                 </ul>
+                ${shared.phone ? `<p style="margin-top:12px;font-size:0.9rem;"><i class="fas fa-phone" style="margin-right:6px;color:var(--accent-marine);"></i>${shared.phone}</p>` : ''}
+            </div>
+        </div>
+
+        <div class="footer-newsletter">
+            <div class="newsletter-inner">
+                <h4>${shared.newsletter?.title || 'Stay Updated'}</h4>
+                <p>${shared.newsletter?.desc || 'Subscribe to receive project updates and industry insights.'}</p>
+                <form class="newsletter-form" id="newsletter-form" onsubmit="return false;">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
             </div>
         </div>
 
@@ -184,7 +211,8 @@ export const components = {
             </div>
         </div>
     </footer>
-    `
+    `;
+    }
 };
 
 // Initialize components on DOM load

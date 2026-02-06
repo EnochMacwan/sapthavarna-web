@@ -25,6 +25,10 @@ window.addEventListener('storage', (e) => {
     if (e.key === 'siteContent') window.location.reload();
 });
 
+// ========================================
+// REUSABLE HELPER RENDERERS
+// ========================================
+
 // Render service cards with numbers
 const renderServices = (services) => services.map((s, i) => `
     <div class="nm-card service-card">
@@ -54,6 +58,185 @@ const renderTeam = (team) => team.map(member => `
 // Render value tags
 const renderTags = (items) => items.map(item => `<li>${item}</li>`).join('');
 
+// Stats bar renderer
+const renderStatsBar = (stats) => {
+    if (!stats || !stats.length) return '';
+    return `
+    <section class="section-alt">
+        <div class="stats-bar">
+            ${stats.map(s => `
+                <div class="stat-item nm-card">
+                    <div class="stat-icon"><i class="fas ${s.icon}"></i></div>
+                    <div class="stat-value">${s.value}</div>
+                    <div class="stat-label">${s.label}</div>
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// Client logos renderer
+const renderClientLogos = (logos) => {
+    if (!logos || !logos.length) return '';
+    return `
+    <section class="section-center">
+        <div class="section-label mb-4">Trusted By</div>
+        <div class="logo-grid">
+            ${logos.map(l => `
+                <div class="logo-grid-item">
+                    ${l.logo ? `<img src="${getImagePath(l.logo)}" alt="${l.name}" style="max-height:40px;">` : `<span class="logo-placeholder">${l.name}</span>`}
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// Testimonials renderer
+const renderTestimonials = (testimonials) => {
+    if (!testimonials || !testimonials.length) return '';
+    return `
+    <section class="section-alt">
+        <div class="section-label mb-4">What Clients Say</div>
+        <h2 class="mb-6" style="text-align:center;">Client Testimonials</h2>
+        <div class="testimonials-grid">
+            ${testimonials.map(t => `
+                <div class="testimonial-card nm-card">
+                    <p class="testimonial-quote">${t.quote}</p>
+                    <div class="testimonial-author">
+                        <div class="avatar-placeholder">${t.name.charAt(0) === '[' ? '?' : t.name.charAt(0)}</div>
+                        <div>
+                            <div class="testimonial-name">${t.name}</div>
+                            <div class="testimonial-role">${t.role}, ${t.company}</div>
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// Project card renderer
+const renderProjectCard = (project, sectorClass) => {
+    if (!project) return '';
+    const gradientClass = sectorClass ? `${sectorClass}-gradient` : '';
+    return `
+    <div class="project-card nm-card" style="padding:0;overflow:hidden;">
+        <div class="project-card-visual ${gradientClass}">
+            <i class="fas fa-hard-hat"></i>
+        </div>
+        <div class="project-card-content">
+            <h3>${project.title}</h3>
+            <div class="project-location"><i class="fas fa-map-marker-alt"></i> ${project.location}</div>
+            <p>${project.desc}</p>
+            ${project.stats ? `
+            <div class="project-stats">
+                ${project.stats.map(s => `
+                    <div class="project-stat-item">
+                        <div class="project-stat-value">${s.value}</div>
+                        <div class="project-stat-label">${s.label}</div>
+                    </div>
+                `).join('')}
+            </div>` : ''}
+        </div>
+    </div>`;
+};
+
+// Trust strip renderer
+const renderTrustStrip = (trustStrip) => {
+    if (!trustStrip) return '';
+    return `
+    <section style="padding:0;">
+        <div class="trust-strip">
+            <h3>${trustStrip.title}</h3>
+            <div class="trust-badges">
+                ${trustStrip.badges.map(b => `
+                    <div class="trust-badge"><i class="fas ${b.icon}"></i> ${b.label}</div>
+                `).join('')}
+            </div>
+        </div>
+    </section>`;
+};
+
+// Process / methodology renderer
+const renderProcess = (process) => {
+    if (!process) return '';
+    return `
+    <section>
+        <div class="section-label mb-4">Our Process</div>
+        <h2 class="mb-6" style="text-align:center;">${process.title}</h2>
+        <div class="process-grid">
+            ${process.steps.map((step, i) => `
+                <div class="process-step nm-card">
+                    <div class="process-icon"><i class="fas ${step.icon}"></i></div>
+                    <div class="process-number">Step ${String(i + 1).padStart(2, '0')}</div>
+                    <h3>${step.title}</h3>
+                    <p>${step.desc}</p>
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// FAQ accordion renderer
+const renderFAQ = (faq) => {
+    if (!faq || !faq.length) return '';
+    return `
+    <section>
+        <div class="section-label mb-4">Common Questions</div>
+        <h2 class="mb-6" style="text-align:center;">Frequently Asked Questions</h2>
+        <div class="faq-list">
+            ${faq.map(item => `
+                <div class="faq-item">
+                    <div class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                        <span>${item.question}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">${item.answer}</div>
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// Sector stats renderer
+const renderSectorStats = (stats) => {
+    if (!stats || !stats.length) return '';
+    return `
+    <section class="section-alt section-center">
+        <div class="sector-stats">
+            ${stats.map(s => `
+                <div class="sector-stat">
+                    <div class="sector-stat-value">${s.value}</div>
+                    <div class="sector-stat-label">${s.label}</div>
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// Why choose us renderer
+const renderWhyChooseUs = (items) => {
+    if (!items || !items.length) return '';
+    return `
+    <section class="section-alt">
+        <div class="section-label mb-4">Why SVGT</div>
+        <h2 class="mb-6" style="text-align:center;">Why Choose Us</h2>
+        <div class="why-grid">
+            ${items.map(item => `
+                <div class="nm-card why-card">
+                    <div class="diff-icon"><i class="fas ${item.icon}"></i></div>
+                    <h3>${item.title}</h3>
+                    <p>${item.desc}</p>
+                </div>
+            `).join('')}
+        </div>
+    </section>`;
+};
+
+// ========================================
+// PAGE RENDERERS
+// ========================================
+
 export const pages = {
     home: () => {
         const content = getContent();
@@ -70,6 +253,10 @@ export const pages = {
                 </div>
             </div>
         </section>
+
+        ${renderStatsBar(content.home.stats)}
+
+        ${renderClientLogos(content.home.clientLogos)}
 
         <section id="about" class="section-alt">
             <div class="section-label mb-4">Who We Are</div>
@@ -101,6 +288,21 @@ export const pages = {
             </div>
         </section>
 
+        ${content.home.projects ? `
+        <section class="section-alt">
+            <div class="section-label mb-4">Our Work</div>
+            <h2 class="mb-6" style="text-align:center;">Featured Projects</h2>
+            <div class="projects-grid">
+                ${content.home.projects.map(p => renderProjectCard(p, p.sector)).join('')}
+            </div>
+        </section>` : ''}
+
+        ${renderProcess(content.home.process)}
+
+        ${renderTestimonials(content.home.testimonials)}
+
+        ${renderTrustStrip(content.home.trustStrip)}
+
         <section id="closing" class="section-alt section-center">
             <h2 class="mb-6">${content.home.closing.title}</h2>
             <a href="#contact" class="cta-button nav-link">${content.home.closing.cta} →</a>
@@ -126,7 +328,25 @@ export const pages = {
             </div>
         </section>
 
-        <section id="leadership">
+        ${content.about.timeline ? `
+        <section>
+            <div class="section-label mb-4">Our Journey</div>
+            <h2 class="mb-6" style="text-align:center;">Key Milestones</h2>
+            <div class="timeline">
+                ${content.about.timeline.map(item => `
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-year">${item.year}</div>
+                        <div class="timeline-card">
+                            <h3>${item.title}</h3>
+                            <p>${item.desc}</p>
+                        </div>
+                    </div>
+                `).join('')}
+            </div>
+        </section>` : ''}
+
+        <section id="leadership" class="section-alt">
             <div class="section-label mb-4">Our People</div>
             <h2 class="mb-6">Leadership Team</h2>
             <div class="cards-grid team-grid">
@@ -134,7 +354,34 @@ export const pages = {
             </div>
         </section>
 
-        <section id="culture" class="section-alt">
+        ${content.about.certifications ? `
+        <section>
+            <div class="section-label mb-4">Credentials</div>
+            <h2 class="mb-6" style="text-align:center;">Certifications & Standards</h2>
+            <div class="certs-grid">
+                ${content.about.certifications.map(c => `
+                    <div class="cert-card nm-card">
+                        <i class="fas ${c.icon}"></i>
+                        <h4>${c.title}</h4>
+                    </div>
+                `).join('')}
+            </div>
+        </section>` : ''}
+
+        ${content.about.partners ? `
+        <section class="section-alt">
+            <div class="section-label mb-4">Associations</div>
+            <h2 class="mb-6" style="text-align:center;">Partners & Associations</h2>
+            <div class="partners-grid">
+                ${content.about.partners.map(p => `
+                    <div class="partner-card">
+                        ${p.logo ? `<img src="${getImagePath(p.logo)}" alt="${p.name}" style="max-height:40px;">` : `<span>${p.name}</span>`}
+                    </div>
+                `).join('')}
+            </div>
+        </section>` : ''}
+
+        <section id="culture">
             <div class="section-label mb-4">Our Values</div>
             <h2 class="mb-6">${content.about.culture.title}</h2>
             <p class="mb-4" style="max-width: 800px;">${content.about.culture.desc1}</p>
@@ -144,7 +391,7 @@ export const pages = {
             </ul>
         </section>
 
-        <section id="careers" class="section-center">
+        <section id="careers" class="section-alt section-center">
             <h2 class="mb-4">${content.about.careers.title}</h2>
             <p class="text-secondary mb-6" style="max-width: 600px; margin-left: auto; margin-right: auto;">${content.about.careers.desc}</p>
             <a href="#careers" class="cta-button nav-link">${content.about.careers.ctaText} →</a>
@@ -164,7 +411,22 @@ export const pages = {
             <p class="lead-text">${content.capabilities.overview.desc}</p>
         </section>
 
-        <section id="sectors">
+        ${content.capabilities.differentiators ? `
+        <section>
+            <div class="section-label mb-4">Our Edge</div>
+            <h2 class="mb-6" style="text-align:center;">Why SVGT</h2>
+            <div class="cards-grid">
+                ${content.capabilities.differentiators.map(d => `
+                    <div class="nm-card">
+                        <div class="diff-icon"><i class="fas ${d.icon}"></i></div>
+                        <h3>${d.title}</h3>
+                        <p class="text-secondary mt-4">${d.desc}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </section>` : ''}
+
+        <section id="sectors" class="section-alt">
             <div class="section-label mb-4">Our Sectors</div>
             <h2 class="mb-6">Explore Our Capabilities</h2>
             <div class="cards-grid sector-cards">
@@ -178,6 +440,13 @@ export const pages = {
                 `).join('')}
             </div>
         </section>
+
+        ${renderProcess(content.capabilities.methodology)}
+
+        <section class="section-center">
+            <h2 class="mb-6">Ready to discuss your project?</h2>
+            <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
+        </section>
     `;
     },
 
@@ -188,6 +457,8 @@ export const pages = {
             <div class="section-label mb-4">${content.marine.hero.label}</div>
             <h1>${content.marine.hero.title.replace("Dynamic", "<span class='accent-gfrg'>Dynamic</span>")}</h1>
         </section>
+
+        ${renderSectorStats(content.marine.sectorStats)}
 
         <section id="marine-intro" class="section-alt">
             <p class="lead-text">${content.marine.intro.desc}</p>
@@ -201,7 +472,18 @@ export const pages = {
             </div>
         </section>
 
-        <section id="marine-cta" class="section-alt section-center">
+        ${content.marine.featuredProject ? `
+        <section class="section-alt">
+            <div class="section-label mb-4">Project Spotlight</div>
+            <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
+            <div style="max-width:600px;margin:0 auto;">
+                ${renderProjectCard(content.marine.featuredProject)}
+            </div>
+        </section>` : ''}
+
+        ${renderWhyChooseUs(content.marine.whyChooseUs)}
+
+        <section id="marine-cta" class="section-center">
             <h2 class="mb-6">Ready to discuss your marine project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
         </section>
@@ -216,6 +498,8 @@ export const pages = {
             <h1>${content.transport.hero.title.replace("Growth", "<span class='accent-gfrg'>Growth</span>")}</h1>
         </section>
 
+        ${renderSectorStats(content.transport.sectorStats)}
+
         <section id="transport-intro" class="section-alt">
             <p class="lead-text">${content.transport.intro.desc}</p>
         </section>
@@ -228,7 +512,18 @@ export const pages = {
             </div>
         </section>
 
-        <section id="transport-cta" class="section-alt section-center">
+        ${content.transport.featuredProject ? `
+        <section class="section-alt">
+            <div class="section-label mb-4">Project Spotlight</div>
+            <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
+            <div style="max-width:600px;margin:0 auto;">
+                ${renderProjectCard(content.transport.featuredProject, 'transport')}
+            </div>
+        </section>` : ''}
+
+        ${renderWhyChooseUs(content.transport.whyChooseUs)}
+
+        <section id="transport-cta" class="section-center">
             <h2 class="mb-6">Ready to discuss your transport project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
         </section>
@@ -243,6 +538,8 @@ export const pages = {
             <h1>${content.energy.hero.title.replace("Transition", "<span class='accent-gfrg'>Transition</span>")}</h1>
         </section>
 
+        ${renderSectorStats(content.energy.sectorStats)}
+
         <section id="energy-intro" class="section-alt">
             <p class="lead-text">${content.energy.intro.desc}</p>
         </section>
@@ -255,7 +552,18 @@ export const pages = {
             </div>
         </section>
 
-        <section id="energy-cta" class="section-alt section-center">
+        ${content.energy.featuredProject ? `
+        <section class="section-alt">
+            <div class="section-label mb-4">Project Spotlight</div>
+            <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
+            <div style="max-width:600px;margin:0 auto;">
+                ${renderProjectCard(content.energy.featuredProject, 'energy')}
+            </div>
+        </section>` : ''}
+
+        ${renderWhyChooseUs(content.energy.whyChooseUs)}
+
+        <section id="energy-cta" class="section-center">
             <h2 class="mb-6">Ready to discuss your energy project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
         </section>
@@ -269,6 +577,8 @@ export const pages = {
             <div class="section-label mb-4">${content.systems.hero.label}</div>
             <h1>${content.systems.hero.title.replace("Technologies", "<span class='accent-gfrg'>Technologies</span>")}</h1>
         </section>
+
+        ${renderSectorStats(content.systems.sectorStats)}
 
         <section id="systems-intro" class="section-alt">
             <p class="lead-text">${content.systems.intro.desc}</p>
@@ -299,6 +609,17 @@ export const pages = {
             </div>
         </section>
 
+        ${content.systems.featuredProject ? `
+        <section>
+            <div class="section-label mb-4">Project Spotlight</div>
+            <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
+            <div style="max-width:600px;margin:0 auto;">
+                ${renderProjectCard(content.systems.featuredProject, 'systems')}
+            </div>
+        </section>` : ''}
+
+        ${renderWhyChooseUs(content.systems.whyChooseUs)}
+
         <section id="systems-cta" class="section-center">
             <h2 class="mb-6">Interested in modern construction systems?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
@@ -320,7 +641,20 @@ export const pages = {
             <p class="lead-text">${content.sustainability.plan.desc}</p>
         </section>
 
-        <section id="pillars">
+        ${content.sustainability.metrics ? `
+        <section class="section-center">
+            <div class="sector-stats">
+                ${content.sustainability.metrics.map(m => `
+                    <div class="sector-stat">
+                        <div style="font-size:1.5rem;color:var(--accent-marine);margin-bottom:8px;"><i class="fas ${m.icon}"></i></div>
+                        <div class="sector-stat-value">${m.value}</div>
+                        <div class="sector-stat-label">${m.label}</div>
+                    </div>
+                `).join('')}
+            </div>
+        </section>` : ''}
+
+        <section id="pillars" class="section-alt">
             <div class="section-label mb-4">Foundation</div>
             <h2 class="mb-6">Our Pillars</h2>
             <div class="cards-grid">
@@ -334,7 +668,7 @@ export const pages = {
             </div>
         </section>
 
-        <section id="practices" class="section-alt">
+        <section id="practices">
             <div class="section-label mb-4">In Action</div>
             <h2 class="mb-6">Key Practices</h2>
             <div class="cards-grid">
@@ -346,6 +680,11 @@ export const pages = {
                     </div>
                 `).join('')}
             </div>
+        </section>
+
+        <section class="section-alt section-center">
+            <h2 class="mb-6">Partner with us on sustainable infrastructure</h2>
+            <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
         </section>
     `;
     },
@@ -426,6 +765,15 @@ export const pages = {
                 </div>
 
                 <div class="contact-sidebar">
+                    ${content.contact.responseGuarantee ? `
+                    <div class="response-guarantee">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>${content.contact.responseGuarantee.title}</h4>
+                            <p>${content.contact.responseGuarantee.desc}</p>
+                        </div>
+                    </div>` : ''}
+
                     <div class="nm-card contact-info-card">
                         <div class="contact-info-item">
                             <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
@@ -434,6 +782,14 @@ export const pages = {
                                 <a href="mailto:${content.contact.enquiry.email}" class="contact-link-item">${content.contact.enquiry.email}</a>
                             </div>
                         </div>
+                        ${content.contact.phone ? `
+                        <div class="contact-info-item">
+                            <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <a href="tel:${content.contact.phone.replace(/\s/g, '')}" class="contact-link-item">${content.contact.phone}</a>
+                            </div>
+                        </div>` : ''}
                         <div class="contact-info-item">
                             <div class="contact-info-icon"><i class="fab fa-linkedin"></i></div>
                             <div>
@@ -474,6 +830,8 @@ export const pages = {
                 </div>
             </div>
         </section>
+
+        ${renderFAQ(content.contact.faq)}
     `;
     },
 
