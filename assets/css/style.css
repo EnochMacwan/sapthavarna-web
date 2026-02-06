@@ -1117,7 +1117,7 @@ nav {
 .accent-energy { color: var(--accent-energy); }
 .accent-page { color: var(--page-accent); }
 .text-secondary { color: var(--text-secondary); }
-.section-center { text-align: center; }
+.section-center { text-align: center; align-items: center; }
 
 .mt-4 { margin-top: 1.5rem; }
 .mt-6 { margin-top: 2rem; }
