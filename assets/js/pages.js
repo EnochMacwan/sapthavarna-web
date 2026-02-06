@@ -845,7 +845,7 @@ export const pages = {
         const content = getContent();
         
         // Get team from content or use sample
-        const teamData = window.TEAM_DATA || content.about?.team || [];
+        const teamData = window.TEAM_DATA || content.about?.leadershipTeam || [];
         
         // Find member by slug
         const member = teamData.find(m => 

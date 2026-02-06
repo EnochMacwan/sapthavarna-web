@@ -141,6 +141,7 @@ section {
 }
 
 .featured-cap {
+  grid-column: span 2;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -662,14 +663,6 @@ nav {
   display: block;
   object-fit: cover;
   transition: var(--transition-calm);
-}
-
-.featured-cap {
-  grid-column: span 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  align-items: center;
 }
 
 @media (max-width: 768px) {
@@ -1993,9 +1986,62 @@ textarea:focus-visible {
   nav, .back-to-top, .theme-toggle, footer {
     display: none !important;
   }
-  
+
   section {
     padding: 20px 5%;
     min-height: auto;
   }
+}
+
+/* Pill Navigation */
+.pill-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  width: 90%;
+  max-width: 1200px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: rgba(246, 245, 242, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--nm-shadow-light);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Hero Actions */
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Contact Hero Background */
+.contact-hero-bg {
+  background: linear-gradient(135deg, rgba(0, 51, 102, 0.05), rgba(198, 144, 97, 0.05));
+}
+
+/* Footer Brand Name */
+.footer-brand-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+/* Page Hero (detail pages) */
+.page-hero {
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--bg-color), rgba(0, 51, 102, 0.03));
+  padding: 120px 8% 60px;
+}
+
+.page-hero .hero-overlay-content {
+  max-width: 800px;
 }
