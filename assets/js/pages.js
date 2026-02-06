@@ -185,7 +185,7 @@ export const pages = {
         <section id="leadership">
             <h2 class="mb-6">Leadership Team</h2>
             <div class="cards-grid team-grid">
-                ${renderTeam(content.about.leadershipTeam)}
+                ${renderTeam(window.TEAM_DATA || content.about.leadershipTeam)}
             </div>
         </section>
 

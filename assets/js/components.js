@@ -139,7 +139,7 @@ export const components = {
             <div class="legal-links">
                 <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
-                <a href="#admin.html" class="admin-link">Admin</a>
+                <a href="${BASE_PATH}/admin.html" class="admin-link">Admin</a>
             </div>
         </div>
     </footer>
