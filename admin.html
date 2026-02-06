@@ -1419,13 +1419,29 @@
         }
 
         // ===== CONTENT EDITOR =====
+        // Deep merge: overlay saved edits on top of defaults so no fields are lost
+        function deepMerge(base, overlay) {
+            const result = Object.assign({}, base);
+            for (const key of Object.keys(overlay)) {
+                if (overlay[key] && typeof overlay[key] === 'object' && !Array.isArray(overlay[key])
+                    && base[key] && typeof base[key] === 'object' && !Array.isArray(base[key])) {
+                    result[key] = deepMerge(base[key], overlay[key]);
+                } else {
+                    result[key] = overlay[key];
+                }
+            }
+            return result;
+        }
+
         async function initContentEditor() {
+            // Always load defaults first, then merge localStorage on top
+            await loadDefaultContent();
             const saved = localStorage.getItem('siteContent');
             if (saved) {
-                try { contentWorkingCopy = JSON.parse(saved); } catch(e) { contentWorkingCopy = null; }
-            }
-            if (!contentWorkingCopy) {
-                await loadDefaultContent();
+                try {
+                    const savedData = JSON.parse(saved);
+                    contentWorkingCopy = deepMerge(contentWorkingCopy, savedData);
+                } catch(e) { /* keep defaults */ }
             }
             renderContentPageTabs();
             renderContentEditor(currentContentPage);
