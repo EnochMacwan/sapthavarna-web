@@ -1,4 +1,4 @@
-const TEAM_DATA = [
+var TEAM_DATA = [
   {
     "id": "shaijan-baby",
     "name": "Shaijan Baby",

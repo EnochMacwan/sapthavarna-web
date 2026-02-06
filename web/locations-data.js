@@ -1,4 +1,4 @@
-const LOCATIONS_DATA = [
+var LOCATIONS_DATA = [
   {
     "id": "moka",
     "country": "Mauritius",

@@ -1,4 +1,4 @@
-const SERVICES_DATA = [
+var SERVICES_DATA = [
   {
     "id": "marine-&-coastal-infrastructure",
     "title": "Marine & Coastal Infrastructure",
