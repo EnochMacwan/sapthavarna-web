@@ -313,5 +313,17 @@ export const defaultContent = {
         phone: "+230 [XXX XXXX]",
         socialLinks: { linkedin: "#", twitter: "#", youtube: "#" },
         newsletter: { title: "Stay Updated", desc: "Subscribe to receive project updates and industry insights." }
+    },
+    sectionVisibility: {
+        home: { hero: true, stats: true, clientLogos: true, about: true, capabilities: true, projects: true, process: true, testimonials: true, trustStrip: true, closing: true },
+        about: { hero: true, company: true, timeline: true, leadership: true, certifications: true, partners: true, culture: true, careers: true },
+        capabilities: { hero: true, overview: true, differentiators: true, sectors: true, methodology: true, cta: true },
+        marine: { hero: true, sectorStats: true, intro: true, services: true, featuredProject: true, whyChooseUs: true, cta: true },
+        transport: { hero: true, sectorStats: true, intro: true, services: true, featuredProject: true, whyChooseUs: true, cta: true },
+        energy: { hero: true, sectorStats: true, intro: true, services: true, featuredProject: true, whyChooseUs: true, cta: true },
+        systems: { hero: true, sectorStats: true, intro: true, technologies: true, benefits: true, featuredProject: true, whyChooseUs: true, cta: true },
+        sustainability: { hero: true, plan: true, metrics: true, pillars: true, practices: true, cta: true },
+        contact: { hero: true, form: true, faq: true },
+        careers: { hero: true, intro: true, categories: true, whyJoin: true, eoiForm: true, contact: true }
     }
 };

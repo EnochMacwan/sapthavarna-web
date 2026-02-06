@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" crossorigin href="/sapthavarna-web/assets/admin-C4M4KJy7.css">
+  <link rel="stylesheet" crossorigin href="/sapthavarna-web/assets/admin-CkaU1tYW.css">
 </head>
 <body data-theme="dark">
     <!-- Auth Login Overlay -->
@@ -67,6 +67,7 @@
                 <li><a href="#" data-section="projects"><i class="fas fa-project-diagram"></i> Projects</a></li>
                 <li><a href="#" data-section="testimonials"><i class="fas fa-quote-right"></i> Testimonials</a></li>
                 <li><a href="#" data-section="content"><i class="fas fa-file-alt"></i> Content</a></li>
+                <li><a href="#" data-section="visibility"><i class="fas fa-eye"></i> Visibility</a></li>
                 <li><a href="#" data-section="navigation"><i class="fas fa-bars"></i> Navigation</a></li>
                 <li><a href="#" data-section="settings"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
@@ -174,6 +175,19 @@
                 </div>
                 <div class="content-page-tabs" id="content-page-tabs"></div>
                 <div id="content-editor-area"></div>
+            </section>
+
+            <!-- Visibility -->
+            <section id="visibility" class="content-section">
+                <div class="section-header">
+                    <h2>Section Visibility</h2>
+                    <div class="content-header-actions">
+                        <button type="button" class="btn btn-secondary" onclick="resetVisibility()"><i class="fas fa-undo"></i> Show All</button>
+                        <button type="button" class="btn btn-success" onclick="saveVisibility()"><i class="fas fa-save"></i> Save</button>
+                    </div>
+                </div>
+                <p class="text-muted mb-20">Toggle sections on/off for each page. Disabled sections won't render on the live site.</p>
+                <div id="visibility-editor"></div>
             </section>
 
             <!-- Navigation -->
@@ -825,6 +839,7 @@
             renderAllSections();
             initContentEditor().then(() => {
                 loadSettingsFields();
+                renderVisibilityEditor();
             });
             renderNavigationEditor();
             loadTheme();
@@ -860,6 +875,83 @@
             document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
             document.getElementById(section)?.classList.add('active');
             currentSection = section;
+        }
+
+        // ===== VISIBILITY TOGGLES =====
+        const VISIBILITY_MAP = {
+            home: { label: 'Home', icon: 'fa-home', sections: { hero: 'Hero Banner', stats: 'Key Statistics', clientLogos: 'Client Logos', about: 'About Preview', capabilities: 'Capabilities Cards', projects: 'Featured Projects', process: 'How We Work', testimonials: 'Testimonials', trustStrip: 'Trust Strip', closing: 'Closing CTA' }},
+            about: { label: 'About', icon: 'fa-building', sections: { hero: 'Hero', company: 'Company Story', timeline: 'Timeline', leadership: 'Leadership Team', certifications: 'Certifications', partners: 'Partners', culture: 'Culture & Values', careers: 'Careers CTA' }},
+            capabilities: { label: 'Capabilities', icon: 'fa-th-large', sections: { hero: 'Hero', overview: 'Overview', differentiators: 'Differentiators', sectors: 'Sectors Grid', methodology: 'Methodology', cta: 'Contact CTA' }},
+            marine: { label: 'Marine', icon: 'fa-water', sections: { hero: 'Hero', sectorStats: 'Sector Stats', intro: 'Introduction', services: 'Services', featuredProject: 'Featured Project', whyChooseUs: 'Why Choose Us', cta: 'Contact CTA' }},
+            transport: { label: 'Transport', icon: 'fa-road', sections: { hero: 'Hero', sectorStats: 'Sector Stats', intro: 'Introduction', services: 'Services', featuredProject: 'Featured Project', whyChooseUs: 'Why Choose Us', cta: 'Contact CTA' }},
+            energy: { label: 'Energy', icon: 'fa-bolt', sections: { hero: 'Hero', sectorStats: 'Sector Stats', intro: 'Introduction', services: 'Services', featuredProject: 'Featured Project', whyChooseUs: 'Why Choose Us', cta: 'Contact CTA' }},
+            systems: { label: 'Systems', icon: 'fa-cubes', sections: { hero: 'Hero', sectorStats: 'Sector Stats', intro: 'Introduction', technologies: 'Technologies', benefits: 'Benefits', featuredProject: 'Featured Project', whyChooseUs: 'Why Choose Us', cta: 'Contact CTA' }},
+            sustainability: { label: 'Sustainability', icon: 'fa-leaf', sections: { hero: 'Hero', plan: 'Commitment', metrics: 'Metrics', pillars: 'Pillars', practices: 'Practices', cta: 'Contact CTA' }},
+            contact: { label: 'Contact', icon: 'fa-envelope', sections: { hero: 'Hero', form: 'Contact Form & Sidebar', faq: 'FAQ Section' }},
+            careers: { label: 'Careers', icon: 'fa-briefcase', sections: { hero: 'Hero', intro: 'Introduction', categories: 'Job Categories', whyJoin: 'Why Join Us', eoiForm: 'EOI Form', contact: 'Contact Section' }}
+        };
+
+        function getVisibility() {
+            if (!contentWorkingCopy) return {};
+            if (!contentWorkingCopy.sectionVisibility) {
+                contentWorkingCopy.sectionVisibility = {};
+                for (const [page, cfg] of Object.entries(VISIBILITY_MAP)) {
+                    contentWorkingCopy.sectionVisibility[page] = {};
+                    for (const key of Object.keys(cfg.sections)) {
+                        contentWorkingCopy.sectionVisibility[page][key] = true;
+                    }
+                }
+            }
+            return contentWorkingCopy.sectionVisibility;
+        }
+
+        function renderVisibilityEditor() {
+            const container = document.getElementById('visibility-editor');
+            if (!container) return;
+            const vis = getVisibility();
+            let html = '';
+            for (const [pageKey, pageCfg] of Object.entries(VISIBILITY_MAP)) {
+                const pageVis = vis[pageKey] || {};
+                html += `<div class="item-card card-wide mt-20"><div class="item-card-content">
+                    <h3 class="card-title-accent"><i class="fas ${pageCfg.icon}"></i> ${pageCfg.label}</h3>`;
+                for (const [secKey, secLabel] of Object.entries(pageCfg.sections)) {
+                    const checked = pageVis[secKey] !== false ? 'checked' : '';
+                    html += `<div class="visibility-row">
+                        <span class="visibility-label">${secLabel}</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${checked} onchange="toggleVisibility('${pageKey}','${secKey}', this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>`;
+                }
+                html += `</div></div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function toggleVisibility(page, section, checked) {
+            const vis = getVisibility();
+            if (!vis[page]) vis[page] = {};
+            vis[page][section] = checked;
+            pendingChanges.add('content');
+        }
+
+        function saveVisibility() {
+            saveAllContent();
+            showToast('Visibility settings saved!', 'success');
+        }
+
+        function resetVisibility() {
+            const vis = getVisibility();
+            for (const [page, cfg] of Object.entries(VISIBILITY_MAP)) {
+                if (!vis[page]) vis[page] = {};
+                for (const key of Object.keys(cfg.sections)) {
+                    vis[page][key] = true;
+                }
+            }
+            pendingChanges.add('content');
+            renderVisibilityEditor();
+            showToast('All sections set to visible', 'info');
         }
 
         // Dashboard
@@ -1410,11 +1502,13 @@
         function renderSimpleField(page, section, field, def, value) {
             const id = `ce-${page}-${section}-${field}`;
             const ev = escapeHTML(value);
+            const eligible = isAIEligibleField(def.label);
+            const aiBtn = eligible ? ` <button type="button" class="ai-field-btn" onclick="aiEnhanceField('${id}','${escapeHTML(def.label)}','${page}','${section}')" title="${value ? 'Improve with AI' : 'Generate with AI'}"><i class="fas fa-wand-magic-sparkles"></i></button>` : '';
             if (def.type === 'textarea') {
-                return `<div class="form-group"><label>${def.label}</label>
+                return `<div class="form-group"><label>${def.label}${aiBtn}</label>
                     <textarea class="form-control" id="${id}" onchange="updateContentField('${page}','${section}','${field}',this.value)">${ev}</textarea></div>`;
             }
-            return `<div class="form-group"><label>${def.label}</label>
+            return `<div class="form-group"><label>${def.label}${aiBtn}</label>
                 <input type="text" class="form-control" id="${id}" value="${ev}" onchange="updateContentField('${page}','${section}','${field}',this.value)"></div>`;
         }
 
@@ -1431,15 +1525,17 @@
                 for (const [fk, fd] of Object.entries(schema.fields)) {
                     const val = item[fk] || '';
                     const fid = `ce-${page}-${section}-${index}-${fk}`;
+                    const aiEligible = isAIEligibleField(fd.label);
+                    const aiBtn = aiEligible ? ` <button type="button" class="ai-field-btn" onclick="aiEnhanceField('${fid}','${escapeHTML(fd.label)}','${page}','${section}')" title="AI"><i class="fas fa-wand-magic-sparkles"></i></button>` : '';
                     if (fd.type === 'textarea') {
-                        html += `<div class="form-group"><label>${fd.label}</label><textarea class="form-control" id="${fid}" onchange="updateArrayItemField('${page}','${section}',${index},'${fk}',this.value)">${escapeHTML(val)}</textarea></div>`;
+                        html += `<div class="form-group"><label>${fd.label}${aiBtn}</label><textarea class="form-control" id="${fid}" onchange="updateArrayItemField('${page}','${section}',${index},'${fk}',this.value)">${escapeHTML(val)}</textarea></div>`;
                     } else {
-                        html += `<div class="form-group"><label>${fd.label}</label><input type="text" class="form-control" id="${fid}" value="${escapeHTML(val)}" onchange="updateArrayItemField('${page}','${section}',${index},'${fk}',this.value)"></div>`;
+                        html += `<div class="form-group"><label>${fd.label}${aiBtn}</label><input type="text" class="form-control" id="${fid}" value="${escapeHTML(val)}" onchange="updateArrayItemField('${page}','${section}',${index},'${fk}',this.value)"></div>`;
                     }
                 }
                 html += `</div></div>`;
             });
-            html += `<button type="button" class="btn btn-primary mt-20" onclick="addArrayItem('${page}','${section}')"><i class="fas fa-plus"></i> Add ${schema.itemLabel}</button></div>`;
+            html += `<button type="button" class="btn btn-primary mt-20" onclick="addArrayItem('${page}','${section}')"><i class="fas fa-plus"></i> Add ${schema.itemLabel}</button> <button type="button" class="btn btn-secondary mt-20" onclick="aiGenerateArrayItem('${page}','${section}')"><i class="fas fa-robot"></i> AI Generate ${schema.itemLabel}</button></div>`;
             return html;
         }
 
@@ -1457,10 +1553,12 @@
                 for (const [fk, fd] of Object.entries(def.fields)) {
                     const val = item[fk] || '';
                     const fid = `ce-${page}-${section}-${field}-${index}-${fk}`;
+                    const aiEligible = isAIEligibleField(fd.label);
+                    const aiBtn = aiEligible ? ` <button type="button" class="ai-field-btn" onclick="aiEnhanceField('${fid}','${escapeHTML(fd.label)}','${page}','${section}')" title="AI"><i class="fas fa-wand-magic-sparkles"></i></button>` : '';
                     if (fd.type === 'textarea') {
-                        html += `<div class="form-group"><label>${fd.label}</label><textarea class="form-control" id="${fid}" onchange="updateNestedArrayItemField('${page}','${section}','${field}',${index},'${fk}',this.value)">${escapeHTML(val)}</textarea></div>`;
+                        html += `<div class="form-group"><label>${fd.label}${aiBtn}</label><textarea class="form-control" id="${fid}" onchange="updateNestedArrayItemField('${page}','${section}','${field}',${index},'${fk}',this.value)">${escapeHTML(val)}</textarea></div>`;
                     } else {
-                        html += `<div class="form-group"><label>${fd.label}</label><input type="text" class="form-control" id="${fid}" value="${escapeHTML(val)}" onchange="updateNestedArrayItemField('${page}','${section}','${field}',${index},'${fk}',this.value)"></div>`;
+                        html += `<div class="form-group"><label>${fd.label}${aiBtn}</label><input type="text" class="form-control" id="${fid}" value="${escapeHTML(val)}" onchange="updateNestedArrayItemField('${page}','${section}','${field}',${index},'${fk}',this.value)"></div>`;
                     }
                 }
                 html += `</div></div>`;
@@ -2181,6 +2279,61 @@
             }
         }
         
+        // ===== UNIVERSAL AI FOR CONTENT FIELDS =====
+        function isAIEligibleField(label) {
+            const skip = ['icon', 'link', 'url', 'email', 'id ', '(slug)', 'image', 'filename', 'phone', 'photo', 'logo'];
+            return !skip.some(t => label.toLowerCase().includes(t));
+        }
+
+        async function aiEnhanceField(fieldId, fieldLabel, page, section) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+            const currentValue = field.value.trim();
+            const companyCtx = 'SapthaVarnah Geo Technologies (SVGT), a specialist infrastructure and geo-engineering company focused on marine, transport, energy sectors across Africa, India, and the Gulf';
+            let prompt;
+            if (!currentValue) {
+                prompt = `Generate professional content for the "${fieldLabel}" field on the "${page} > ${section}" section of an infrastructure engineering company website. Company: ${companyCtx}. Keep it concise (2-3 sentences for descriptions, short phrase for titles/labels). Return only the text.`;
+            } else {
+                prompt = `Improve the following text for the "${fieldLabel}" field. Make it more professional, compelling, and polished while keeping the same meaning and approximate length. Return only the improved text:\n\n${currentValue}`;
+            }
+            const btn = field.closest('.form-group')?.querySelector('.ai-field-btn');
+            try {
+                if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>'; }
+                const result = await callGroqAPI(prompt, 'You are a professional copywriter for an engineering infrastructure company. Write clear, compelling, technically credible content. Return only the content text, no quotes or labels.');
+                field.value = result;
+                field.dispatchEvent(new Event('change'));
+                showToast(currentValue ? 'Text improved!' : 'Content generated!', 'success');
+            } catch (e) {
+                showToast('AI failed: ' + e.message, 'error');
+            } finally {
+                if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i>'; }
+            }
+        }
+
+        async function aiGenerateArrayItem(page, section) {
+            const schema = CONTENT_SCHEMA[page]?.sections?.[section];
+            if (!schema || !schema.fields) { showToast('No schema for this section', 'error'); return; }
+            const fieldNames = Object.entries(schema.fields).filter(([k, v]) => isAIEligibleField(v.label)).map(([k, v]) => `${k} (${v.label})`);
+            const allFields = Object.keys(schema.fields);
+            const prompt = `Generate content for a new "${schema.itemLabel}" entry for the "${page}" page of an infrastructure engineering company (SapthaVarnah Geo Technologies). Generate values for these fields: ${fieldNames.join(', ')}. Return as a JSON object with keys: ${allFields.join(', ')}. For icon fields use FontAwesome class names like fa-anchor, fa-water, etc. For link fields use # placeholder.`;
+            try {
+                showToast('Generating ' + schema.itemLabel + '...', 'info');
+                const result = await callGroqAPI(prompt, 'Return valid JSON only. No markdown code fences. No explanation.');
+                let parsed;
+                try { parsed = JSON.parse(result.replace(/```json?\n?/g, '').replace(/```/g, '').trim()); } catch(e) { throw new Error('Failed to parse AI response as JSON'); }
+                if (!contentWorkingCopy[page]) contentWorkingCopy[page] = {};
+                if (!contentWorkingCopy[page][section]) contentWorkingCopy[page][section] = [];
+                const newItem = {};
+                for (const key of allFields) { newItem[key] = parsed[key] || ''; }
+                contentWorkingCopy[page][section].push(newItem);
+                pendingChanges.add('content');
+                renderContentEditor(currentContentPage);
+                showToast(schema.itemLabel + ' generated!', 'success');
+            } catch (e) {
+                showToast('AI generation failed: ' + e.message, 'error');
+            }
+        }
+
         // AI Chat Assistant
         let aiChatOpen = false;
         let aiChatHistory = [];

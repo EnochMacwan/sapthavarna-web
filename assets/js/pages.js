@@ -20,6 +20,14 @@ const getContent = () => {
     }
 };
 
+// Check if a section is visible (admin toggle)
+const isSectionVisible = (page, section) => {
+    const content = getContent();
+    if (!content.sectionVisibility) return true;
+    if (!content.sectionVisibility[page]) return true;
+    return content.sectionVisibility[page][section] !== false;
+};
+
 // Listen for updates from Admin Panel
 window.addEventListener('storage', (e) => {
     if (e.key === 'siteContent') window.location.reload();
@@ -241,7 +249,7 @@ export const pages = {
     home: () => {
         const content = getContent();
         return `
-        <section id="hero" class="hero">
+        ${isSectionVisible('home', 'hero') ? `<section id="hero" class="hero">
             <canvas id="spectrum-canvas"></canvas>
             <div class="hero-overlay-content">
                 <div class="section-label mb-4">SapthaVarnah Geo Technologies</div>
@@ -252,13 +260,13 @@ export const pages = {
                     <a href="#contact" class="cta-button secondary nav-link">Get in Touch</a>
                 </div>
             </div>
-        </section>
+        </section>` : ''}
 
-        ${renderStatsBar(content.home.stats)}
+        ${isSectionVisible('home', 'stats') ? renderStatsBar(content.home.stats) : ''}
 
-        ${renderClientLogos(content.home.clientLogos)}
+        ${isSectionVisible('home', 'clientLogos') ? renderClientLogos(content.home.clientLogos) : ''}
 
-        <section id="about" class="section-alt">
+        ${isSectionVisible('home', 'about') ? `<section id="about" class="section-alt">
             <div class="section-label mb-4">Who We Are</div>
             <div class="about-grid">
                 <div>
@@ -271,9 +279,9 @@ export const pages = {
                     <img src="${getImagePath('materials.png')}" alt="Engineering materials" class="brand-img">
                 </div>
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="capabilities">
+        ${isSectionVisible('home', 'capabilities') ? `<section id="capabilities">
             <div class="section-label mb-4">What We Do</div>
             <h2 class="mb-6">Core Capabilities</h2>
             <div class="cards-grid">
@@ -286,9 +294,9 @@ export const pages = {
                     </a>
                 `).join('')}
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.home.projects ? `
+        ${isSectionVisible('home', 'projects') && content.home.projects ? `
         <section class="section-alt">
             <div class="section-label mb-4">Our Work</div>
             <h2 class="mb-6" style="text-align:center;">Featured Projects</h2>
@@ -297,28 +305,28 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        ${renderProcess(content.home.process)}
+        ${isSectionVisible('home', 'process') ? renderProcess(content.home.process) : ''}
 
-        ${renderTestimonials(content.home.testimonials)}
+        ${isSectionVisible('home', 'testimonials') ? renderTestimonials(content.home.testimonials) : ''}
 
-        ${renderTrustStrip(content.home.trustStrip)}
+        ${isSectionVisible('home', 'trustStrip') ? renderTrustStrip(content.home.trustStrip) : ''}
 
-        <section id="closing" class="section-alt section-center">
+        ${isSectionVisible('home', 'closing') ? `<section id="closing" class="section-alt section-center">
             <h2 class="mb-6">${content.home.closing.title}</h2>
             <a href="#contact" class="cta-button nav-link">${content.home.closing.cta} →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     about: () => {
         const content = getContent();
         return `
-        <section id="about-hero" class="subpage-hero">
+        ${isSectionVisible('about', 'hero') ? `<section id="about-hero" class="subpage-hero">
             <div class="section-label mb-4">${content.about.hero.label}</div>
             <h1>${content.about.hero.title.replace("Earth", "<span class='accent-gfrg'>Earth</span>")}</h1>
-        </section>
+        </section>` : ''}
 
-        <section id="company" class="section-alt">
+        ${isSectionVisible('about', 'company') ? `<section id="company" class="section-alt">
             <div class="section-label mb-4">Our Story</div>
             <h2 class="mb-6">${content.about.company.title}</h2>
             <div style="max-width: 900px;">
@@ -326,9 +334,9 @@ export const pages = {
                 <p class="mb-4">${content.about.company.desc2}</p>
                 <p class="text-secondary">${content.about.company.desc3}</p>
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.about.timeline ? `
+        ${isSectionVisible('about', 'timeline') && content.about.timeline ? `
         <section>
             <div class="section-label mb-4">Our Journey</div>
             <h2 class="mb-6" style="text-align:center;">Key Milestones</h2>
@@ -346,15 +354,15 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        <section id="leadership" class="section-alt">
+        ${isSectionVisible('about', 'leadership') ? `<section id="leadership" class="section-alt">
             <div class="section-label mb-4">Our People</div>
             <h2 class="mb-6">Leadership Team</h2>
             <div class="cards-grid team-grid">
                 ${renderTeam(window.TEAM_DATA || content.about.leadershipTeam)}
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.about.certifications ? `
+        ${isSectionVisible('about', 'certifications') && content.about.certifications ? `
         <section>
             <div class="section-label mb-4">Credentials</div>
             <h2 class="mb-6" style="text-align:center;">Certifications & Standards</h2>
@@ -368,7 +376,7 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        ${content.about.partners ? `
+        ${isSectionVisible('about', 'partners') && content.about.partners ? `
         <section class="section-alt">
             <div class="section-label mb-4">Associations</div>
             <h2 class="mb-6" style="text-align:center;">Partners & Associations</h2>
@@ -381,7 +389,7 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        <section id="culture">
+        ${isSectionVisible('about', 'culture') ? `<section id="culture">
             <div class="section-label mb-4">Our Values</div>
             <h2 class="mb-6">${content.about.culture.title}</h2>
             <p class="mb-4" style="max-width: 800px;">${content.about.culture.desc1}</p>
@@ -389,29 +397,29 @@ export const pages = {
             <ul class="value-tags">
                 ${renderTags(content.about.culture.values)}
             </ul>
-        </section>
+        </section>` : ''}
 
-        <section id="careers" class="section-alt section-center">
+        ${isSectionVisible('about', 'careers') ? `<section id="careers" class="section-alt section-center">
             <h2 class="mb-4">${content.about.careers.title}</h2>
             <p class="text-secondary mb-6" style="max-width: 600px; margin-left: auto; margin-right: auto;">${content.about.careers.desc}</p>
             <a href="#careers" class="cta-button nav-link">${content.about.careers.ctaText} →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     capabilities: () => {
         const content = getContent();
         return `
-        <section id="cap-hero" class="subpage-hero">
+        ${isSectionVisible('capabilities', 'hero') ? `<section id="cap-hero" class="subpage-hero">
             <div class="section-label mb-4">${content.capabilities.hero.label}</div>
             <h1>Integrated <span class="accent-gfrg">Engineering</span> Solutions</h1>
-        </section>
+        </section>` : ''}
 
-        <section id="overview" class="section-alt">
+        ${isSectionVisible('capabilities', 'overview') ? `<section id="overview" class="section-alt">
             <p class="lead-text">${content.capabilities.overview.desc}</p>
-        </section>
+        </section>` : ''}
 
-        ${content.capabilities.differentiators ? `
+        ${isSectionVisible('capabilities', 'differentiators') && content.capabilities.differentiators ? `
         <section>
             <div class="section-label mb-4">Our Edge</div>
             <h2 class="mb-6" style="text-align:center;">Why SVGT</h2>
@@ -426,7 +434,7 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        <section id="sectors" class="section-alt">
+        ${isSectionVisible('capabilities', 'sectors') ? `<section id="sectors" class="section-alt">
             <div class="section-label mb-4">Our Sectors</div>
             <h2 class="mb-6">Explore Our Capabilities</h2>
             <div class="cards-grid sector-cards">
@@ -439,40 +447,40 @@ export const pages = {
                     </a>
                 `).join('')}
             </div>
-        </section>
+        </section>` : ''}
 
-        ${renderProcess(content.capabilities.methodology)}
+        ${isSectionVisible('capabilities', 'methodology') ? renderProcess(content.capabilities.methodology) : ''}
 
-        <section class="section-center">
+        ${isSectionVisible('capabilities', 'cta') ? `<section class="section-center">
             <h2 class="mb-6">Ready to discuss your project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     marine: () => {
         const content = getContent();
         return `
-        <section id="marine-hero" class="subpage-hero marine-bg">
+        ${isSectionVisible('marine', 'hero') ? `<section id="marine-hero" class="subpage-hero marine-bg">
             <div class="section-label mb-4">${content.marine.hero.label}</div>
             <h1>${content.marine.hero.title.replace("Dynamic", "<span class='accent-gfrg'>Dynamic</span>")}</h1>
-        </section>
+        </section>` : ''}
 
-        ${renderSectorStats(content.marine.sectorStats)}
+        ${isSectionVisible('marine', 'sectorStats') ? renderSectorStats(content.marine.sectorStats) : ''}
 
-        <section id="marine-intro" class="section-alt">
+        ${isSectionVisible('marine', 'intro') ? `<section id="marine-intro" class="section-alt">
             <p class="lead-text">${content.marine.intro.desc}</p>
-        </section>
+        </section>` : ''}
 
-        <section id="marine-services">
+        ${isSectionVisible('marine', 'services') ? `<section id="marine-services">
             <div class="section-label mb-4">What We Deliver</div>
             <h2 class="mb-6">Our Services</h2>
             <div class="cards-grid services-grid">
                 ${renderServices(content.marine.services)}
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.marine.featuredProject ? `
+        ${isSectionVisible('marine', 'featuredProject') && content.marine.featuredProject ? `
         <section class="section-alt">
             <div class="section-label mb-4">Project Spotlight</div>
             <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
@@ -481,38 +489,38 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        ${renderWhyChooseUs(content.marine.whyChooseUs)}
+        ${isSectionVisible('marine', 'whyChooseUs') ? renderWhyChooseUs(content.marine.whyChooseUs) : ''}
 
-        <section id="marine-cta" class="section-center">
+        ${isSectionVisible('marine', 'cta') ? `<section id="marine-cta" class="section-center">
             <h2 class="mb-6">Ready to discuss your marine project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     transport: () => {
         const content = getContent();
         return `
-        <section id="transport-hero" class="subpage-hero transport-bg">
+        ${isSectionVisible('transport', 'hero') ? `<section id="transport-hero" class="subpage-hero transport-bg">
             <div class="section-label mb-4">${content.transport.hero.label}</div>
             <h1>${content.transport.hero.title.replace("Growth", "<span class='accent-gfrg'>Growth</span>")}</h1>
-        </section>
+        </section>` : ''}
 
-        ${renderSectorStats(content.transport.sectorStats)}
+        ${isSectionVisible('transport', 'sectorStats') ? renderSectorStats(content.transport.sectorStats) : ''}
 
-        <section id="transport-intro" class="section-alt">
+        ${isSectionVisible('transport', 'intro') ? `<section id="transport-intro" class="section-alt">
             <p class="lead-text">${content.transport.intro.desc}</p>
-        </section>
+        </section>` : ''}
 
-        <section id="transport-services">
+        ${isSectionVisible('transport', 'services') ? `<section id="transport-services">
             <div class="section-label mb-4">What We Deliver</div>
             <h2 class="mb-6">Our Services</h2>
             <div class="cards-grid services-grid">
                 ${renderServices(content.transport.services)}
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.transport.featuredProject ? `
+        ${isSectionVisible('transport', 'featuredProject') && content.transport.featuredProject ? `
         <section class="section-alt">
             <div class="section-label mb-4">Project Spotlight</div>
             <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
@@ -521,38 +529,38 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        ${renderWhyChooseUs(content.transport.whyChooseUs)}
+        ${isSectionVisible('transport', 'whyChooseUs') ? renderWhyChooseUs(content.transport.whyChooseUs) : ''}
 
-        <section id="transport-cta" class="section-center">
+        ${isSectionVisible('transport', 'cta') ? `<section id="transport-cta" class="section-center">
             <h2 class="mb-6">Ready to discuss your transport project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     energy: () => {
         const content = getContent();
         return `
-        <section id="energy-hero" class="subpage-hero energy-bg">
+        ${isSectionVisible('energy', 'hero') ? `<section id="energy-hero" class="subpage-hero energy-bg">
             <div class="section-label mb-4">${content.energy.hero.label}</div>
             <h1>${content.energy.hero.title.replace("Transition", "<span class='accent-gfrg'>Transition</span>")}</h1>
-        </section>
+        </section>` : ''}
 
-        ${renderSectorStats(content.energy.sectorStats)}
+        ${isSectionVisible('energy', 'sectorStats') ? renderSectorStats(content.energy.sectorStats) : ''}
 
-        <section id="energy-intro" class="section-alt">
+        ${isSectionVisible('energy', 'intro') ? `<section id="energy-intro" class="section-alt">
             <p class="lead-text">${content.energy.intro.desc}</p>
-        </section>
+        </section>` : ''}
 
-        <section id="energy-services">
+        ${isSectionVisible('energy', 'services') ? `<section id="energy-services">
             <div class="section-label mb-4">What We Deliver</div>
             <h2 class="mb-6">Our Services</h2>
             <div class="cards-grid services-grid">
                 ${renderServices(content.energy.services)}
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.energy.featuredProject ? `
+        ${isSectionVisible('energy', 'featuredProject') && content.energy.featuredProject ? `
         <section class="section-alt">
             <div class="section-label mb-4">Project Spotlight</div>
             <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
@@ -561,30 +569,30 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        ${renderWhyChooseUs(content.energy.whyChooseUs)}
+        ${isSectionVisible('energy', 'whyChooseUs') ? renderWhyChooseUs(content.energy.whyChooseUs) : ''}
 
-        <section id="energy-cta" class="section-center">
+        ${isSectionVisible('energy', 'cta') ? `<section id="energy-cta" class="section-center">
             <h2 class="mb-6">Ready to discuss your energy project?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     systems: () => {
         const content = getContent();
         return `
-        <section id="systems-hero" class="subpage-hero systems-bg">
+        ${isSectionVisible('systems', 'hero') ? `<section id="systems-hero" class="subpage-hero systems-bg">
             <div class="section-label mb-4">${content.systems.hero.label}</div>
             <h1>${content.systems.hero.title.replace("Technologies", "<span class='accent-gfrg'>Technologies</span>")}</h1>
-        </section>
+        </section>` : ''}
 
-        ${renderSectorStats(content.systems.sectorStats)}
+        ${isSectionVisible('systems', 'sectorStats') ? renderSectorStats(content.systems.sectorStats) : ''}
 
-        <section id="systems-intro" class="section-alt">
+        ${isSectionVisible('systems', 'intro') ? `<section id="systems-intro" class="section-alt">
             <p class="lead-text">${content.systems.intro.desc}</p>
-        </section>
+        </section>` : ''}
 
-        <section id="technologies">
+        ${isSectionVisible('systems', 'technologies') ? `<section id="technologies">
             <div class="section-label mb-4">Our Solutions</div>
             <h2 class="mb-6">Our Technologies</h2>
             <div class="cards-grid">
@@ -597,9 +605,9 @@ export const pages = {
                     </div>
                 `).join('')}
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="benefits" class="section-alt">
+        ${isSectionVisible('systems', 'benefits') ? `<section id="benefits" class="section-alt">
             <div class="nm-card">
                 <div class="section-label mb-4">Advantages</div>
                 <h3 class="mb-6">Key Benefits</h3>
@@ -607,9 +615,9 @@ export const pages = {
                     ${content.systems.benefits.map(b => `<li>✓ ${b}</li>`).join('')}
                 </ul>
             </div>
-        </section>
+        </section>` : ''}
 
-        ${content.systems.featuredProject ? `
+        ${isSectionVisible('systems', 'featuredProject') && content.systems.featuredProject ? `
         <section>
             <div class="section-label mb-4">Project Spotlight</div>
             <h2 class="mb-6" style="text-align:center;">Featured Project</h2>
@@ -618,30 +626,30 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        ${renderWhyChooseUs(content.systems.whyChooseUs)}
+        ${isSectionVisible('systems', 'whyChooseUs') ? renderWhyChooseUs(content.systems.whyChooseUs) : ''}
 
-        <section id="systems-cta" class="section-center">
+        ${isSectionVisible('systems', 'cta') ? `<section id="systems-cta" class="section-center">
             <h2 class="mb-6">Interested in modern construction systems?</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     sustainability: () => {
         const content = getContent();
         return `
-        <section id="sustain-hero" class="subpage-hero">
+        ${isSectionVisible('sustainability', 'hero') ? `<section id="sustain-hero" class="subpage-hero">
             <div class="section-label mb-4">${content.sustainability.hero.label}</div>
             <h1>${content.sustainability.hero.title.replace("Responsibly", "<span class='accent-gfrg'>Responsibly</span>")}</h1>
-        </section>
+        </section>` : ''}
 
-        <section id="plan" class="section-alt">
+        ${isSectionVisible('sustainability', 'plan') ? `<section id="plan" class="section-alt">
             <div class="section-label mb-4">Our Commitment</div>
             <h2 class="mb-4">${content.sustainability.plan.title}</h2>
             <p class="lead-text">${content.sustainability.plan.desc}</p>
-        </section>
+        </section>` : ''}
 
-        ${content.sustainability.metrics ? `
+        ${isSectionVisible('sustainability', 'metrics') && content.sustainability.metrics ? `
         <section class="section-center">
             <div class="sector-stats">
                 ${content.sustainability.metrics.map(m => `
@@ -654,7 +662,7 @@ export const pages = {
             </div>
         </section>` : ''}
 
-        <section id="pillars" class="section-alt">
+        ${isSectionVisible('sustainability', 'pillars') ? `<section id="pillars" class="section-alt">
             <div class="section-label mb-4">Foundation</div>
             <h2 class="mb-6">Our Pillars</h2>
             <div class="cards-grid">
@@ -666,9 +674,9 @@ export const pages = {
                     </div>
                 `).join('')}
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="practices">
+        ${isSectionVisible('sustainability', 'practices') ? `<section id="practices">
             <div class="section-label mb-4">In Action</div>
             <h2 class="mb-6">Key Practices</h2>
             <div class="cards-grid">
@@ -680,25 +688,25 @@ export const pages = {
                     </div>
                 `).join('')}
             </div>
-        </section>
+        </section>` : ''}
 
-        <section class="section-alt section-center">
+        ${isSectionVisible('sustainability', 'cta') ? `<section class="section-alt section-center">
             <h2 class="mb-6">Partner with us on sustainable infrastructure</h2>
             <a href="#contact" class="cta-button nav-link">Get in Touch →</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
     contact: () => {
         const content = getContent();
         return `
-        <section id="contact-hero" class="subpage-hero contact-hero-bg">
+        ${isSectionVisible('contact', 'hero') ? `<section id="contact-hero" class="subpage-hero contact-hero-bg">
             <div class="section-label mb-4">${content.contact.hero.label}</div>
             <h1>Let's Build <span class="accent-gfrg">Together</span></h1>
             <p class="hero-subtitle" style="color: rgba(255,255,255,0.8); max-width: 600px;">Have a project in mind? We'd love to hear about it. Reach out and let's explore how we can help.</p>
-        </section>
+        </section>` : ''}
 
-        <section id="contact-form-section" class="section-alt">
+        ${isSectionVisible('contact', 'form') ? `<section id="contact-form-section" class="section-alt">
             <div class="contact-form-layout">
                 <div class="contact-form-card nm-card">
                     <div class="section-label mb-4">Send us a Message</div>
@@ -829,32 +837,32 @@ export const pages = {
                     </div>
                 </div>
             </div>
-        </section>
+        </section>` : ''}
 
-        ${renderFAQ(content.contact.faq)}
+        ${isSectionVisible('contact', 'faq') ? renderFAQ(content.contact.faq) : ''}
     `;
     },
 
     careers: () => {
         return `
-        <section id="careers-hero" class="page-hero careers-hero">
+        ${isSectionVisible('careers', 'hero') ? `<section id="careers-hero" class="page-hero careers-hero">
             <div class="hero-overlay-content">
                 <div class="section-label mb-4" style="color: var(--accent-gfrg);">Careers</div>
                 <h1 class="hero-title">Join Our <span class="accent-page">Team</span></h1>
                 <p class="hero-subtitle">Build the infrastructure that shapes tomorrow</p>
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="careers-intro" class="section-alt">
+        ${isSectionVisible('careers', 'intro') ? `<section id="careers-intro" class="section-alt">
             <div class="nm-card careers-intro-card">
                 <div class="section-label mb-4">Opportunities</div>
                 <h2 class="mb-4">Expression of Interest</h2>
                 <p class="text-secondary mb-4">We're always looking for talented engineers, project managers, and specialists to join our growing team. If you share our vision for building better infrastructure, we'd like to hear from you.</p>
                 <p class="text-secondary">SapthaVarnah operates across multiple sectors including marine, transport, energy, and urban infrastructure. We offer opportunities for professionals at all stages of their careers.</p>
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="job-categories">
+        ${isSectionVisible('careers', 'categories') ? `<section id="job-categories">
             <div class="section-label mb-4">Open Roles</div>
             <h2 class="mb-6">We're Looking For</h2>
             <div class="careers-grid">
@@ -889,9 +897,9 @@ export const pages = {
                     <p class="text-secondary">Strategic thinkers who can identify opportunities and build lasting client relationships.</p>
                 </div>
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="why-join" class="section-alt">
+        ${isSectionVisible('careers', 'whyJoin') ? `<section id="why-join" class="section-alt">
             <div class="section-label mb-4">Benefits</div>
             <h2 class="mb-6">Why Join SapthaVarnah?</h2>
             <div class="benefits-grid">
@@ -916,9 +924,9 @@ export const pages = {
                     <p class="text-secondary">Contribute to projects that make a real difference.</p>
                 </div>
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="eoi-form">
+        ${isSectionVisible('careers', 'eoiForm') ? `<section id="eoi-form">
             <div class="nm-card eoi-form-card">
                 <div class="section-label mb-4">Apply</div>
                 <h2 class="mb-2">Submit Your Expression of Interest</h2>
@@ -993,13 +1001,13 @@ export const pages = {
                     <p>Your expression of interest has been submitted successfully. We'll review your profile and get in touch if a suitable opportunity arises.</p>
                 </div>
             </div>
-        </section>
+        </section>` : ''}
 
-        <section id="careers-contact" class="section-alt section-center">
+        ${isSectionVisible('careers', 'contact') ? `<section id="careers-contact" class="section-alt section-center">
             <h2 class="mb-4">Have Questions?</h2>
             <p class="text-secondary mb-6">Reach out to our HR team for any career-related inquiries.</p>
             <a href="mailto:careers@sapthavarnah.com" class="cta-button nav-link"><i class="fas fa-envelope"></i> careers@sapthavarnah.com</a>
-        </section>
+        </section>` : ''}
     `;
     },
 
