@@ -6,60 +6,14 @@ var NAV_DATA = {
       "href": "#about",
       "columns": [
         {
-          "heading": "About SVGT",
+          "heading": "Company",
           "links": [
-            {
-              "text": "Company Overview",
-              "href": "#about"
-            },
-            {
-              "text": "Leadership Team",
-              "href": "#about"
-            },
-            {
-              "text": "Careers & Culture",
-              "href": "#careers"
-            }
+            { "text": "Company Overview", "href": "#about" },
+            { "text": "Leadership", "href": "#about" },
+            { "text": "Sustainability", "href": "#sustainability" },
+            { "text": "Careers", "href": "#careers" },
+            { "text": "Contact", "href": "#contact" }
           ]
-        },
-        {
-          "heading": "Sustainability",
-          "links": [
-            {
-              "text": "Our Approach",
-              "href": "#sustainability"
-            },
-            {
-              "text": "Key Pillars",
-              "href": "#sustainability"
-            },
-            {
-              "text": "Practices",
-              "href": "#sustainability"
-            }
-          ]
-        },
-        {
-          "heading": "Connect",
-          "links": [
-            {
-              "text": "Global Offices",
-              "href": "#contact"
-            },
-            {
-              "text": "Project Enquiry",
-              "href": "#contact-details"
-            },
-            {
-              "text": "Media Relations",
-              "href": "#contact-media"
-            }
-          ]
-        },
-        {
-          "heading": "Presence",
-          "type": "text",
-          "text": "Mauritius · India · Serving Africa, Gulf & beyond"
         }
       ]
     },
@@ -69,72 +23,19 @@ var NAV_DATA = {
       "href": "#capabilities",
       "columns": [
         {
-          "heading": "Marine & Coastal",
+          "heading": "Sectors",
           "links": [
-            {
-              "text": "Overview",
-              "href": "#marine"
-            },
-            {
-              "text": "Services",
-              "href": "#marine-services"
-            }
-          ]
-        },
-        {
-          "heading": "Transport",
-          "links": [
-            {
-              "text": "Overview",
-              "href": "#transport"
-            },
-            {
-              "text": "Services",
-              "href": "#transport-services"
-            }
-          ]
-        },
-        {
-          "heading": "Energy",
-          "links": [
-            {
-              "text": "Overview",
-              "href": "#energy"
-            },
-            {
-              "text": "Services",
-              "href": "#energy-services"
-            }
-          ]
-        },
-        {
-          "heading": "Construction Systems",
-          "links": [
-            {
-              "text": "Precast & GFRG",
-              "href": "#systems"
-            },
-            {
-              "text": "Technologies",
-              "href": "#systems"
-            }
+            { "text": "Marine & Coastal", "href": "#marine" },
+            { "text": "Transport", "href": "#transport" },
+            { "text": "Energy", "href": "#energy" },
+            { "text": "Construction Systems", "href": "#systems" }
           ]
         }
       ]
     }
   ],
   "standaloneLinks": [
-    {
-      "label": "Sustainability",
-      "href": "#sustainability"
-    },
-    {
-      "label": "Careers",
-      "href": "#careers"
-    },
-    {
-      "label": "Contact",
-      "href": "#contact"
-    }
+    { "label": "Careers", "href": "#careers" },
+    { "label": "Contact", "href": "#contact" }
   ]
 };

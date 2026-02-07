@@ -65,7 +65,7 @@ const initPageInteractions = () => {
 const initGlobalNav = () => {
     const megaTriggers = document.querySelectorAll('.nav-item-has-mega');
     megaTriggers.forEach(trigger => {
-        const links = trigger.querySelectorAll('.mega-links li');
+        const links = trigger.querySelectorAll('.mega-menu li');
         trigger.addEventListener('mouseenter', () => {
             gsap.fromTo(links,
                 { opacity: 0, x: -5 },

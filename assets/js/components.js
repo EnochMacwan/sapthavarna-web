@@ -14,23 +14,13 @@ function buildMegaMenu() {
     (navData.megaMenus || []).forEach(menu => {
         html += `<div class="nav-item-has-mega">
             <a href="${menu.href}" class="nav-link">${menu.label}</a>
-            <div class="mega-menu">`;
-
+            <ul class="mega-menu">`;
         (menu.columns || []).forEach(col => {
-            html += `<div class="mega-col"><h5>${col.heading}</h5>`;
-            if (col.type === 'text') {
-                html += `<p class="mega-desc">${col.text}</p>`;
-            } else {
-                html += `<ul class="mega-links">`;
-                (col.links || []).forEach(link => {
-                    html += `<li><a href="${link.href}">${link.text}</a></li>`;
-                });
-                html += `</ul>`;
-            }
-            html += `</div>`;
+            (col.links || []).forEach(link => {
+                html += `<li><a href="${link.href}">${link.text}</a></li>`;
+            });
         });
-
-        html += `</div></div>`;
+        html += `</ul></div>`;
     });
 
     (navData.standaloneLinks || []).forEach(link => {
@@ -45,72 +35,24 @@ export const components = {
         const dynamicNav = buildMegaMenu();
         const navContent = dynamicNav || `
                     <div class="nav-item-has-mega">
-                        <a href="#about" class="nav-link">Company</a>
-                        <div class="mega-menu">
-                            <div class="mega-col">
-                                <h5>About SVGT</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#about">Company Overview</a></li>
-                                    <li><a href="#about">Leadership Team</a></li>
-                                    <li><a href="#careers">Careers & Culture</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h5>Sustainability</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#sustainability">Our Approach</a></li>
-                                    <li><a href="#sustainability">Key Pillars</a></li>
-                                    <li><a href="#sustainability">Practices</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h5>Connect</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#contact">Global Offices</a></li>
-                                    <li><a href="#contact-details">Project Enquiry</a></li>
-                                    <li><a href="#contact-media">Media Relations</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h5>Presence</h5>
-                                <p class="mega-desc">India \u00b7 Mauritius \u00b7 Serving Africa, Gulf & beyond</p>
-                            </div>
-                        </div>
+                        <a href="#about" class="nav-link">About</a>
+                        <ul class="mega-menu">
+                            <li><a href="#about">Company Overview</a></li>
+                            <li><a href="#about">Leadership</a></li>
+                            <li><a href="#sustainability">Sustainability</a></li>
+                            <li><a href="#careers">Careers</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
                     </div>
                     <div class="nav-item-has-mega">
                         <a href="#capabilities" class="nav-link">Capabilities</a>
-                        <div class="mega-menu">
-                            <div class="mega-col">
-                                <h5>Marine & Coastal</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#marine">Overview</a></li>
-                                    <li><a href="#marine-services">Services</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h5>Transport</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#transport">Overview</a></li>
-                                    <li><a href="#transport-services">Services</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h5>Energy</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#energy">Overview</a></li>
-                                    <li><a href="#energy-services">Services</a></li>
-                                </ul>
-                            </div>
-                            <div class="mega-col">
-                                <h5>Construction Systems</h5>
-                                <ul class="mega-links">
-                                    <li><a href="#systems">Precast & GFRG</a></li>
-                                    <li><a href="#systems">Technologies</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        <ul class="mega-menu">
+                            <li><a href="#marine">Marine & Coastal</a></li>
+                            <li><a href="#transport">Transport</a></li>
+                            <li><a href="#energy">Energy</a></li>
+                            <li><a href="#systems">Construction Systems</a></li>
+                        </ul>
                     </div>
-                    <a href="#sustainability" class="nav-link">Sustainability</a>
                     <a href="#careers" class="nav-link">Careers</a>
                     <a href="#contact" class="nav-link">Contact</a>`;
 
