@@ -205,56 +205,58 @@ nav {
    MEGA MENU
    ======================================== */
 .nav-item-has-mega {
-  position: static;
+  position: relative;
 }
 
 .mega-menu {
   position: absolute;
-  top: calc(100% + 15px);
-  left: 30px;
-  right: 30px;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
   background: var(--bg-white);
-  border-radius: 24px;
+  border-radius: 16px;
   box-shadow: var(--shadow-lg);
-  padding: 40px;
+  padding: 24px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(10px);
-  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  border: 1px solid rgba(0,0,0,0.06);
   z-index: 1001;
+  width: max-content;
+  max-width: 520px;
+  min-width: 280px;
 }
 
 .nav-item-has-mega:hover .mega-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
+  transform: translateX(-50%) translateY(0);
 }
 
 .mega-col h5 {
   color: var(--page-accent);
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 20px;
+  letter-spacing: 0.08em;
+  margin-bottom: 10px;
   border-bottom: 1px solid rgba(0,0,0,0.05);
-  padding-bottom: 10px;
+  padding-bottom: 8px;
 }
 
 .mega-links {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 6px;
 }
 
 .mega-links a {
   text-decoration: none !important;
   color: var(--text-primary) !important;
-  font-size: 0.9rem !important;
+  font-size: 0.8rem !important;
   font-weight: 500 !important;
   transition: var(--transition-calm) !important;
   display: block;
@@ -267,15 +269,15 @@ nav {
 }
 
 .mega-desc {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-secondary);
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .mega-footer {
-  grid-column: span 4;
-  margin-top: 20px;
-  padding-top: 20px;
+  grid-column: 1 / -1;
+  margin-top: 12px;
+  padding-top: 12px;
   border-top: 1px solid rgba(0,0,0,0.05);
   display: flex;
   justify-content: space-between;
