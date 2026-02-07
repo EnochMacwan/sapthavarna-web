@@ -2027,7 +2027,9 @@
 
             await writeFileToGitHub(filePath, fileContent, `Update ${type} via Admin Panel`);
 
-            // content.js now lives only in web/ — no duplicate to sync
+            // Also write to docs/web/ so GitHub Pages picks up the change
+            const docsPath = filePath.replace(/^web\//, 'docs/web/');
+            await writeFileToGitHub(docsPath, fileContent, `[deploy] Update ${type}`);
         }
 
         async function writeFileToGitHub(filePath, fileContent, message) {
