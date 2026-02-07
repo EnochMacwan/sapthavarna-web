@@ -211,29 +211,36 @@ nav {
 .mega-menu {
   position: absolute;
   top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  right: 0;
+  transform: translateY(8px);
   background: var(--bg-white);
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
   padding: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   border: 1px solid rgba(0,0,0,0.06);
   z-index: 1001;
-  width: max-content;
-  max-width: 520px;
-  min-width: 280px;
+  width: 420px;
 }
 
 .nav-item-has-mega:hover .mega-menu {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
+}
+
+.mega-menu::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  height: 15px;
 }
 
 .mega-col h5 {
