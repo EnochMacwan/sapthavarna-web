@@ -761,22 +761,6 @@ export const defaultContent = {
         }
       ]
     },
-    "regions": {
-      "label": "Regions Served",
-      "desc": "Strategically positioned in India and Mauritius to serve emerging and established markets across three continents with rapid mobilisation capability.",
-      "items": [
-        "East & Southern Africa",
-        "West Africa",
-        "Indian Subcontinent",
-        "Gulf Cooperation Council",
-        "Indian Ocean Islands"
-      ]
-    },
-    "media": {
-      "label": "Media Relations",
-      "desc": "For press enquiries, project announcements, and media requests, please contact our communications team.",
-      "email": "media@svgeotech.com"
-    },
     "phone": "+230 [XXX XXXX]",
     "responseGuarantee": {
       "title": "Quick Response",

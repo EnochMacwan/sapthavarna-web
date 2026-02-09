@@ -823,18 +823,6 @@ export const pages = {
                         </div>
                     </div>
 
-                    <div class="nm-card">
-                        <div class="section-label mb-4">${content.contact.regions.label}</div>
-                        <ul class="regions-tags">
-                            ${content.contact.regions.items.map(r => `<li>${r}</li>`).join('')}
-                        </ul>
-                    </div>
-
-                    <div class="nm-card">
-                        <div class="section-label mb-4">${content.contact.media.label}</div>
-                        <p class="text-secondary mb-4" style="font-size: 0.9rem;">${content.contact.media.desc}</p>
-                        <a href="mailto:${content.contact.media.email}" class="contact-link-item"><i class="fas fa-envelope" style="margin-right: 6px;"></i>${content.contact.media.email}</a>
-                    </div>
                 </div>
             </div>
         </section>` : ''}
