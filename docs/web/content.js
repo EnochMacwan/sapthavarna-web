@@ -279,32 +279,32 @@ export const defaultContent = {
       "title": "Integrated Engineering Solutions"
     },
     "overview": {
-      "desc": "SVGT delivers end-to-end infrastructure solutions across four core sectors, from initial feasibility studies through detailed design, construction, and asset management. Each capability is supported by deep technical expertise, proven methodologies, and extensive regional experience across Africa, India, and the Gulf."
+      "desc": "SapthVarnah delivers end-to-end infrastructure solutions across four core sectors, from initial feasibility studies through detailed design, construction, and asset management. Each capability is supported by deep technical expertise, proven methodologies, and extensive regional experience across Africa, India, and the Gulf."
     },
     "sectors": [
       {
-        "id": "marine",
+        "id": "Marine",
         "label": "Sector 01",
         "title": "Marine & Coastal",
         "desc": "Comprehensive solutions for ports, harbours, breakwaters, and coastal protection systems engineered to withstand dynamic marine environments.",
         "link": "#marine"
       },
       {
-        "id": "transport",
+        "id": "Transport",
         "label": "Sector 02",
         "title": "Transport",
         "desc": "Strategic road networks, bridge engineering, airport infrastructure, and multimodal logistics corridors that connect regions and drive economic development.",
         "link": "#transport"
       },
       {
-        "id": "energy",
+        "id": "Energy",
         "label": "Sector 03",
         "title": "Energy",
         "desc": "Enabling works and infrastructure for renewable energy installations, substations, and grid systems supporting the global energy transition.",
         "link": "#energy"
       },
       {
-        "id": "systems",
+        "id": "Systems",
         "label": "Sector 04",
         "title": "Construction Systems",
         "desc": "Advanced precast concrete and GFRG building technologies delivering speed, precision, and sustainability in modern construction.",
