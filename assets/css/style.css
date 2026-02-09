@@ -148,19 +148,19 @@ nav {
 }
 
 .logo-crop {
-  height: 60px;
-  width: 60px;
-  overflow: hidden;
+  height: 48px;
+  width: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .logo-img-master {
-  height: 280px;
-  width: auto;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
   transition: var(--transition-calm);
-  margin-top: 35px;
 }
 
 .logo:hover .logo-img-master {
@@ -2125,8 +2125,8 @@ textarea:focus-visible {
   }
 
   .logo-text { display: none; }
-  .logo-crop { height: 40px !important; width: 40px !important; }
-  .logo-img-master { height: 180px !important; margin-top: 25px !important; }
+  .logo-crop { height: 36px !important; width: 36px !important; }
+  .logo-img-master { height: 100% !important; width: 100% !important; }
   .mega-menu { display: none !important; }
 
   .hamburger { display: flex; }
