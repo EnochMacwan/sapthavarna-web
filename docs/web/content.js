@@ -15,22 +15,34 @@ export const defaultContent = {
       {
         "title": "Marine & Coastal Infrastructure",
         "desc": "Comprehensive port development, breakwater engineering, coastal protection systems, and marine foundation solutions for challenging ocean environments.",
-        "link": "#marine"
+        "link": "#marine",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Transport Infrastructure",
         "desc": "Strategic road networks, bridge engineering, airport infrastructure, and multimodal logistics corridors connecting regions and enabling economic growth.",
-        "link": "#transport"
+        "link": "#transport",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Energy Infrastructure",
         "desc": "Enabling works for renewable energy installations, substation construction, and grid infrastructure supporting the energy transition.",
-        "link": "#energy"
+        "link": "#energy",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Modern Construction Systems",
         "desc": "Industrialised precast concrete and GFRG building technologies delivering faster construction with superior quality control.",
-        "link": "#systems"
+        "link": "#systems",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "closing": {
@@ -287,28 +299,40 @@ export const defaultContent = {
         "label": "Sector 01",
         "title": "Marine & Coastal",
         "desc": "Comprehensive solutions for ports, harbours, breakwaters, and coastal protection systems engineered to withstand dynamic marine environments.",
-        "link": "#marine"
+        "link": "#marine",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "id": "Transport",
         "label": "Sector 02",
         "title": "Transport",
         "desc": "Strategic road networks, bridge engineering, airport infrastructure, and multimodal logistics corridors that connect regions and drive economic development.",
-        "link": "#transport"
+        "link": "#transport",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "id": "Energy",
         "label": "Sector 03",
         "title": "Energy",
         "desc": "Enabling works and infrastructure for renewable energy installations, substations, and grid systems supporting the global energy transition.",
-        "link": "#energy"
+        "link": "#energy",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "id": "Systems",
         "label": "Sector 04",
         "title": "Construction Systems",
         "desc": "Advanced precast concrete and GFRG building technologies delivering speed, precision, and sustainability in modern construction.",
-        "link": "#systems"
+        "link": "#systems",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "differentiators": [
@@ -370,27 +394,45 @@ export const defaultContent = {
     "services": [
       {
         "title": "Ports & Harbours",
-        "desc": "Complete port development including berths, quay walls, container terminals, bulk handling facilities, and small craft harbours. We engineer facilities for vessels ranging from fishing boats to Panamax-class ships."
+        "desc": "Complete port development including berths, quay walls, container terminals, bulk handling facilities, and small craft harbours. We engineer facilities for vessels ranging from fishing boats to Panamax-class ships.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Breakwaters & Revetments",
-        "desc": "Rubble mound breakwaters, caisson structures, and armoured revetments engineered using advanced wave modelling and physical model testing for long-term coastal resilience."
+        "desc": "Rubble mound breakwaters, caisson structures, and armoured revetments engineered using advanced wave modelling and physical model testing for long-term coastal resilience.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Coastal Protection",
-        "desc": "Comprehensive coastal defence systems including beach nourishment, groynes, seawalls, and managed realignment solutions that balance protection with natural coastal processes."
+        "desc": "Comprehensive coastal defence systems including beach nourishment, groynes, seawalls, and managed realignment solutions that balance protection with natural coastal processes.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Marine Foundations",
-        "desc": "Driven piles, bored piles, caissons, and gravity-based foundations for marine structures. We specialise in challenging ground conditions including soft marine clays and coral formations."
+        "desc": "Driven piles, bored piles, caissons, and gravity-based foundations for marine structures. We specialise in challenging ground conditions including soft marine clays and coral formations.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Dredging & Reclamation",
-        "desc": "Technical support for capital and maintenance dredging, land reclamation design, and beneficial reuse of dredged materials for coastal development projects."
+        "desc": "Technical support for capital and maintenance dredging, land reclamation design, and beneficial reuse of dredged materials for coastal development projects.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Climate Adaptation",
-        "desc": "Infrastructure designed for rising sea levels, increased storm intensity, and changing coastal conditions. We integrate climate projections into all our marine designs to ensure long-term resilience."
+        "desc": "Infrastructure designed for rising sea levels, increased storm intensity, and changing coastal conditions. We integrate climate projections into all our marine designs to ensure long-term resilience.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "sectorStats": [
@@ -426,17 +468,26 @@ export const defaultContent = {
       {
         "icon": "fa-water",
         "title": "Marine Specialists",
-        "desc": "Decades of focused experience in marine and coastal engineering."
+        "desc": "Decades of focused experience in marine and coastal engineering.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-shield-alt",
         "title": "Climate-Resilient Design",
-        "desc": "Infrastructure designed for rising sea levels and increasing storm intensity."
+        "desc": "Infrastructure designed for rising sea levels and increasing storm intensity.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-globe-africa",
         "title": "Tropical Expertise",
-        "desc": "Proven track record in tropical marine environments across Africa and the Indian Ocean."
+        "desc": "Proven track record in tropical marine environments across Africa and the Indian Ocean.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ]
   },
@@ -451,23 +502,38 @@ export const defaultContent = {
     "services": [
       {
         "title": "Roads & Highways",
-        "desc": "Major road networks including national highways, regional roads, and urban arterials. Our designs account for local traffic patterns, climate conditions, and available materials to optimise whole-life costs."
+        "desc": "Major road networks including national highways, regional roads, and urban arterials. Our designs account for local traffic patterns, climate conditions, and available materials to optimise whole-life costs.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Bridges & Structures",
-        "desc": "Bridge engineering from simple culverts to major river crossings, including prestressed concrete, steel composite, and cable-stayed structures. We specialise in bridges for challenging foundation conditions."
+        "desc": "Bridge engineering from simple culverts to major river crossings, including prestressed concrete, steel composite, and cable-stayed structures. We specialise in bridges for challenging foundation conditions.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Airport Infrastructure",
-        "desc": "Runway and taxiway pavements, aprons, terminal buildings, and associated airside infrastructure designed to aviation authority standards for commercial and cargo operations."
+        "desc": "Runway and taxiway pavements, aprons, terminal buildings, and associated airside infrastructure designed to aviation authority standards for commercial and cargo operations.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Logistics Infrastructure",
-        "desc": "Warehousing zones, freight corridors, inland container depots, and distribution hubs that support efficient goods movement and supply chain operations."
+        "desc": "Warehousing zones, freight corridors, inland container depots, and distribution hubs that support efficient goods movement and supply chain operations.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Multimodal Interfaces",
-        "desc": "Integration points between road, rail, port, and air transport modes, designed for seamless cargo transfer and optimised logistics operations across transport networks."
+        "desc": "Integration points between road, rail, port, and air transport modes, designed for seamless cargo transfer and optimised logistics operations across transport networks.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "sectorStats": [
@@ -503,17 +569,26 @@ export const defaultContent = {
       {
         "icon": "fa-road",
         "title": "Full Lifecycle",
-        "desc": "From route selection and feasibility through design to construction supervision."
+        "desc": "From route selection and feasibility through design to construction supervision.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-thermometer-half",
         "title": "Tropical Design",
-        "desc": "Pavements and structures optimised for high temperatures and heavy rainfall."
+        "desc": "Pavements and structures optimised for high temperatures and heavy rainfall.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-truck",
         "title": "Logistics Focus",
-        "desc": "Infrastructure designed to enable efficient goods movement and trade."
+        "desc": "Infrastructure designed to enable efficient goods movement and trade.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ]
   },
@@ -528,23 +603,38 @@ export const defaultContent = {
     "services": [
       {
         "title": "Renewable Enabling Works",
-        "desc": "Civil works for solar PV farms, wind turbine foundations, and other renewable installations including access roads, cable routes, laydown areas, and foundation systems designed for specific ground conditions."
+        "desc": "Civil works for solar PV farms, wind turbine foundations, and other renewable installations including access roads, cable routes, laydown areas, and foundation systems designed for specific ground conditions.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Substations & Grid Infrastructure",
-        "desc": "Substation construction from 33kV distribution substations to 220kV transmission facilities, including earthworks, foundations, cable trenches, and control buildings."
+        "desc": "Substation construction from 33kV distribution substations to 220kV transmission facilities, including earthworks, foundations, cable trenches, and control buildings.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Coastal Energy Facilities",
-        "desc": "Infrastructure for coastal and nearshore energy projects including LNG terminals, offshore wind support facilities, and tidal/wave energy installations."
+        "desc": "Infrastructure for coastal and nearshore energy projects including LNG terminals, offshore wind support facilities, and tidal/wave energy installations.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Balance-of-Plant",
-        "desc": "Supporting infrastructure for power generation facilities including cooling water systems, fuel handling, ash disposal, and ancillary structures that ensure reliable plant operations."
+        "desc": "Supporting infrastructure for power generation facilities including cooling water systems, fuel handling, ash disposal, and ancillary structures that ensure reliable plant operations.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Hydropower Civil Works",
-        "desc": "Dam construction, intake structures, penstocks, and powerhouse foundations for run-of-river and storage hydropower projects in challenging terrain."
+        "desc": "Dam construction, intake structures, penstocks, and powerhouse foundations for run-of-river and storage hydropower projects in challenging terrain.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "sectorStats": [
@@ -580,17 +670,26 @@ export const defaultContent = {
       {
         "icon": "fa-bolt",
         "title": "Energy Transition",
-        "desc": "Focused on enabling renewable energy deployment across emerging markets."
+        "desc": "Focused on enabling renewable energy deployment across emerging markets.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-plug",
         "title": "Grid Infrastructure",
-        "desc": "Complete substation and transmission line civil works capability."
+        "desc": "Complete substation and transmission line civil works capability.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-leaf",
         "title": "Clean Energy",
-        "desc": "Supporting the shift to sustainable power generation."
+        "desc": "Supporting the shift to sustainable power generation.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ]
   },
@@ -606,12 +705,16 @@ export const defaultContent = {
       {
         "title": "Precast Concrete Systems",
         "desc": "Factory-manufactured precast concrete elements including beams, columns, slabs, wall panels, and complete building systems. Our precast solutions ensure consistent quality control, faster site assembly, and reduced construction waste for projects ranging from industrial facilities to residential developments.",
-        "image": "precast.png"
+        "image": "precast.png",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "GFRG Building Technology",
         "desc": "Glass Fibre Reinforced Gypsum (GFRG) panels provide a rapid, lightweight, and sustainable building solution. These factory-produced panels can be assembled into complete structures in a fraction of conventional construction time, offering excellent thermal performance, fire resistance, and seismic resilience.",
-        "image": "gfrg.png"
+        "image": "gfrg.png",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "benefits": [
@@ -656,17 +759,26 @@ export const defaultContent = {
       {
         "icon": "fa-industry",
         "title": "Factory Precision",
-        "desc": "Off-site manufacturing ensures consistent quality control."
+        "desc": "Off-site manufacturing ensures consistent quality control.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-clock",
         "title": "Speed of Delivery",
-        "desc": "50-70% faster than conventional construction methods."
+        "desc": "50-70% faster than conventional construction methods.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "icon": "fa-recycle",
         "title": "Sustainability",
-        "desc": "Up to 80% reduction in construction waste."
+        "desc": "Up to 80% reduction in construction waste.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ]
   },
@@ -682,37 +794,61 @@ export const defaultContent = {
     "pillars": [
       {
         "title": "Climate Resilience",
-        "desc": "Designing infrastructure that not only withstands current conditions but adapts to projected changes in climate, sea level, and extreme weather events over its design life."
+        "desc": "Designing infrastructure that not only withstands current conditions but adapts to projected changes in climate, sea level, and extreme weather events over its design life.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Resource Efficiency",
-        "desc": "Minimising material consumption, water use, and construction waste through careful design optimisation, industrialised construction methods, and beneficial reuse of excavated materials."
+        "desc": "Minimising material consumption, water use, and construction waste through careful design optimisation, industrialised construction methods, and beneficial reuse of excavated materials.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Long-term Value",
-        "desc": "Building assets designed for extended lifecycles with easy maintenance, adaptability for future needs, and eventual end-of-life recycling or repurposing."
+        "desc": "Building assets designed for extended lifecycles with easy maintenance, adaptability for future needs, and eventual end-of-life recycling or repurposing.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Community Benefit",
-        "desc": "Ensuring our infrastructure projects deliver lasting positive impact for local communities through employment, skills development, and improved access to essential services."
+        "desc": "Ensuring our infrastructure projects deliver lasting positive impact for local communities through employment, skills development, and improved access to essential services.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "practices": [
       {
         "title": "Geo-informed Design",
-        "desc": "Using detailed site investigation and geological modelling to optimise foundation designs, reducing overengineering and minimising material quantities without compromising safety."
+        "desc": "Using detailed site investigation and geological modelling to optimise foundation designs, reducing overengineering and minimising material quantities without compromising safety.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Low-carbon Construction",
-        "desc": "Off-site precast manufacturing, optimised concrete mixes with supplementary cementitious materials, and efficient logistics to reduce construction-phase carbon emissions."
+        "desc": "Off-site precast manufacturing, optimised concrete mixes with supplementary cementitious materials, and efficient logistics to reduce construction-phase carbon emissions.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "BIM-enabled Execution",
-        "desc": "Digital Building Information Modelling for clash detection, construction sequencing, and efficient coordination — reducing errors, rework, and material waste."
+        "desc": "Digital Building Information Modelling for clash detection, construction sequencing, and efficient coordination — reducing errors, rework, and material waste.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       },
       {
         "title": "Natural Solutions",
-        "desc": "Where appropriate, incorporating nature-based solutions such as living shorelines, constructed wetlands, and bioengineered slopes that provide infrastructure function with ecological co-benefits."
+        "desc": "Where appropriate, incorporating nature-based solutions such as living shorelines, constructed wetlands, and bioengineered slopes that provide infrastructure function with ecological co-benefits.",
+        "image": "",
+        "imagePosition": "top",
+        "imageRatio": "16:9"
       }
     ],
     "metrics": [
@@ -751,13 +887,19 @@ export const defaultContent = {
           "country": "India",
           "city": "Vadodara",
           "type": "India Office",
-          "address": "11 New Samarpan Bungalows, Vasna Bhayali Road, Vadodara, Gujarat"
+          "address": "11 New Samarpan Bungalows, Vasna Bhayali Road, Vadodara, Gujarat",
+          "image": "",
+          "imagePosition": "top",
+          "imageRatio": "16:9"
         },
         {
           "country": "Mauritius",
           "city": "Moka",
           "type": "Registered Office",
-          "address": "Level 1, The Country Side, Vivéa Business Park, St-Pierre, Moka"
+          "address": "Level 1, The Country Side, Vivéa Business Park, St-Pierre, Moka",
+          "image": "",
+          "imagePosition": "top",
+          "imageRatio": "16:9"
         }
       ]
     },
@@ -783,6 +925,22 @@ export const defaultContent = {
         "question": "Do you work with government and private sector clients?",
         "answer": "Yes, we work with both public and private sector clients including government agencies, port authorities, energy developers, and private infrastructure investors."
       }
+    ]
+  },
+  "careers": {
+    "categories": [
+      { "icon": "fa-hard-hat", "title": "Civil Engineers", "desc": "Structural, geotechnical, and marine engineering specialists with experience in large-scale infrastructure projects.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-project-diagram", "title": "Project Managers", "desc": "Experienced PMs with a track record of delivering complex infrastructure projects on time and within budget.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-drafting-compass", "title": "Design Engineers", "desc": "CAD specialists and design engineers proficient in AutoCAD, Revit, and other industry-standard tools.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-leaf", "title": "Environmental Specialists", "desc": "Professionals focused on sustainable construction, environmental impact assessment, and green building practices.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-cogs", "title": "Site Supervisors", "desc": "On-ground leaders who can manage construction crews and ensure quality execution.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-chart-line", "title": "Business Development", "desc": "Strategic thinkers who can identify opportunities and build lasting client relationships.", "image": "", "imagePosition": "top", "imageRatio": "16:9" }
+    ],
+    "benefits": [
+      { "icon": "fa-globe-asia", "title": "Global Projects", "desc": "Work on landmark infrastructure across India, Middle East, and beyond.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-graduation-cap", "title": "Career Growth", "desc": "Continuous learning and development opportunities.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-users", "title": "Collaborative Culture", "desc": "Work with industry experts in a supportive environment.", "image": "", "imagePosition": "top", "imageRatio": "16:9" },
+      { "icon": "fa-seedling", "title": "Sustainable Impact", "desc": "Contribute to projects that make a real difference.", "image": "", "imagePosition": "top", "imageRatio": "16:9" }
     ]
   },
   "shared": {

@@ -34,15 +34,41 @@ window.addEventListener('storage', (e) => {
 });
 
 // ========================================
+// CARD IMAGE HELPERS
+// ========================================
+
+const renderCardImage = (item) => {
+    if (!item.image) return '';
+    const ratio = item.imageRatio || '16:9';
+    const ratioClass = `ratio-${ratio.replace(':', '-')}`;
+    return `<div class="card-img-container ${ratioClass}"><img src="${getImagePath(item.image)}" alt="${item.title || ''}" loading="lazy"></div>`;
+};
+
+const getImagePositionClass = (item) => {
+    if (!item.image) return '';
+    return `card-has-image-${item.imagePosition || 'top'}`;
+};
+
+const wrapWithImage = (item, innerHtml) => {
+    if (!item.image) return innerHtml;
+    const imgHtml = renderCardImage(item);
+    const pos = item.imagePosition || 'top';
+    if (pos === 'bottom') return `<div class="card-content-wrap">${innerHtml}</div>${imgHtml}`;
+    return `${imgHtml}<div class="card-content-wrap">${innerHtml}</div>`;
+};
+
+// ========================================
 // REUSABLE HELPER RENDERERS
 // ========================================
 
 // Render service cards with numbers
 const renderServices = (services) => services.map((s, i) => `
-    <div class="nm-card service-card">
+    <div class="nm-card service-card ${getImagePositionClass(s)}">
+        ${wrapWithImage(s, `
         <div class="service-number">${String(i + 1).padStart(2, '0')}</div>
         <h3>${s.title}</h3>
         <p class="text-secondary">${s.desc}</p>
+        `)}
     </div>
 `).join('');
 
@@ -231,10 +257,12 @@ const renderWhyChooseUs = (items) => {
         <h2 class="mb-6" style="text-align:center;">Why Choose Us</h2>
         <div class="why-grid">
             ${items.map(item => `
-                <div class="nm-card why-card">
+                <div class="nm-card why-card ${getImagePositionClass(item)}">
+                    ${wrapWithImage(item, `
                     <div class="diff-icon"><i class="fas ${item.icon}"></i></div>
                     <h3>${item.title}</h3>
                     <p>${item.desc}</p>
+                    `)}
                 </div>
             `).join('')}
         </div>
@@ -286,11 +314,13 @@ export const pages = {
             <h2 class="mb-6">Core Capabilities</h2>
             <div class="cards-grid">
                 ${content.home.capabilities.map((cap, i) => `
-                    <a href="${cap.link}" class="nm-card sector-link-card nav-link">
+                    <a href="${cap.link}" class="nm-card sector-link-card nav-link ${getImagePositionClass(cap)}">
+                        ${wrapWithImage(cap, `
                         <div class="service-number">${String(i + 1).padStart(2, '0')}</div>
                         <h3>${cap.title}</h3>
                         <p class="text-secondary mt-4">${cap.desc}</p>
                         <span class="card-link mt-4">Explore →</span>
+                        `)}
                     </a>
                 `).join('')}
             </div>
@@ -439,11 +469,13 @@ export const pages = {
             <h2 class="mb-6">Explore Our Capabilities</h2>
             <div class="cards-grid sector-cards">
                 ${content.capabilities.sectors.map(s => `
-                    <a href="${s.link}" class="nm-card sector-link-card nav-link">
+                    <a href="${s.link}" class="nm-card sector-link-card nav-link ${getImagePositionClass(s)}">
+                        ${wrapWithImage(s, `
                         <div class="service-number">${s.label}</div>
                         <h3>${s.title}</h3>
                         <p class="text-secondary mt-4">${s.desc}</p>
                         <span class="card-btn mt-4">Explore →</span>
+                        `)}
                     </a>
                 `).join('')}
             </div>
@@ -597,11 +629,12 @@ export const pages = {
             <h2 class="mb-6">Our Technologies</h2>
             <div class="cards-grid">
                 ${content.systems.technologies.map((t, i) => `
-                    <div class="nm-card">
-                        ${t.image ? `<div class="card-image nm-inset mb-4"><img src="${getImagePath(t.image)}" alt="${t.title}" class="brand-img" style="height: 200px;"></div>` : ''}
+                    <div class="nm-card ${getImagePositionClass(t)}">
+                        ${wrapWithImage(t, `
                         <div class="service-number">${String(i + 1).padStart(2, '0')}</div>
                         <h3>${t.title}</h3>
                         <p class="text-secondary mt-4">${t.desc}</p>
+                        `)}
                     </div>
                 `).join('')}
             </div>
@@ -667,10 +700,12 @@ export const pages = {
             <h2 class="mb-6">Our Pillars</h2>
             <div class="cards-grid">
                 ${content.sustainability.pillars.map((p, i) => `
-                    <div class="nm-card cap-card">
+                    <div class="nm-card cap-card ${getImagePositionClass(p)}">
+                        ${wrapWithImage(p, `
                         <div class="service-number">${String(i + 1).padStart(2, '0')}</div>
                         <h3>${p.title}</h3>
                         <p class="text-secondary">${p.desc}</p>
+                        `)}
                     </div>
                 `).join('')}
             </div>
@@ -681,10 +716,12 @@ export const pages = {
             <h2 class="mb-6">Key Practices</h2>
             <div class="cards-grid">
                 ${content.sustainability.practices.map((p, i) => `
-                    <div class="nm-card service-card">
+                    <div class="nm-card service-card ${getImagePositionClass(p)}">
+                        ${wrapWithImage(p, `
                         <div class="service-number">${String(i + 1).padStart(2, '0')}</div>
                         <h3>${p.title}</h3>
                         <p class="text-secondary">${p.desc}</p>
+                        `)}
                     </div>
                 `).join('')}
             </div>
@@ -832,6 +869,7 @@ export const pages = {
     },
 
     careers: () => {
+        const content = getContent();
         return `
         ${isSectionVisible('careers', 'hero') ? `<section id="careers-hero" class="page-hero careers-hero">
             <div class="hero-overlay-content">
@@ -854,36 +892,22 @@ export const pages = {
             <div class="section-label mb-4">Open Roles</div>
             <h2 class="mb-6">We're Looking For</h2>
             <div class="careers-grid">
-                <div class="nm-card career-category">
-                    <div class="career-icon"><i class="fas fa-hard-hat"></i></div>
-                    <h3>Civil Engineers</h3>
-                    <p class="text-secondary">Structural, geotechnical, and marine engineering specialists with experience in large-scale infrastructure projects.</p>
-                </div>
-                <div class="nm-card career-category">
-                    <div class="career-icon"><i class="fas fa-project-diagram"></i></div>
-                    <h3>Project Managers</h3>
-                    <p class="text-secondary">Experienced PMs with a track record of delivering complex infrastructure projects on time and within budget.</p>
-                </div>
-                <div class="nm-card career-category">
-                    <div class="career-icon"><i class="fas fa-drafting-compass"></i></div>
-                    <h3>Design Engineers</h3>
-                    <p class="text-secondary">CAD specialists and design engineers proficient in AutoCAD, Revit, and other industry-standard tools.</p>
-                </div>
-                <div class="nm-card career-category">
-                    <div class="career-icon"><i class="fas fa-leaf"></i></div>
-                    <h3>Environmental Specialists</h3>
-                    <p class="text-secondary">Professionals focused on sustainable construction, environmental impact assessment, and green building practices.</p>
-                </div>
-                <div class="nm-card career-category">
-                    <div class="career-icon"><i class="fas fa-cogs"></i></div>
-                    <h3>Site Supervisors</h3>
-                    <p class="text-secondary">On-ground leaders who can manage construction crews and ensure quality execution.</p>
-                </div>
-                <div class="nm-card career-category">
-                    <div class="career-icon"><i class="fas fa-chart-line"></i></div>
-                    <h3>Business Development</h3>
-                    <p class="text-secondary">Strategic thinkers who can identify opportunities and build lasting client relationships.</p>
-                </div>
+                ${(content.careers?.categories || [
+                    { icon: "fa-hard-hat", title: "Civil Engineers", desc: "Structural, geotechnical, and marine engineering specialists with experience in large-scale infrastructure projects." },
+                    { icon: "fa-project-diagram", title: "Project Managers", desc: "Experienced PMs with a track record of delivering complex infrastructure projects on time and within budget." },
+                    { icon: "fa-drafting-compass", title: "Design Engineers", desc: "CAD specialists and design engineers proficient in AutoCAD, Revit, and other industry-standard tools." },
+                    { icon: "fa-leaf", title: "Environmental Specialists", desc: "Professionals focused on sustainable construction, environmental impact assessment, and green building practices." },
+                    { icon: "fa-cogs", title: "Site Supervisors", desc: "On-ground leaders who can manage construction crews and ensure quality execution." },
+                    { icon: "fa-chart-line", title: "Business Development", desc: "Strategic thinkers who can identify opportunities and build lasting client relationships." }
+                ]).map(cat => `
+                    <div class="nm-card career-category ${getImagePositionClass(cat)}">
+                        ${wrapWithImage(cat, `
+                        <div class="career-icon"><i class="fas ${cat.icon}"></i></div>
+                        <h3>${cat.title}</h3>
+                        <p class="text-secondary">${cat.desc}</p>
+                        `)}
+                    </div>
+                `).join('')}
             </div>
         </section>` : ''}
 
@@ -891,26 +915,20 @@ export const pages = {
             <div class="section-label mb-4">Benefits</div>
             <h2 class="mb-6">Why Join SapthaVarnah?</h2>
             <div class="benefits-grid">
-                <div class="nm-card benefit-card">
-                    <i class="fas fa-globe-asia"></i>
-                    <h4>Global Projects</h4>
-                    <p class="text-secondary">Work on landmark infrastructure across India, Middle East, and beyond.</p>
-                </div>
-                <div class="nm-card benefit-card">
-                    <i class="fas fa-graduation-cap"></i>
-                    <h4>Career Growth</h4>
-                    <p class="text-secondary">Continuous learning and development opportunities.</p>
-                </div>
-                <div class="nm-card benefit-card">
-                    <i class="fas fa-users"></i>
-                    <h4>Collaborative Culture</h4>
-                    <p class="text-secondary">Work with industry experts in a supportive environment.</p>
-                </div>
-                <div class="nm-card benefit-card">
-                    <i class="fas fa-seedling"></i>
-                    <h4>Sustainable Impact</h4>
-                    <p class="text-secondary">Contribute to projects that make a real difference.</p>
-                </div>
+                ${(content.careers?.benefits || [
+                    { icon: "fa-globe-asia", title: "Global Projects", desc: "Work on landmark infrastructure across India, Middle East, and beyond." },
+                    { icon: "fa-graduation-cap", title: "Career Growth", desc: "Continuous learning and development opportunities." },
+                    { icon: "fa-users", title: "Collaborative Culture", desc: "Work with industry experts in a supportive environment." },
+                    { icon: "fa-seedling", title: "Sustainable Impact", desc: "Contribute to projects that make a real difference." }
+                ]).map(b => `
+                    <div class="nm-card benefit-card ${getImagePositionClass(b)}">
+                        ${wrapWithImage(b, `
+                        <i class="fas ${b.icon}"></i>
+                        <h4>${b.title}</h4>
+                        <p class="text-secondary">${b.desc}</p>
+                        `)}
+                    </div>
+                `).join('')}
             </div>
         </section>` : ''}
 
